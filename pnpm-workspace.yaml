@@ -1,0 +1,6 @@
+packages:
+  - web
+  - service
+  - 'service/packages/*'
+  - 'service/src/*'
+  
