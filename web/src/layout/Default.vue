@@ -8,6 +8,7 @@ defineOptions({
 <template>
   <div class="app">
     <sidebar />
+    <router-view />
   </div>
 </template>
 
