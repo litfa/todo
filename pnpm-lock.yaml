@@ -33,8 +33,13 @@ importers:
         specifier: ^3.3.3
         version: 3.3.3
 
+  common: {}
+
   service:
     dependencies:
+      '@ltfei/todo-common':
+        specifier: workspace:^
+        version: link:../common
       axios:
         specifier: ^1.5.0
         version: 1.7.7
@@ -270,6 +275,9 @@ importers:
 
   web:
     dependencies:
+      '@ltfei/todo-common':
+        specifier: workspace:^
+        version: link:../common
       ant-design-vue:
         specifier: ^4.2.5
         version: 4.2.5(vue@3.5.9(typescript@5.0.4))

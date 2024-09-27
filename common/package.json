@@ -1,0 +1,9 @@
+{
+  "name": "@ltfei/todo-common",
+  "version": "0.0.1",
+  "description": "todo common",
+  "main": "index.ts",
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
