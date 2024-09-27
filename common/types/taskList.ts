@@ -1,5 +1,9 @@
 export interface TaskList {
-  id: string
+  id: string | null
+  /**
+   * 创建时的本地id
+   */
+  createdWithLocalId: string
   /**
    * 是否共享
    */

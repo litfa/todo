@@ -16,8 +16,6 @@ defineOptions({
 
 <style lang="less" scoped>
 .sidebar-user {
-  max-width: 200px;
-  background-color: pink;
   display: flex;
   align-items: center;
   padding: 8px;

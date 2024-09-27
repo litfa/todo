@@ -8,8 +8,19 @@ defineOptions({
 <template>
   <div class="app">
     <sidebar />
-    <router-view />
+    <div class="page">
+      <router-view />
+    </div>
   </div>
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.app {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  .page {
+    flex: 1;
+  }
+}
+</style>
