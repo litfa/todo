@@ -12,6 +12,10 @@ const router = createRouter({
         {
           path: 'tasks',
           component: () => import('../views/Tasks/Tasks.vue')
+        },
+        {
+          path: 'tasks/:id',
+          component: () => import('../views/Tasks/Tasks.vue')
         }
       ]
     },

@@ -8,6 +8,7 @@ defineOptions({
 
 const taskGroup = useTaskGroupStore()
 const taskList = useTasksListStore()
+const router = useRouter()
 
 const items = computed(() => {
   return taskList.tasks
@@ -26,7 +27,7 @@ const selectedKeys = ref<string[]>(['1'])
 const openKeys = ref<string[]>(['sub1'])
 
 const handleClick: MenuProps['onClick'] = (e) => {
-  console.log('click', e)
+  router.push(`/tasks/${e.key}`)
 }
 </script>
 

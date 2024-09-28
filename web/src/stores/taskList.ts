@@ -16,6 +16,20 @@ export const useTasksListStore = defineStore('taskList', () => {
       themeBackground: '',
       themeColor: '',
       parentFolderGroupId: ''
+    },
+    {
+      id: '2',
+      createdWithLocalId: '2',
+      isSharedFolder: false,
+      IsOwner: false,
+      name: '列表2',
+      sharingLink: '',
+      showCompletedTasks: false,
+      sortAscending: false,
+      sortType: '',
+      themeBackground: '',
+      themeColor: '',
+      parentFolderGroupId: ''
     }
   ])
 

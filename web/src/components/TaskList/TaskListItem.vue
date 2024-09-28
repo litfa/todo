@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import type { Task } from '@ltfei/todo-common'
+
 defineOptions({
   name: 'TaskListItem'
 })
+
+defineProps<Task>()
 
 const checked = ref(false)
 </script>
@@ -10,7 +14,7 @@ const checked = ref(false)
   <div class="task-list-item">
     <a-radio v-model:checked="checked"></a-radio>
     <div class="info">
-      <div class="title">吃饭</div>
+      <div class="title">{{ subject }}</div>
       <div class="desc">第0步，共1步</div>
     </div>
     <div class="extra">

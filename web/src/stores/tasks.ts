@@ -10,7 +10,7 @@ export const useTasksStore = defineStore('tasks', () => {
       expirationTime: 0,
       startTime: 0,
       isReminderOn: false,
-      parentFolderId: '',
+      parentFolderId: '1',
       reminderDateTime: 0,
       createUser: 0,
       subtasks: [],
@@ -19,7 +19,8 @@ export const useTasksStore = defineStore('tasks', () => {
       status: keys.task.status.notStarted,
       createdTime: 0,
       completedDateTime: 0,
-      lastEditTime: false
+      lastEditTime: false,
+      createdWithLocalId: ''
     },
     {
       body: '',
@@ -27,7 +28,7 @@ export const useTasksStore = defineStore('tasks', () => {
       expirationTime: 0,
       startTime: 0,
       isReminderOn: false,
-      parentFolderId: '',
+      parentFolderId: '1',
       reminderDateTime: 0,
       createUser: 0,
       subtasks: [],
@@ -36,7 +37,8 @@ export const useTasksStore = defineStore('tasks', () => {
       status: keys.task.status.notStarted,
       createdTime: 0,
       completedDateTime: 0,
-      lastEditTime: false
+      lastEditTime: false,
+      createdWithLocalId: ''
     },
     {
       body: '',
@@ -53,7 +55,8 @@ export const useTasksStore = defineStore('tasks', () => {
       status: keys.task.status.notStarted,
       createdTime: 0,
       completedDateTime: 0,
-      lastEditTime: false
+      lastEditTime: false,
+      createdWithLocalId: ''
     }
   ])
 

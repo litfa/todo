@@ -4,6 +4,10 @@ export interface BasisTask {
    */
   id: string
   /**
+   * 创建时的本地id
+   */
+  createdWithLocalId: string
+  /**
    * 主题
    */
   subject: string
