@@ -16,10 +16,10 @@ importers:
         version: 17.8.1
       '@commitlint/cz-commitlint':
         specifier: ^17.5.0
-        version: 17.8.1(commitizen@4.3.0(@types/node@20.5.1)(typescript@5.6.2))(inquirer@8.2.5)
+        version: 17.8.1(commitizen@4.3.0(@types/node@20.16.9)(typescript@5.6.2))(inquirer@8.2.5)
       commitizen:
         specifier: ^4.3.0
-        version: 4.3.0(@types/node@20.5.1)(typescript@5.6.2)
+        version: 4.3.0(@types/node@20.16.9)(typescript@5.6.2)
       husky:
         specifier: ^8.0.0
         version: 8.0.3
@@ -296,6 +296,9 @@ importers:
       less:
         specifier: ^4.1.3
         version: 4.2.0
+      localforage:
+        specifier: ^1.10.0
+        version: 1.10.0
       pinia:
         specifier: ^2.0.36
         version: 2.2.2(typescript@5.0.4)(vue@3.5.9(typescript@5.0.4))
@@ -2242,6 +2245,9 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
+  immediate@3.0.6:
+    resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
+
   import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -2553,6 +2559,9 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
+  lie@3.1.1:
+    resolution: {integrity: sha512-RiNhHysUjhrDQntfYSfY4MU24coXXdEOgw9WGcKHNeEwffDYbF//u87M1EWaMGzuFoSbqW0C9C6lEEhDOAswfw==}
+
   lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
     engines: {node: '>=10'}
@@ -2584,6 +2593,9 @@ packages:
   local-pkg@0.5.0:
     resolution: {integrity: sha512-ok6z3qlYyCDS4ZEU27HaU6x/xZa9Whf8jD4ptH5UZTQYZVYeb9bnZ3ojVhiJNLiXK1Hfc0GNbLXcmZ5plLDDBg==}
     engines: {node: '>=14'}
+
+  localforage@1.10.0:
+    resolution: {integrity: sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==}
 
   locate-path@3.0.0:
     resolution: {integrity: sha512-7AO748wWnIhNqAuaty2ZWHkQHRSNfPVIsPIfwEOWO22AmaoVrWavlOcMR5nzTLNYvp36X220/maaRsrec1G65A==}
@@ -4295,13 +4307,13 @@ snapshots:
       - '@swc/core'
       - '@swc/wasm'
 
-  '@commitlint/cz-commitlint@17.8.1(commitizen@4.3.0(@types/node@20.5.1)(typescript@5.6.2))(inquirer@8.2.5)':
+  '@commitlint/cz-commitlint@17.8.1(commitizen@4.3.0(@types/node@20.16.9)(typescript@5.6.2))(inquirer@8.2.5)':
     dependencies:
       '@commitlint/ensure': 17.8.1
       '@commitlint/load': 17.8.1
       '@commitlint/types': 17.8.1
       chalk: 4.1.2
-      commitizen: 4.3.0(@types/node@20.5.1)(typescript@5.6.2)
+      commitizen: 4.3.0(@types/node@20.16.9)(typescript@5.6.2)
       inquirer: 8.2.5
       lodash.isplainobject: 4.0.6
       word-wrap: 1.2.5
@@ -4377,7 +4389,7 @@ snapshots:
       - typescript
     optional: true
 
-  '@commitlint/load@19.5.0(@types/node@20.5.1)(typescript@5.6.2)':
+  '@commitlint/load@19.5.0(@types/node@20.16.9)(typescript@5.6.2)':
     dependencies:
       '@commitlint/config-validator': 19.5.0
       '@commitlint/execute-rule': 19.5.0
@@ -4385,7 +4397,7 @@ snapshots:
       '@commitlint/types': 19.5.0
       chalk: 5.3.0
       cosmiconfig: 9.0.0(typescript@5.6.2)
-      cosmiconfig-typescript-loader: 5.0.0(@types/node@20.5.1)(cosmiconfig@9.0.0(typescript@5.6.2))(typescript@5.6.2)
+      cosmiconfig-typescript-loader: 5.0.0(@types/node@20.16.9)(cosmiconfig@9.0.0(typescript@5.6.2))(typescript@5.6.2)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -5368,10 +5380,10 @@ snapshots:
       - '@types/node'
       - typescript
 
-  commitizen@4.3.0(@types/node@20.5.1)(typescript@5.6.2):
+  commitizen@4.3.0(@types/node@20.16.9)(typescript@5.6.2):
     dependencies:
       cachedir: 2.3.0
-      cz-conventional-changelog: 3.3.0(@types/node@20.5.1)(typescript@5.6.2)
+      cz-conventional-changelog: 3.3.0(@types/node@20.16.9)(typescript@5.6.2)
       dedent: 0.7.0
       detect-indent: 6.1.0
       find-node-modules: 2.1.3
@@ -5485,9 +5497,9 @@ snapshots:
       typescript: 5.0.4
     optional: true
 
-  cosmiconfig-typescript-loader@5.0.0(@types/node@20.5.1)(cosmiconfig@9.0.0(typescript@5.6.2))(typescript@5.6.2):
+  cosmiconfig-typescript-loader@5.0.0(@types/node@20.16.9)(cosmiconfig@9.0.0(typescript@5.6.2))(typescript@5.6.2):
     dependencies:
-      '@types/node': 20.5.1
+      '@types/node': 20.16.9
       cosmiconfig: 9.0.0(typescript@5.6.2)
       jiti: 1.21.6
       typescript: 5.6.2
@@ -5560,16 +5572,16 @@ snapshots:
       - '@types/node'
       - typescript
 
-  cz-conventional-changelog@3.3.0(@types/node@20.5.1)(typescript@5.6.2):
+  cz-conventional-changelog@3.3.0(@types/node@20.16.9)(typescript@5.6.2):
     dependencies:
       chalk: 2.4.2
-      commitizen: 4.3.0(@types/node@20.5.1)(typescript@5.6.2)
+      commitizen: 4.3.0(@types/node@20.16.9)(typescript@5.6.2)
       conventional-commit-types: 3.0.0
       lodash.map: 4.6.0
       longest: 2.0.1
       word-wrap: 1.2.5
     optionalDependencies:
-      '@commitlint/load': 19.5.0(@types/node@20.5.1)(typescript@5.6.2)
+      '@commitlint/load': 19.5.0(@types/node@20.16.9)(typescript@5.6.2)
     transitivePeerDependencies:
       - '@types/node'
       - typescript
@@ -6449,6 +6461,8 @@ snapshots:
   image-size@0.5.5:
     optional: true
 
+  immediate@3.0.6: {}
+
   import-fresh@3.3.0:
     dependencies:
       parent-module: 1.0.1
@@ -6770,6 +6784,10 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
+  lie@3.1.1:
+    dependencies:
+      immediate: 3.0.6
+
   lilconfig@2.1.0: {}
 
   lines-and-columns@1.2.4: {}
@@ -6814,6 +6832,10 @@ snapshots:
     dependencies:
       mlly: 1.7.1
       pkg-types: 1.2.0
+
+  localforage@1.10.0:
+    dependencies:
+      lie: 3.1.1
 
   locate-path@3.0.0:
     dependencies:
