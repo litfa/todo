@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TaskList from '@/components/TaskList/TaskList.vue'
 import AddTask from '@/components/AddTask/AddTask.vue'
+import TaskDrawer from '@/components/TaskDrawer/TaskDrawer.vue'
 
 defineOptions({
   name: 'TasksPage'
@@ -9,20 +10,29 @@ defineOptions({
 
 <template>
   <div class="tasks-page">
-    <TaskList />
-    <AddTask />
+    <div class="list">
+      <TaskList />
+      <AddTask />
+    </div>
+    <div class="drawer">
+      <TaskDrawer />
+    </div>
   </div>
 </template>
 
 <style lang="less" scoped>
 .tasks-page {
-  display: flex;
   height: 100%;
-  flex-direction: column;
+  display: flex;
   padding: 8px;
   box-sizing: border-box;
-  .task-list {
+  .list {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    .task-list {
+      flex: 1;
+    }
   }
 }
 </style>

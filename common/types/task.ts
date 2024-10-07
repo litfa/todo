@@ -27,7 +27,7 @@ export interface BasisTask {
   /**
    * 最后编辑时间
    */
-  lastEditTime: boolean
+  lastEditTime: number
   /**
    * todo: order
    */

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Round as IconRound, Plus as IconPlus } from '@icon-park/vue-next'
 import { useTasksStore, useTasksListStore } from '@/stores/'
 import { generateId } from '@/utils/snowflake'
+import AddTaskInput from './AddTaskInput.vue'
 
 defineOptions({
   name: 'AddTask'
@@ -37,7 +37,7 @@ const addTask = () => {
     status: 0,
     createdTime: Date.now(),
     completedDateTime: 0,
-    lastEditTime: false
+    lastEditTime: 0
   })
   text.value = ''
 }
@@ -45,62 +45,14 @@ const addTask = () => {
 
 <template>
   <div class="add-task">
-    <input
-      type="text"
-      class="task-name"
-      placeholder="添加任务"
-      v-model="text"
-      @keydown.stop.enter="addTask"
-    />
-    <icon-round class="icon-radio" />
-    <icon-plus class="icon-add" />
+    <AddTaskInput v-model="text" @add-task="addTask" />
   </div>
 </template>
 
 <style lang="less" scoped>
-.i-icon {
-  display: flex;
-}
 .add-task {
   background-color: pink;
   display: flex;
-  height: 40px;
-  align-items: center;
-  padding: 8px;
-  box-sizing: border-box;
   border-radius: 4px;
-  position: relative;
-  .icon-radio,
-  .icon-add {
-    font-size: 22px;
-    position: absolute;
-    left: 8px;
-    transition: all 0.05s linear;
-  }
-  .icon-radio {
-    opacity: 0;
-  }
-  .task-name {
-    flex: 1;
-    height: 100%;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    margin-left: 30px;
-    &::placeholder {
-      color: #000;
-    }
-    &:focus ~ .icon-add {
-      opacity: 0;
-    }
-    &:focus ~ .icon-radio {
-      opacity: 1;
-    }
-    &:focus::placeholder {
-      color: transparent;
-    }
-  }
 }
 </style>
-
-<style></style>
