@@ -6,6 +6,10 @@ defineOptions({
   name: 'TaskList'
 })
 
+const emit = defineEmits<{
+  clickTaskItem: [id: string]
+}>()
+
 const route = useRoute()
 const tasksStore = useTasksStore()
 const tasksListStore = useTasksListStore()
@@ -27,11 +31,20 @@ const tasks = computed(() => {
     )
   })
 })
+
+const clickTaskItem = (id: string) => {
+  emit('clickTaskItem', id)
+}
 </script>
 
 <template>
   <div class="task-list">
-    <TaskListItem v-for="i in tasks" :key="i.id || i.createdWithLocalId" v-bind="i" />
+    <TaskListItem
+      v-for="i in tasks"
+      :key="i.id || i.createdWithLocalId"
+      v-bind="i"
+      @click="clickTaskItem(i.id)"
+    />
   </div>
 </template>
 

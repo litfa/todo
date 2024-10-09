@@ -8,9 +8,13 @@ defineOptions({
   name: 'TaskEditor'
 })
 
+const props = defineProps<{
+  taskId: string
+}>()
+
 const tasksStore = useTasksStore()
 
-const task = computed(() => tasksStore.tasks[0])
+const task = computed(() => tasksStore.tasks.find((e) => e.id == props.taskId)!)
 
 const checked = computed({
   get() {

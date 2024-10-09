@@ -2,20 +2,30 @@
 import TaskList from '@/components/TaskList/TaskList.vue'
 import AddTask from '@/components/AddTask/AddTask.vue'
 import TaskDrawer from '@/components/TaskDrawer/TaskDrawer.vue'
+import type { Expose } from '@/components/TaskDrawer/TaskDrawer.vue'
 
 defineOptions({
   name: 'TasksPage'
 })
+
+const taskDrawerRef = ref<Expose>()
+
+const clickTaskItem = (id: string) => {
+  if (!taskDrawerRef.value) {
+    return
+  }
+  taskDrawerRef.value.openTaskDrawer(id)
+}
 </script>
 
 <template>
   <div class="tasks-page">
     <div class="list">
-      <TaskList />
+      <TaskList @click-task-item="clickTaskItem" />
       <AddTask />
     </div>
     <div class="drawer">
-      <TaskDrawer />
+      <TaskDrawer ref="taskDrawerRef" />
     </div>
   </div>
 </template>

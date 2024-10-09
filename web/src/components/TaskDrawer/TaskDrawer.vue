@@ -8,39 +8,68 @@ defineOptions({
   name: 'TaskDrawer'
 })
 
-const open = ref(true)
+const open = ref(false)
+const taskId = ref<string | null>(null)
 
 const tasksStore = useTasksStore()
+
+const task = computed(() => tasksStore.tasks.find((e) => e.id == taskId.value)!)
+
+const openTaskDrawer = (id: string) => {
+  // 重复点击已打开的应当关闭
+  if (taskId.value == id) {
+    closeTaskDrawer()
+    return
+  }
+  open.value = true
+  taskId.value = id
+}
+const closeTaskDrawer = () => {
+  open.value = false
+  taskId.value = null
+}
+
+const expose = {
+  openTaskDrawer
+}
+
+defineExpose(expose)
+type Expose = typeof expose
+export type { Expose }
 </script>
 
 <template>
   <div class="task-drawer" :class="{ open }">
-    <div class="header">
-      <div class="close">
-        <icon-close-small />
+    <template v-if="taskId">
+      <div class="header">
+        <div class="close" @click="closeTaskDrawer">
+          <icon-close-small />
+        </div>
       </div>
-    </div>
-    <div class="content">
-      <Editor />
-    </div>
-    <div class="footer">
-      <div class="create-time">创建于 {{ 123 }}</div>
-      <div class="remove">
-        <icon-delete />
+      <div class="content">
+        <Editor :task-id="taskId" />
       </div>
-    </div>
+      <div class="footer">
+        <div class="create-time">创建于 {{ task.createdTime }}</div>
+        <div class="remove">
+          <icon-delete />
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
 <style lang="less" scoped>
+@width: 300px;
 .task-drawer {
-  width: 0;
   overflow: hidden;
   height: 100%;
   display: flex;
   flex-direction: column;
+  transition: all 0.3s;
+  width: 0;
   &.open {
-    width: 300px;
+    width: @width;
   }
   .header {
     display: flex;
@@ -64,9 +93,10 @@ const tasksStore = useTasksStore()
     flex: 1;
     overflow: auto;
     padding: 8px 0;
+    width: @width;
   }
   .footer {
-    width: 100%;
+    width: @width;
     height: 40px;
     font-size: 14px;
     display: flex;
