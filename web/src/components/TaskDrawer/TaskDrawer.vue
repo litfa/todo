@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import TaskListItem from '../TaskList/TaskListItem.vue'
-import { useTasksStore, useTasksListStore } from '@/stores/'
+import { useTasksStore } from '@/stores/'
 import Editor from './Editor.vue'
 import { CloseSmall as IconCloseSmall, Delete as IconDelete } from '@icon-park/vue-next'
 
@@ -8,11 +7,10 @@ defineOptions({
   name: 'TaskDrawer'
 })
 
+const route = useRoute()
+const tasksStore = useTasksStore()
 const open = ref(false)
 const taskId = ref<string | null>(null)
-
-const tasksStore = useTasksStore()
-
 const task = computed(() => tasksStore.tasks.find((e) => e.id == taskId.value)!)
 
 const openTaskDrawer = (id: string) => {
@@ -28,6 +26,14 @@ const closeTaskDrawer = () => {
   open.value = false
   taskId.value = null
 }
+
+// 切换任务列表时关闭
+watch(
+  () => route.params,
+  () => {
+    closeTaskDrawer()
+  }
+)
 
 const expose = {
   openTaskDrawer
