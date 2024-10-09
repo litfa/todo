@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { keys } from '@ltfei/todo-common'
 import { useTasksStore, useTasksListStore } from '@/stores/'
-import AutoHeightTextarea from '@/components/AutoHeightTextarea/AutoHeightTextarea.vue'
 import AddTaskInput from '@/components/AddTask/AddTaskInput.vue'
 import { generateId } from '@/utils/snowflake'
 
@@ -40,14 +39,14 @@ const addTask = (value: string, clearInput: () => void) => {
 </script>
 
 <template>
-  <div class="editor">
+  <div class="editor" v-if="task">
     <div class="task">
       <a-radio :checked="checked" @click="checked = !checked"></a-radio>
-      <AutoHeightTextarea v-model:model-value="task.subject" class="input"></AutoHeightTextarea>
+      <a-textarea v-model:value="task.subject" auto-size />
     </div>
     <div class="task" v-for="i in task?.subtasks" :key="i.id">
       <a-radio :checked="checked"></a-radio>
-      <AutoHeightTextarea v-model:model-value="i.subject" class="input"></AutoHeightTextarea>
+      <a-textarea v-model:value="i.subject" auto-size />
     </div>
 
     <div class="add-task">
@@ -60,6 +59,7 @@ const addTask = (value: string, clearInput: () => void) => {
 .editor {
   display: flex;
   flex-direction: column;
+  gap: 8px;
   .task {
     display: flex;
     align-items: flex-start;
@@ -67,7 +67,6 @@ const addTask = (value: string, clearInput: () => void) => {
       flex: 1;
       line-height: 18px;
       font-size: 18px;
-      transition: all 0.3s;
     }
   }
 }
