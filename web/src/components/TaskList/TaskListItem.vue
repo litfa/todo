@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import type { Task } from '@ltfei/todo-common'
 import { keys } from '@ltfei/todo-common'
+import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
+import { useTasksStore } from '@/stores/'
 
 defineOptions({
   name: 'TaskListItem'
 })
 
 const props = defineProps<Task>()
-
-const checked = ref(false)
+const tasksStore = useTasksStore()
 
 const completedCount = computed(() => {
   return props.subtasks.reduce((accumulator, currentValue) => {
@@ -18,11 +19,29 @@ const completedCount = computed(() => {
     return accumulator
   }, 0)
 })
+
+const updateStatus = (status: number) => {
+  const i = tasksStore.tasks.findIndex((e) => {
+    return e.id == props.id
+  })
+
+  tasksStore.tasks[i].status = status
+}
+
+const status = computed({
+  get() {
+    return props.status
+  },
+  set(value) {
+    updateStatus(value)
+  }
+})
 </script>
 
 <template>
   <div class="task-list-item">
-    <a-radio v-model:checked="checked"></a-radio>
+    <!-- <a-radio v-model:checked="checked"></a-radio> -->
+    <TaskRadio v-model:status="status" />
     <div class="info">
       <div class="title">{{ subject }}</div>
       <div class="desc">
@@ -45,6 +64,12 @@ const completedCount = computed(() => {
   display: flex;
   padding: 8px;
   align-items: flex-start;
+  .task-radio {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+  }
   .info {
     .desc {
       font-size: 12px;

@@ -3,6 +3,7 @@ import { keys } from '@ltfei/todo-common'
 import { useTasksStore, useTasksListStore } from '@/stores/'
 import AddTaskInput from '@/components/AddTask/AddTaskInput.vue'
 import { generateId } from '@/utils/snowflake'
+import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
 
 defineOptions({
   name: 'TaskEditor'
@@ -45,11 +46,11 @@ const addTask = (value: string, clearInput: () => void) => {
 <template>
   <div class="editor" v-if="task">
     <div class="task">
-      <a-radio :checked="checked" @click="checked = !checked"></a-radio>
+      <task-radio v-model:status="task.status" />
       <a-textarea v-model:value="task.subject" auto-size />
     </div>
     <div class="task" v-for="i in task?.subtasks" :key="i.id">
-      <a-radio :checked="checked"></a-radio>
+      <task-radio v-model:status="i.status" />
       <a-textarea v-model:value="i.subject" auto-size />
     </div>
 
