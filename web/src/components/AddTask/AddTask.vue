@@ -8,7 +8,7 @@ defineOptions({
 })
 
 const route = useRoute()
-const id = route.params.id
+const id = computed(() => route.params.id)
 const text = ref('')
 const tasksListStore = useTasksListStore()
 const tasksStore = useTasksStore()
@@ -18,7 +18,7 @@ const addTask = () => {
     return
   }
   const tasksList = tasksListStore.tasks.find((e) => {
-    return e.id == id || e.createdWithLocalId == id
+    return e.id == id.value || e.createdWithLocalId == id.value
   })
   const taskId = generateId()
   tasksStore.tasks.push({
