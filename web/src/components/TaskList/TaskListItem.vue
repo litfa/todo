@@ -8,7 +8,11 @@ defineOptions({
   name: 'TaskListItem'
 })
 
-const props = defineProps<Task>()
+interface Props extends Task {
+  completed?: boolean
+}
+
+const props = defineProps<Props>()
 const tasksStore = useTasksStore()
 
 const completedCount = computed(() => {
@@ -39,7 +43,7 @@ const status = computed({
 </script>
 
 <template>
-  <div class="task-list-item">
+  <div class="task-list-item" :class="{ completed }">
     <!-- <a-radio v-model:checked="checked"></a-radio> -->
     <TaskRadio v-model:status="status" />
     <div class="info">
@@ -59,11 +63,12 @@ const status = computed({
 <style lang="less" scoped>
 .task-list-item {
   background-color: pink;
-  margin: 8px;
+  // margin: 8px;
   border-radius: 5px;
   display: flex;
   padding: 8px;
   align-items: flex-start;
+  position: relative;
   .task-radio {
     height: 20px;
     display: flex;
@@ -77,6 +82,14 @@ const status = computed({
   }
   .right {
     margin-left: auto;
+  }
+  &.completed {
+    .info {
+      opacity: 0.5;
+      .title {
+        text-decoration: line-through;
+      }
+    }
   }
 }
 </style>
