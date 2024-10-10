@@ -48,12 +48,13 @@ const clickTaskItem = (id: string) => {
 .tasks-page {
   height: 100%;
   display: flex;
-  padding: 8px 16px;
   box-sizing: border-box;
   .list {
     flex: 1;
     display: flex;
+    padding: 8px 16px;
     flex-direction: column;
+    background-color: rgb(111, 131, 211);
     .header {
       padding: 8px 0;
       display: flex;

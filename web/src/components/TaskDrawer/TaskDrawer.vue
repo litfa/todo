@@ -66,7 +66,7 @@ export type { Expose }
 </template>
 
 <style lang="less" scoped>
-@width: 300px;
+@width: 350px;
 .task-drawer {
   overflow: hidden;
   height: 100%;
@@ -74,6 +74,8 @@ export type { Expose }
   flex-direction: column;
   transition: all 0.3s;
   width: 0;
+  padding: 8px;
+  box-sizing: border-box;
   &.open {
     width: @width;
   }
@@ -99,7 +101,7 @@ export type { Expose }
     flex: 1;
     overflow: auto;
     padding: 8px 0;
-    width: @width;
+    // width: @width;
   }
   .footer {
     width: @width;

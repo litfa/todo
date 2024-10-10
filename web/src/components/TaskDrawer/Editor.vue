@@ -65,9 +65,17 @@ const addTask = (value: string, clearInput: () => void) => {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  border: 1px solid #aaaaaa45;
+  padding: 8px;
+  border-radius: 4px;
   .task {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    .task-radio {
+      width: 32px;
+      display: flex;
+      justify-content: center;
+    }
     .input {
       flex: 1;
       line-height: 18px;
