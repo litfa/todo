@@ -95,7 +95,7 @@ const completedCount = computed(() =>
 .task-list {
   display: flex;
   gap: 8px;
-  padding: 0 8px;
+  // padding: 0 8px;
   flex-direction: column;
   .collapse-button {
     display: flex;

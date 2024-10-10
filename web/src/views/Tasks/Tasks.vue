@@ -3,12 +3,22 @@ import TaskList from '@/components/TaskList/TaskList.vue'
 import AddTask from '@/components/AddTask/AddTask.vue'
 import TaskDrawer from '@/components/TaskDrawer/TaskDrawer.vue'
 import type { Expose } from '@/components/TaskDrawer/TaskDrawer.vue'
+import { useTasksStore, useTasksListStore } from '@/stores/'
 
 defineOptions({
   name: 'TasksPage'
 })
 
 const taskDrawerRef = ref<Expose>()
+const route = useRoute()
+const id = computed(() => route.params.id as string)
+const tasksListStore = useTasksListStore()
+
+const taskList = computed(() => {
+  return tasksListStore.tasks.find((e) => {
+    return e.id == id.value || e.createdWithLocalId == id.value
+  })
+})
 
 const clickTaskItem = (id: string) => {
   if (!taskDrawerRef.value) {
@@ -21,6 +31,10 @@ const clickTaskItem = (id: string) => {
 <template>
   <div class="tasks-page">
     <div class="list">
+      <div class="header">
+        <div class="title">{{ taskList?.name }}</div>
+        <div class="more"></div>
+      </div>
       <TaskList @click-task-item="clickTaskItem" />
       <AddTask />
     </div>
@@ -34,12 +48,22 @@ const clickTaskItem = (id: string) => {
 .tasks-page {
   height: 100%;
   display: flex;
-  padding: 8px;
+  padding: 8px 16px;
   box-sizing: border-box;
   .list {
     flex: 1;
     display: flex;
     flex-direction: column;
+    .header {
+      padding: 8px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .title {
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
     .task-list {
       flex: 1;
     }
