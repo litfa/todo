@@ -1,0 +1,49 @@
+<script setup lang="ts">
+import type { MenuProps, ItemType } from 'ant-design-vue'
+import { useTaskGroupStore, useTasksListStore } from '@/stores/index'
+import SidebarListItem from './SidebarListItem.vue'
+import SidebarListGroup from './SidebarListGroup.vue'
+
+defineOptions({
+  name: 'SidebarList'
+})
+
+const taskGroup = useTaskGroupStore()
+const taskList = useTasksListStore()
+const router = useRouter()
+const route = useRoute()
+
+const items = computed(() => {
+  return taskList.tasks.filter((list) => {
+    return !list.parentFolderGroupId
+  })
+})
+
+// const selectedKeys = ref<string[]>(['1'])
+const openKeys = computed(() => route.params.id as string)
+
+const handleClick = (id: string) => {
+  router.push(`/tasks/${id}`)
+}
+</script>
+
+<template>
+  <div class="sidebar-list">
+    <SidebarListItem
+      v-for="i in items"
+      :key="i.id"
+      :name="i.name"
+      @click="handleClick(i.id)"
+      :checked="openKeys == i.id"
+    />
+    <!-- <SidebarListGroup /> -->
+  </div>
+</template>
+
+<style lang="less" scoped>
+.sidebar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+</style>

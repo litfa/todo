@@ -1,5 +1,5 @@
 export interface TaskList {
-  id: string | null
+  id: string
   /**
    * 创建时的本地id
    */

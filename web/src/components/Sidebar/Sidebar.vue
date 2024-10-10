@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SidebarUser from './SidebarUser.vue'
-import SidebarList from './SidebarList.vue'
+import SidebarList from '../SidebarList/SidebarList.vue'
 import SidebarFooter from './SidebarFooter.vue'
 
 defineOptions({
