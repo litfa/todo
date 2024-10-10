@@ -2,6 +2,7 @@
 import { useTasksStore, useTasksListStore } from '@/stores/'
 import { generateId } from '@/utils/snowflake'
 import AddTaskInput from './AddTaskInput.vue'
+import { keys } from '@ltfei/todo-common'
 
 defineOptions({
   name: 'AddTask'
@@ -34,7 +35,7 @@ const addTask = () => {
     id: taskId,
     createdWithLocalId: taskId,
     subject: text.value,
-    status: 0,
+    status: keys.task.status.notStarted,
     createdTime: Date.now(),
     completedDateTime: 0,
     lastEditTime: 0

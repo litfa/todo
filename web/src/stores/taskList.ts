@@ -6,9 +6,10 @@ export const useTasksListStore = defineStore('taskList', () => {
   const tasks = ref<TaskList[]>([])
 
   const createList = (name: string) => {
+    const id = generateId()
     tasks.value.push({
-      id: null,
-      createdWithLocalId: generateId(),
+      id: id,
+      createdWithLocalId: id,
       isSharedFolder: false,
       IsOwner: false,
       name,
