@@ -67,7 +67,7 @@ const originSubject = new Map<string, string>()
 const focus = (id: string, subject: string) => {
   originSubject.set(id, subject)
 }
-const blur = async (id: string) => {
+const subTaskTextareaBlur = async (id: string) => {
   const subTask = task.value.subtasks.find((e) => e.id == id)
 
   if (!subTask) {
@@ -80,25 +80,39 @@ const blur = async (id: string) => {
     }
   }
 }
+
+const textareaBlur = () => {
+  if (!task.value.subject) {
+    task.value.subject = originSubject.get(task.value.id)!
+  }
+}
 </script>
 
 <template>
   <div class="editor" v-if="task">
     <div class="task">
-      <task-radio v-model:status="task.status" />
+      <task-radio v-model="task.status" />
       <!-- todo: 封装禁止换行的文本域 -->
-      <a-textarea v-model:value="task.subject" auto-size />
+      <a-textarea
+        v-model:value.lazy="task.subject"
+        auto-size
+        :bordered="false"
+        @focus="focus(task.id, task.subject)"
+        @blur="textareaBlur"
+        size="large"
+      />
     </div>
-    <div class="task" v-for="i in task?.subtasks" :key="i.id">
+    <div class="sub-task" v-for="i in task?.subtasks" :key="i.id">
       <task-radio v-model:status="i.status" />
       <a-textarea
         v-model:value="i.subject"
         auto-size
+        :bordered="false"
         @focus="focus(i.id, i.subject)"
-        @blur="blur(i.id)"
+        @blur="subTaskTextareaBlur(i.id)"
       />
 
-      <a-popover :arrow="false" placement="bottom" trigger="click" arrow-point-at-center>
+      <a-popover :arrow="false" placement="bottomRight" trigger="click">
         <template #content>
           <div class="task-tooltip-content">
             <a-button danger @click="deleteSubTask(i.id)">
@@ -143,6 +157,16 @@ const blur = async (id: string) => {
   padding: 8px;
   border-radius: 4px;
   .task {
+    :deep(textarea) {
+      font-weight: bold;
+      // font-size: 16px;
+    }
+  }
+  .sub-task {
+    border-bottom: 1px solid #aaaaaa2e;
+  }
+  .task,
+  .sub-task {
     display: flex;
     align-items: center;
     .task-radio {
