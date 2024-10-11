@@ -85,15 +85,42 @@ const textareaBlur = () => {
     })
   }
 }
+
+const updateTaskSubject = (value: string) => {
+  tasksStore.commit('update', {
+    id: task.value.id,
+    subject: value
+  })
+}
+
+const updateTaskStatus = (value: number) => {
+  tasksStore.commit('update', {
+    id: task.value.id,
+    status: value
+  })
+}
+const updateSubTaskStatus = (id: string, value: number) => {
+  subTasksStore.commit('update', {
+    id,
+    status: value
+  })
+}
+const updateSubTaskSubject = (id: string, value: string) => {
+  subTasksStore.commit('update', {
+    id,
+    subject: value
+  })
+}
 </script>
 
 <template>
   <div class="editor" v-if="task">
     <div class="task">
-      <task-radio v-model="task.status" />
+      <task-radio :status="task.status" @update:status="updateTaskStatus" />
       <!-- todo: 封装禁止换行的文本域 -->
       <a-textarea
-        v-model:value.lazy="task.subject"
+        :value="task.subject"
+        @update:value="updateTaskSubject"
         auto-size
         :bordered="false"
         @focus="focus(task.id, task.subject)"
@@ -102,9 +129,10 @@ const textareaBlur = () => {
       />
     </div>
     <div class="sub-task" v-for="i in subTasks" :key="i.id">
-      <task-radio v-model:status="i.status" />
+      <task-radio :status="i.status" @update:status="(value) => updateSubTaskStatus(i.id, value)" />
       <a-textarea
-        v-model:value="i.subject"
+        :value="i.subject"
+        @update:value="(value) => updateSubTaskSubject(i.id, value)"
         auto-size
         :bordered="false"
         @focus="focus(i.id, i.subject)"

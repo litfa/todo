@@ -6,6 +6,8 @@ export const useSubTasksStore = defineStore('subTasks', () => {
   const tasks = ref<SubTask[]>([])
 
   const commit: Commit<SubTask> = (type, data) => {
+    console.log(type)
+
     if (type == 'create') {
       tasks.value.push(data as SubTask)
       return
