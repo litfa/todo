@@ -14,24 +14,10 @@ const emit = defineEmits<{
 
 const route = useRoute()
 const tasksStore = useTasksStore()
-const tasksListStore = useTasksListStore()
 const id = computed(() => route.params.id as string)
 const showCompleted = ref(false)
 
-const taskList = computed(() => {
-  return tasksListStore.tasks.find((e) => {
-    return e.id == id.value || e.createdWithLocalId == id.value
-  })
-})
-
-const tasks = computed(() => {
-  return tasksStore.tasks.filter((task) => {
-    return (
-      task.parentFolderId == taskList.value?.id ||
-      task.parentFolderId == taskList.value?.createdWithLocalId
-    )
-  })
-})
+const tasks = computed(() => tasksStore.getTasksByParentFolderId(id.value))
 
 const notStartedTasks = computed(() => {
   return tasks.value.filter((e) => {

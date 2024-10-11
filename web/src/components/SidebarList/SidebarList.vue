@@ -3,6 +3,7 @@ import type { MenuProps, ItemType } from 'ant-design-vue'
 import { useTaskGroupStore, useTasksListStore } from '@/stores/index'
 import SidebarListItem from './SidebarListItem.vue'
 import SidebarListGroup from './SidebarListGroup.vue'
+import { defaultList } from '@ltfei/todo-common'
 
 defineOptions({
   name: 'SidebarList'
@@ -29,6 +30,14 @@ const handleClick = (id: string) => {
 
 <template>
   <div class="sidebar-list">
+    <SidebarListItem
+      v-for="i in defaultList"
+      :key="i"
+      :name="i"
+      @click="handleClick(i)"
+      :checked="openKeys == i"
+    />
+
     <SidebarListItem
       v-for="i in items"
       :key="i.id"

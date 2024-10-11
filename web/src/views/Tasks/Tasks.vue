@@ -4,6 +4,7 @@ import AddTask from '@/components/AddTask/AddTask.vue'
 import TaskDrawer from '@/components/TaskDrawer/TaskDrawer.vue'
 import type { Expose } from '@/components/TaskDrawer/TaskDrawer.vue'
 import { useTasksStore, useTasksListStore } from '@/stores/'
+import { defaultList, inboxTaskListId } from '@ltfei/todo-common'
 
 defineOptions({
   name: 'TasksPage'
@@ -16,8 +17,13 @@ const tasksListStore = useTasksListStore()
 
 const taskList = computed(() => {
   return tasksListStore.tasks.find((e) => {
-    return e.id == id.value || e.createdWithLocalId == id.value
+    return e.id == id.value
   })
+})
+
+const taskListName = computed(() => {
+  // todo: 默认列表使用i18n展示
+  return defaultList.includes(id.value) ? '任务' : taskList.value?.name
 })
 
 const clickTaskItem = (id: string) => {
@@ -32,7 +38,7 @@ const clickTaskItem = (id: string) => {
   <div class="tasks-page">
     <div class="list">
       <div class="header">
-        <div class="title">{{ taskList?.name }}</div>
+        <div class="title">{{ taskListName }}</div>
         <div class="more"></div>
       </div>
       <TaskList @click-task-item="clickTaskItem" />

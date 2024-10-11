@@ -1,4 +1,5 @@
 import type { Task } from '@ltfei/todo-common'
+import { defaultList, inboxTaskListId, inbox } from '@ltfei/todo-common'
 import { defineStore } from 'pinia'
 import type { Commit, ReadonlyDeep } from '@/types'
 
@@ -23,5 +24,19 @@ export const useTasksStore = defineStore('tasks', () => {
     }
   }
 
-  return { tasks: tasks as Ref<ReadonlyDeep<Task[]>>, commit }
+  const getTasksByParentFolderId = (id: string) => {
+    if (defaultList.includes(id)) {
+      const inboxTasks = tasks.value.filter((e) => {
+        return e.parentFolderId == inboxTaskListId
+      })
+      if (id == inbox) {
+        return inboxTasks
+      }
+    }
+    return tasks.value.filter((e) => {
+      return e.parentFolderId == id
+    })
+  }
+
+  return { tasks: tasks as Ref<ReadonlyDeep<Task[]>>, commit, getTasksByParentFolderId }
 })
