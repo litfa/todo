@@ -2,7 +2,7 @@
 import type { Task } from '@ltfei/todo-common'
 import { keys } from '@ltfei/todo-common'
 import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
-import { useTasksStore } from '@/stores/'
+import { useTasksStore, useSubTasksStore } from '@/stores/'
 
 defineOptions({
   name: 'TaskListItem'
@@ -14,9 +14,14 @@ interface Props extends Task {
 
 const props = defineProps<Props>()
 const tasksStore = useTasksStore()
+const subTasksStore = useSubTasksStore()
+
+const subTasks = computed(() => {
+  return subTasksStore.tasks.filter((e) => e.parentId == props.id)
+})
 
 const completedCount = computed(() => {
-  return props.subtasks.reduce((accumulator, currentValue) => {
+  return subTasks.value.reduce((accumulator, currentValue) => {
     if (currentValue.status == keys.task.status.completed) {
       return accumulator + 1
     }
@@ -25,11 +30,10 @@ const completedCount = computed(() => {
 })
 
 const updateStatus = (status: number) => {
-  const i = tasksStore.tasks.findIndex((e) => {
-    return e.id == props.id
+  tasksStore.commit('update', {
+    id: props.id,
+    status: status
   })
-
-  tasksStore.tasks[i].status = status
 }
 
 const status = computed({
@@ -49,8 +53,8 @@ const status = computed({
     <div class="info">
       <div class="title">{{ subject }}</div>
       <div class="desc">
-        <template v-if="subtasks.length > 0">
-          第 {{ completedCount }} 步，共 {{ subtasks.length }} 步
+        <template v-if="subTasks.length > 0">
+          第 {{ completedCount }} 步，共 {{ subTasks.length }} 步
         </template>
       </div>
     </div>

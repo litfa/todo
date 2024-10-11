@@ -1,13 +1,13 @@
-import type { Task } from '@ltfei/todo-common'
+import type { SubTask } from '@ltfei/todo-common'
 import { defineStore } from 'pinia'
 import type { Commit, ReadonlyDeep } from '@/types'
 
-export const useTasksStore = defineStore('tasks', () => {
-  const tasks = ref<Task[]>([])
+export const useSubTasksStore = defineStore('subTasks', () => {
+  const tasks = ref<SubTask[]>([])
 
-  const commit: Commit<Task> = (type, data) => {
+  const commit: Commit<SubTask> = (type, data) => {
     if (type == 'create') {
-      tasks.value.push(data as Task)
+      tasks.value.push(data as SubTask)
       return
     }
     const i = tasks.value.findIndex((e) => e.id == data.id)
@@ -18,10 +18,10 @@ export const useTasksStore = defineStore('tasks', () => {
     if (type == 'update') {
       tasks.value[i] = {
         ...tasks.value[i],
-        ...(data as Task)
+        ...(data as SubTask)
       }
     }
   }
 
-  return { tasks: tasks as Ref<ReadonlyDeep<Task[]>>, commit }
+  return { tasks: tasks as Ref<ReadonlyDeep<SubTask[]>>, commit }
 })

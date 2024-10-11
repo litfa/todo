@@ -22,7 +22,7 @@ const addTask = () => {
     return e.id == id.value || e.createdWithLocalId == id.value
   })
   const taskId = generateId()
-  tasksStore.tasks.push({
+  tasksStore.commit('create', {
     body: '',
     isImported: false,
     expirationTime: 0,
@@ -31,7 +31,6 @@ const addTask = () => {
     parentFolderId: tasksList?.id || tasksList!.createdWithLocalId,
     reminderDateTime: 0,
     createUser: 0,
-    subtasks: [],
     id: taskId,
     createdWithLocalId: taskId,
     subject: text.value,

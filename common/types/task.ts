@@ -67,10 +67,6 @@ export interface Task extends BasisTask {
    * 创建用户
    */
   createUser: number
-  /**
-   * 子任务
-   */
-  subtasks: SubTask[]
 }
 
 export interface SubTask extends BasisTask {

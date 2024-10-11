@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { keys } from '@ltfei/todo-common'
-import { useTasksStore, useTasksListStore } from '@/stores/'
+import { useTasksStore, useSubTasksStore } from '@/stores/'
 import AddTaskInput from '@/components/AddTask/AddTaskInput.vue'
 import { generateId } from '@/utils/snowflake'
 import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
@@ -16,26 +16,19 @@ const props = defineProps<{
 }>()
 
 const tasksStore = useTasksStore()
+const subTasksStore = useSubTasksStore()
 
 const task = computed(() => tasksStore.tasks.find((e) => e.id == props.taskId)!)
-
-const checked = computed({
-  get() {
-    return task.value?.status == keys.task.status.completed
-  },
-  set(value) {
-    task.value.status = value ? keys.task.status.completed : keys.task.status.notStarted
-  }
-})
+const subTasks = computed(() => subTasksStore.tasks.filter((e) => e.parentId == props.taskId))
 
 const addTask = (value: string, clearInput: () => void) => {
   const id = generateId()
-  task.value.subtasks.push({
+  subTasksStore.commit('create', {
     parentId: task.value.id,
     id,
     createdWithLocalId: id,
     subject: value,
-    status: 0,
+    status: keys.task.status.notStarted,
     createdTime: Date.now(),
     completedDateTime: 0,
     lastEditTime: 0
@@ -45,14 +38,14 @@ const addTask = (value: string, clearInput: () => void) => {
 }
 
 const deleteSubTask = (id: string) => {
-  const i = task.value.subtasks.findIndex((e) => e.id == id)
+  const subTask = subTasksStore.tasks.find((e) => e.id == id)!
 
   return new Promise((resolve) => {
     Modal.confirm({
       title: '删除步骤',
-      content: `将永久删除 ${task.value.subtasks[i].subject}`,
+      content: `将永久删除 ${subTask.subject}`,
       onOk() {
-        task.value.subtasks.splice(i, 1)
+        subTasksStore.commit('delete', { id })
         resolve(true)
       },
       onCancel() {
@@ -68,7 +61,7 @@ const focus = (id: string, subject: string) => {
   originSubject.set(id, subject)
 }
 const subTaskTextareaBlur = async (id: string) => {
-  const subTask = task.value.subtasks.find((e) => e.id == id)
+  const subTask = subTasksStore.tasks.find((e) => e.id == id)
 
   if (!subTask) {
     return
@@ -76,14 +69,20 @@ const subTaskTextareaBlur = async (id: string) => {
   if (!subTask.subject) {
     const result = await deleteSubTask(subTask.id)
     if (!result) {
-      subTask.subject = originSubject.get(subTask.id)!
+      subTasksStore.commit('update', {
+        id,
+        subject: originSubject.get(subTask.id)!
+      })
     }
   }
 }
 
 const textareaBlur = () => {
   if (!task.value.subject) {
-    task.value.subject = originSubject.get(task.value.id)!
+    tasksStore.commit('update', {
+      id: task.value.id,
+      subject: originSubject.get(task.value.id)!
+    })
   }
 }
 </script>
@@ -102,7 +101,7 @@ const textareaBlur = () => {
         size="large"
       />
     </div>
-    <div class="sub-task" v-for="i in task?.subtasks" :key="i.id">
+    <div class="sub-task" v-for="i in subTasks" :key="i.id">
       <task-radio v-model:status="i.status" />
       <a-textarea
         v-model:value="i.subject"
