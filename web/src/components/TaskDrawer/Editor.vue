@@ -31,7 +31,8 @@ const addTask = (value: string, clearInput: () => void) => {
     status: keys.task.status.notStarted,
     createdTime: Date.now(),
     completedDateTime: 0,
-    lastEditTime: 0
+    lastEditTime: 0,
+    isImported: false
   })
 
   clearInput()

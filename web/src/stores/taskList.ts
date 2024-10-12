@@ -30,7 +30,7 @@ export const useTasksListStore = defineStore('taskList', () => {
       id: id,
       createdWithLocalId: id,
       isSharedFolder: false,
-      IsOwner: false,
+      owner: '',
       name,
       sharingLink: '',
       showCompletedTasks: true,
@@ -38,7 +38,9 @@ export const useTasksListStore = defineStore('taskList', () => {
       sortType: '',
       themeBackground: '',
       themeColor: '',
-      parentFolderGroupId: ''
+      parentFolderGroupId: '',
+      status: 0,
+      createdTime: Date.now()
     })
   }
 

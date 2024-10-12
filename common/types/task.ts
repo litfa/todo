@@ -29,8 +29,16 @@ export interface BasisTask {
    */
   lastEditTime: number
   /**
+   * 重要的
+   */
+  isImported: boolean
+  /**
    * todo: order
    */
+  /**
+   * 创建用户
+   */
+  createUser: number
 }
 
 export interface Task extends BasisTask {
@@ -38,10 +46,6 @@ export interface Task extends BasisTask {
    * 正文
    */
   body: string
-  /**
-   * 重要的
-   */
-  isImported: boolean
   /**
    * 到期时间
    */
@@ -63,10 +67,6 @@ export interface Task extends BasisTask {
    * 提醒时间
    */
   reminderDateTime: number
-  /**
-   * 创建用户
-   */
-  createUser: number
 }
 
 export interface SubTask extends BasisTask {

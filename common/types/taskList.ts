@@ -8,10 +8,7 @@ export interface TaskList {
    * 是否共享
    */
   isSharedFolder: boolean
-  /**
-   *
-   */
-  IsOwner: boolean
+
   /**
    * 分组名
    */
@@ -45,4 +42,16 @@ export interface TaskList {
    * 所在组id
    */
   parentFolderGroupId: string
+  /**
+   * 创建用户
+   */
+  owner: string
+  /**
+   * 状态
+   */
+  status: number
+  /**
+   * 创建时间
+   */
+  createdTime: number
 }
