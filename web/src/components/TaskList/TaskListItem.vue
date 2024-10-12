@@ -30,7 +30,7 @@ const completedCount = computed(() => {
 })
 
 const updateStatus = (status: number) => {
-  tasksStore.commit('update', {
+  tasksStore.action('update', {
     id: props.id,
     status: status
   })

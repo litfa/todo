@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTasksStore, useTasksListStore } from '@/stores/'
+import { useTasksStore } from '@/stores/'
 import { generateId } from '@/utils/snowflake'
 import AddTaskInput from './AddTaskInput.vue'
 import { keys, defaultList, inboxTaskListId } from '@ltfei/todo-common'
@@ -20,7 +20,7 @@ const addTask = () => {
 
   const taskId = generateId()
   const parentFolderId = defaultList.includes(id.value) ? inboxTaskListId : id.value
-  tasksStore.commit('create', {
+  tasksStore.action('create', {
     body: '',
     isImported: false,
     expirationTime: 0,

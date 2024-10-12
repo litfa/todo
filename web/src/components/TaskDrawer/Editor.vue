@@ -23,7 +23,7 @@ const subTasks = computed(() => subTasksStore.tasks.filter((e) => e.parentId == 
 
 const addTask = (value: string, clearInput: () => void) => {
   const id = generateId()
-  subTasksStore.commit('create', {
+  subTasksStore.action('create', {
     parentId: task.value.id,
     id,
     createdWithLocalId: id,
@@ -47,7 +47,7 @@ const deleteSubTask = (id: string) => {
       title: '删除步骤',
       content: `将永久删除 ${subTask.subject}`,
       onOk() {
-        subTasksStore.commit('delete', { id })
+        subTasksStore.action('delete', { id })
         resolve(true)
       },
       onCancel() {
@@ -71,7 +71,7 @@ const subTaskTextareaBlur = async (id: string) => {
   if (!subTask.subject) {
     const result = await deleteSubTask(subTask.id)
     if (!result) {
-      subTasksStore.commit('update', {
+      subTasksStore.action('update', {
         id,
         subject: originSubject.get(subTask.id)!
       })
@@ -81,7 +81,7 @@ const subTaskTextareaBlur = async (id: string) => {
 
 const textareaBlur = () => {
   if (!task.value.subject) {
-    tasksStore.commit('update', {
+    tasksStore.action('update', {
       id: task.value.id,
       subject: originSubject.get(task.value.id)!
     })
@@ -89,26 +89,26 @@ const textareaBlur = () => {
 }
 
 const updateTaskSubject = (value: string) => {
-  tasksStore.commit('update', {
+  tasksStore.action('update', {
     id: task.value.id,
     subject: value
   })
 }
 
 const updateTaskStatus = (value: number) => {
-  tasksStore.commit('update', {
+  tasksStore.action('update', {
     id: task.value.id,
     status: value
   })
 }
 const updateSubTaskStatus = (id: string, value: number) => {
-  subTasksStore.commit('update', {
+  subTasksStore.action('update', {
     id,
     status: value
   })
 }
 const updateSubTaskSubject = (id: string, value: string) => {
-  subTasksStore.commit('update', {
+  subTasksStore.action('update', {
     id,
     subject: value
   })

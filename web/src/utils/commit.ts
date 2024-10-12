@@ -1,21 +1,19 @@
-import type { Commit as CommitType } from '@ltfei/todo-common'
+import type { Commit as CommitType, TargetTable, Operation } from '@ltfei/todo-common'
+import { Delete, Create } from '@ltfei/todo-common'
 import { generateId } from '@/utils/snowflake'
 
 export class Commit<T> implements CommitType<T> {
   readonly commitId: string
-  operation: 'create' | 'update' | 'delete'
-  targetTable: 'tasks' | 'subTasks' | 'taskList'
+  operation: Operation
+  targetTable: TargetTable
   source: string
   user: number
   data: T
-  createdTime: number
+  readonly createdTime: number
   lastEditTime: number
+  synced: boolean
 
-  constructor(
-    operation: 'create' | 'update' | 'delete',
-    targetTable: 'tasks' | 'subTasks' | 'taskList',
-    data: T
-  ) {
+  constructor(operation: Operation, targetTable: TargetTable, data: T) {
     const commitId = generateId()
     this.commitId = commitId
     this.operation = operation
@@ -26,15 +24,26 @@ export class Commit<T> implements CommitType<T> {
     // todo: 获取来源字符串和用户id
     this.source = 'web'
     this.user = -1
+    this.synced = false
   }
 
   /**
-   * todo:
-   * 更新commit
+   * 更改 commit
+   * 将同一记录的多次修改合并为一次 commit
    * @param data
    *
    */
-  private update(data: T) {
+  public update(operation: Operation, data: T) {
+    this.lastEditTime = Date.now()
+
+    if (operation == Delete) {
+      if (this.operation == Create) {
+        this.synced = true
+      }
+      this.operation = operation
+      return
+    }
+
     this.data = {
       ...this.data,
       ...data

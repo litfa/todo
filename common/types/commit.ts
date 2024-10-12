@@ -1,9 +1,9 @@
-const Create = 'create'
-const Delete = 'delete'
-const Update = 'update'
+export const Create = 'create'
+export const Delete = 'delete'
+export const Update = 'update'
 
-type Operation = typeof Create | typeof Delete | typeof Update
-type TargetTable = 'tasks' | 'subTasks' | 'taskList'
+export type Operation = typeof Create | typeof Delete | typeof Update
+export type TargetTable = 'tasks' | 'subTasks' | 'taskList'
 
 export interface Commit<T> {
   commitId: string

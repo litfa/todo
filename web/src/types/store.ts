@@ -1,7 +1,8 @@
 import type { OptionalExcept } from './common'
+import { Create, Delete, Update } from '@ltfei/todo-common'
 
-export type StoreCommit<T extends { id: string }> = {
-  (operation: 'create', data: T): void
-  (operation: 'delete', data: { id: string }): void
-  (operation: 'update', data: OptionalExcept<T, 'id'>): void
+export type Action<T extends { id: string }> = {
+  (operation: typeof Create, data: T): void
+  (operation: typeof Delete, data: { id: string }): void
+  (operation: typeof Update, data: OptionalExcept<T, 'id'>): void
 }
