@@ -1,12 +1,16 @@
 import type { TaskList } from '@ltfei/todo-common'
 import { defineStore } from 'pinia'
 import { generateId } from '../utils/snowflake'
-import type { Commit, ReadonlyDeep } from '@/types'
+import type { StoreCommit, ReadonlyDeep } from '@/types'
+import { Commit } from '@/utils/commit'
+import { useCommitsStore } from './commits'
 
 export const useTasksListStore = defineStore('taskList', () => {
   const tasks = ref<TaskList[]>([])
 
-  const commit: Commit<TaskList> = (type, data) => {
+  const commitsStore = useCommitsStore()
+  const commit: StoreCommit<TaskList> = (type, data) => {
+    commitsStore.createCommit(new Commit<TaskList>(type, 'tasks', data as TaskList))
     if (type == 'create') {
       tasks.value.push(data as TaskList)
       return

@@ -1,12 +1,15 @@
 import type { SubTask } from '@ltfei/todo-common'
 import { defineStore } from 'pinia'
-import type { Commit, ReadonlyDeep } from '@/types'
+import type { StoreCommit, ReadonlyDeep } from '@/types'
+import { Commit } from '@/utils/commit'
+import { useCommitsStore } from './commits'
 
 export const useSubTasksStore = defineStore('subTasks', () => {
   const tasks = ref<SubTask[]>([])
 
-  const commit: Commit<SubTask> = (type, data) => {
-    console.log(type)
+  const commitsStore = useCommitsStore()
+  const commit: StoreCommit<SubTask> = (type, data) => {
+    commitsStore.createCommit(new Commit<SubTask>(type, 'tasks', data as SubTask))
 
     if (type == 'create') {
       tasks.value.push(data as SubTask)

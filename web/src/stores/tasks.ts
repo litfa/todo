@@ -1,12 +1,16 @@
 import type { Task } from '@ltfei/todo-common'
 import { defaultList, inboxTaskListId, inbox } from '@ltfei/todo-common'
 import { defineStore } from 'pinia'
-import type { Commit, ReadonlyDeep } from '@/types'
+import type { StoreCommit, ReadonlyDeep } from '@/types'
+import { useCommitsStore } from './commits'
+import { Commit } from '@/utils/commit'
 
 export const useTasksStore = defineStore('tasks', () => {
   const tasks = ref<Task[]>([])
 
-  const commit: Commit<Task> = (type, data) => {
+  const commitsStore = useCommitsStore()
+  const commit: StoreCommit<Task> = (type, data) => {
+    commitsStore.createCommit(new Commit<Task>(type, 'tasks', data as Task))
     if (type == 'create') {
       tasks.value.push(data as Task)
       return

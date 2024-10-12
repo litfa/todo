@@ -32,7 +32,8 @@ const addTask = (value: string, clearInput: () => void) => {
     createdTime: Date.now(),
     completedDateTime: 0,
     lastEditTime: 0,
-    isImported: false
+    isImported: false,
+    createUser: 0
   })
 
   clearInput()
