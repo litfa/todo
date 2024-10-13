@@ -5,8 +5,8 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "format": "prettier --write --cache .",
-    "dev": "nodemon -x node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm packages/app/app.ts",
-    "start": "ts-node-esm --experimental-specifier-resolution=node packages/app/app.ts",
+    "dev": "nodemon -x tsx packages/app/app.ts",
+    "start": "tsx packages/app/app.ts",
     "build": "pnpm -C build exec webpack"
   },
   "keywords": [],
@@ -14,9 +14,9 @@
   "license": "GPL",
   "repository": "https://github.com/your-project-name/service",
   "workspaces": [
-    "packages/*",
     "build"
   ],
+  "type": "module",
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
     "@types/cors": "^2.8.14",
@@ -30,14 +30,12 @@
     "@types/uuid": "^9.0.2",
     "nodemon": "^2.0.22",
     "prettier": "^3.0.0",
-    "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.19.1",
     "typescript": "^5.1.6"
   },
   "dependencies": {
     "@ltfei/todo-common": "workspace:^",
-    "@sapphire/snowflake": "^3.5.3",
-    "add": "^2.0.6",
     "axios": "^1.5.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",

@@ -8,8 +8,4 @@ export * from './tables/permission_groups'
 export * from './tables/permission_user_group'
 export * from './tables/config'
 
-export * from './tables/tasks'
-export * from './tables/taskList'
-export * from './tables/subTasks'
-
 import('./assocs')

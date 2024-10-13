@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "todo common",
   "main": "index.ts",
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "MIT"
