@@ -26,7 +26,7 @@ export const SubTasks = sequelize.define<Model<Table, Table>, Table>(
     completed_date_time: DataTypes.BIGINT,
     last_edit_time: DataTypes.BIGINT,
     parent_id: DataTypes.BIGINT,
-    create_user: DataTypes.BIGINT
+    owner: DataTypes.BIGINT
   },
   {
     timestamps: false,

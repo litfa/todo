@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import task from './task'
+import push from './push'
 
 const router = Router()
 
-router.use('/task', task)
+router.use('/push', push)
 
 export default router

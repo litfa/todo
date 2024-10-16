@@ -25,8 +25,11 @@ export const Tasks = sequelize.define<Model<Table, Table>, Table>(
     is_reminder_on: DataTypes.BOOLEAN,
     parent_folder_id: DataTypes.BIGINT,
     reminder_date_time: DataTypes.BIGINT,
-    create_user: DataTypes.INET,
-    created_with_local_id: DataTypes.CHAR,
+    owner: DataTypes.INET,
+    created_with_local_id: {
+      type: DataTypes.CHAR,
+      unique: true
+    },
     subject: DataTypes.CHAR,
     status: DataTypes.INTEGER,
     created_time: DataTypes.BIGINT,
