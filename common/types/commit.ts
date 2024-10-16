@@ -35,4 +35,8 @@ export interface Commit<T> {
    * 最后编辑时间
    */
   lastEditTime: number
+  /**
+   * 是否同步
+   */
+  synced?: boolean
 }

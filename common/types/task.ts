@@ -38,7 +38,7 @@ export interface BasisTask {
   /**
    * 创建用户
    */
-  createUser: number
+  owner: number
 }
 
 export interface Task extends BasisTask {

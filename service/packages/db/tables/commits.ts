@@ -8,15 +8,18 @@ import { DataTypes, Model } from 'sequelize'
 import { Commit } from '@ltfei/todo-common'
 import { UnderlineObjectKeys } from '../types'
 
-type Table = UnderlineObjectKeys<Commit<string>>
+interface TableType extends Commit<string> {
+  commit_id: number
+}
+
+type Table = UnderlineObjectKeys<TableType>
 
 export const Commits = sequelize.define<Model<Table, Table>, Table>(
   'commits',
   {
     commit_id: {
       type: DataTypes.BIGINT,
-      primaryKey: true,
-      autoIncrement: true
+      primaryKey: true
     },
 
     created_time: DataTypes.BIGINT,

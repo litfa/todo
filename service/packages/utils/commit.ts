@@ -15,13 +15,7 @@ const getModel = (table: Commit<any>['targetTable']): ModelStatic<Model<any>> =>
   }
 }
 
-/**
- * 处理commit
- * @returns
- * - create: value is insertId
- * - delete/update : value is affectedCount
- */
-export const handlingCommits = async (commit: Commit<any>) => {
+const updateData = async (commit: Commit<any>) => {
   const model: ModelStatic<Model<any>> = getModel(commit.targetTable)
   if (commit.operation == Create) {
     const result = await model.create({
@@ -59,4 +53,22 @@ export const handlingCommits = async (commit: Commit<any>) => {
       value: result
     }
   }
+}
+
+/**
+ * 处理commit
+ * @returns
+ * - create: value is insertId
+ * - delete/update : value is affectedCount
+ */
+export const handlingCommits = async (commit: Commit<any>) => {
+  const result = await updateData(commit)
+
+  await Commits.create({
+    ...convertKeysToSnakeCase(commit),
+    commit_id: parseInt(commit.commitId, 36),
+    data: JSON.stringify(commit.data)
+  })
+
+  return result
 }
