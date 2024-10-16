@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTasksStore } from '@/stores/'
-import { generateId } from '@/utils/snowflake'
+import { generateIdWithSource } from '@/utils/snowflake'
 import AddTaskInput from './AddTaskInput.vue'
 import { keys, defaultList, inboxTaskListId } from '@ltfei/todo-common'
 
@@ -18,7 +18,7 @@ const addTask = () => {
     return
   }
 
-  const taskId = generateId()
+  const taskId = generateIdWithSource()
   const parentFolderId = defaultList.includes(id.value) ? inboxTaskListId : id.value
   tasksStore.action('create', {
     body: '',
@@ -28,7 +28,7 @@ const addTask = () => {
     isReminderOn: false,
     parentFolderId,
     reminderDateTime: 0,
-    createUser: 0,
+    owner: 0,
     id: taskId,
     createdWithLocalId: taskId,
     subject: text.value,

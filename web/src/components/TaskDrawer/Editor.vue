@@ -2,7 +2,7 @@
 import { keys } from '@ltfei/todo-common'
 import { useTasksStore, useSubTasksStore } from '@/stores/'
 import AddTaskInput from '@/components/AddTask/AddTaskInput.vue'
-import { generateId } from '@/utils/snowflake'
+import { generateIdWithSource } from '@/utils/snowflake'
 import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
 import { MoreOne as IconMoreOne, Delete as IconDelete } from '@icon-park/vue-next'
 import { Modal } from 'ant-design-vue'
@@ -22,7 +22,7 @@ const task = computed(() => tasksStore.tasks.find((e) => e.id == props.taskId)!)
 const subTasks = computed(() => subTasksStore.tasks.filter((e) => e.parentId == props.taskId))
 
 const addTask = (value: string, clearInput: () => void) => {
-  const id = generateId()
+  const id = generateIdWithSource()
   subTasksStore.action('create', {
     parentId: task.value.id,
     id,
@@ -33,7 +33,7 @@ const addTask = (value: string, clearInput: () => void) => {
     completedDateTime: 0,
     lastEditTime: 0,
     isImported: false,
-    createUser: 0
+    owner: 0
   })
 
   clearInput()

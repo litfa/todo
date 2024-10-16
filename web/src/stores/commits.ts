@@ -1,6 +1,6 @@
-import type { SubTask, Task, TaskList, TargetTable, Operation } from '@ltfei/todo-common'
+import type { SubTask, Task, TaskList, TargetTable, Operation, Commit } from '@ltfei/todo-common'
 import { defineStore } from 'pinia'
-import { Commit } from '@/utils/commit'
+import { createCommitInstance, updateCommitInstance } from '@/utils/commit'
 
 export const useCommitsStore = defineStore('commitsStore', () => {
   const commits = ref<Commit<SubTask | Task | TaskList>[]>([])
@@ -15,12 +15,12 @@ export const useCommitsStore = defineStore('commitsStore', () => {
     })
 
     if (!commit) {
-      const commit = new Commit(operation, targetTable, data)
+      const commit = createCommitInstance(operation, targetTable, data)
       commits.value.push(commit)
       return
     }
 
-    commit.update(operation, data)
+    updateCommitInstance(commit, operation, data)
   }
 
   return {
