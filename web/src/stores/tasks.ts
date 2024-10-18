@@ -3,9 +3,12 @@ import { defaultList, inboxTaskListId, inbox } from '@ltfei/todo-common'
 import { defineStore } from 'pinia'
 import type { ReadonlyDeep } from '@/types'
 import { useAction } from '@/utils/useAction'
+import { useStorage } from '@/utils/useStorage'
 
 export const useTasksStore = defineStore('tasks', () => {
   const tasks = ref<Task[]>([])
+
+  useStorage('tasks', tasks)
 
   const action = useAction(tasks, 'tasks')
 

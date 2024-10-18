@@ -3,9 +3,12 @@ import { defineStore } from 'pinia'
 import { generateIdWithSource } from '../utils/snowflake'
 import type { ReadonlyDeep } from '@/types'
 import { useAction } from '@/utils/useAction'
+import { useStorage } from '@/utils/useStorage'
 
 export const useTasksListStore = defineStore('taskList', () => {
   const taskList = ref<TaskList[]>([])
+
+  useStorage('taskList', taskList)
 
   const action = useAction(taskList, 'taskList')
 

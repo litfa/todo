@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useSyncCommits } from '@/utils/useSyncCommits'
+
+useSyncCommits()
+</script>
 
 <template>
   <RouterView />
