@@ -62,18 +62,26 @@ router.post('/', async (req: Request, res) => {
 
   res.send({
     status: 200,
-    data: results.map((e) => {
-      const err = e.status == 'rejected'
-      if (err) {
-        return {
-          err
+    data: {
+      errCount: results.reduce((previousValue, currentValue) => {
+        if (currentValue.status == 'rejected') {
+          return previousValue + 1
         }
-      }
-      return {
-        err,
-        value: e.value
-      }
-    })
+        return previousValue
+      }, 0),
+      results: results.map((e) => {
+        const err = e.status == 'rejected'
+        if (err) {
+          return {
+            err
+          }
+        }
+        return {
+          err,
+          value: e.value
+        }
+      })
+    }
   })
 })
 

@@ -1,3 +1,5 @@
+import type { Task, SubTask, TaskList } from '../'
+
 export const Create = 'create'
 export const Delete = 'delete'
 export const Update = 'update'
@@ -5,7 +7,7 @@ export const Update = 'update'
 export type Operation = typeof Create | typeof Delete | typeof Update
 export type TargetTable = 'tasks' | 'subTasks' | 'taskList'
 
-export interface Commit<T> {
+export interface Commit<T = Task | SubTask | TaskList> {
   commitId: string
   /**
    * 操作(增删改)
@@ -35,6 +37,10 @@ export interface Commit<T> {
    * 最后编辑时间
    */
   lastEditTime: number
+  /**
+   * 同步时间
+   */
+  syncTime?: number
   /**
    * 是否同步
    */

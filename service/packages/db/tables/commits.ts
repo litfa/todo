@@ -28,7 +28,11 @@ export const Commits = sequelize.define<Model<Table, Table>, Table>(
     target_table: DataTypes.CHAR,
     source: DataTypes.CHAR,
     user: DataTypes.BIGINT,
-    data: DataTypes.TEXT
+    data: DataTypes.TEXT,
+    sync_time: {
+      type: DataTypes.BIGINT,
+      allowNull: false
+    }
   },
   {
     timestamps: false,

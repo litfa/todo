@@ -14,8 +14,13 @@ const getModel = (table: Commit<any>['targetTable']): ModelStatic<Model<any>> =>
       return TaskList
   }
 }
-
-const updateData = async (commit: Commit<any>) => {
+// todo: 添加任务时判断任务列表是否有权限
+const updateData = async (
+  commit: Commit<any>
+): Promise<{
+  commitId: string
+  value: number | string
+}> => {
   const model: ModelStatic<Model<any>> = getModel(commit.targetTable)
   if (commit.operation == Create) {
     const result = await model.create({
@@ -64,10 +69,15 @@ const updateData = async (commit: Commit<any>) => {
 export const handlingCommits = async (commit: Commit<any>) => {
   const result = await updateData(commit)
 
+  if (commit.operation == Create) {
+    commit.data.id = result.value
+  }
+
   await Commits.create({
     ...convertKeysToSnakeCase(commit),
     commit_id: parseInt(commit.commitId, 36),
-    data: JSON.stringify(commit.data)
+    data: JSON.stringify(commit.data),
+    sync_time: Date.now()
   })
 
   return result

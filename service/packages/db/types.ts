@@ -52,3 +52,10 @@ export type CamelCase<Str extends string> =
 export type UnderlineObjectKeys<T> = {
   [K in keyof T as UnderlineCase<string & K>]: T[K]
 }
+
+/**
+ * 将对象的key转换为驼峰
+ */
+export type CamelObjectKeys<T> = {
+  [K in keyof T as CamelCase<string & K>]: T[K]
+}
