@@ -14,11 +14,11 @@ export const useTasksListStore = defineStore('taskList', () => {
 
   const createList = (name: string) => {
     const id = generateIdWithSource()
-    action('create', {
+    action.action('create', {
       id: id,
       createdWithLocalId: id,
       isSharedFolder: false,
-      owner: '',
+      owner: '1',
       name,
       sharingLink: '',
       showCompletedTasks: true,
@@ -32,5 +32,5 @@ export const useTasksListStore = defineStore('taskList', () => {
     })
   }
 
-  return { tasks: taskList as Ref<ReadonlyDeep<TaskList[]>>, createList, action }
+  return { tasks: taskList as Ref<ReadonlyDeep<TaskList[]>>, createList, ...action }
 })

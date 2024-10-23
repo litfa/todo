@@ -5,8 +5,12 @@ import { useStorage } from '@/utils/useStorage'
 
 export const useCommitsStore = defineStore('commitsStore', () => {
   const commits = ref<Commit<SubTask | Task | TaskList>[]>([])
+  const lastSyncTime = ref(0)
+  const syncError = ref(false)
+  const isSynchronizing = ref(false)
 
   useStorage('commitsStore', commits)
+  useStorage('lastSyncTime', lastSyncTime)
 
   const createCommit = (
     operation: Operation,
@@ -28,6 +32,9 @@ export const useCommitsStore = defineStore('commitsStore', () => {
 
   return {
     commits,
+    lastSyncTime,
+    syncError,
+    isSynchronizing,
     createCommit
   }
 })

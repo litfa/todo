@@ -10,8 +10,10 @@ export const useAction = <T extends SubTask | Task | TaskList>(
 ) => {
   const commitsStore = useCommitsStore()
 
-  const action: Action<T> = (operation, data) => {
-    commitsStore.createCommit(operation, targetTable, data as T)
+  const action: Action<T> = (operation, data, option = {}) => {
+    if (!option.notCreateCommit) {
+      commitsStore.createCommit(operation, targetTable, data as T)
+    }
 
     if (operation == Create) {
       state.value.push(data as T)
@@ -30,5 +32,17 @@ export const useAction = <T extends SubTask | Task | TaskList>(
     }
   }
 
-  return action
+  const updateId = (before: string, after: string) => {
+    const el = state.value.find((e) => e.id == before)
+    if (!el) {
+      return false
+    }
+    el.id = after
+    return true
+  }
+
+  return {
+    action,
+    updateId
+  }
 }

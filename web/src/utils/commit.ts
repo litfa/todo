@@ -17,7 +17,7 @@ export const createCommitInstance = <T>(
     lastEditTime: -1,
     // todo: 获取来源字符串和用户id
     source: 'web',
-    user: -1,
+    user: 1,
     synced: false
   }
 }

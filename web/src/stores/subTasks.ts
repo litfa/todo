@@ -11,5 +11,5 @@ export const useSubTasksStore = defineStore('subTasks', () => {
 
   const action = useAction(subTasks, 'subTasks')
 
-  return { tasks: subTasks as Ref<ReadonlyDeep<SubTask[]>>, action }
+  return { tasks: subTasks as Ref<ReadonlyDeep<SubTask[]>>, ...action }
 })

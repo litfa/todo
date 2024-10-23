@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import { useSyncCommits } from '@/utils/useSyncCommits'
+import { SyncCommitsService } from '@/utils/useSyncCommits'
 
-useSyncCommits()
+const syncCommitsService = new SyncCommitsService()
+
+// syncCommitsService.startSync(6000)
+
+onUnmounted(() => {
+  syncCommitsService.destroy()
+})
 </script>
 
 <template>
+  <button @click="syncCommitsService.sync()">sync</button>
   <RouterView />
 </template>
 

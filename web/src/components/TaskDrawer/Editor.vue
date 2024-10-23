@@ -33,7 +33,7 @@ const addTask = (value: string, clearInput: () => void) => {
     completedDateTime: 0,
     lastEditTime: 0,
     isImported: false,
-    owner: 0
+    owner: 1
   })
 
   clearInput()

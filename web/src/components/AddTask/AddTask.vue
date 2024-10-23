@@ -28,7 +28,7 @@ const addTask = () => {
     isReminderOn: false,
     parentFolderId,
     reminderDateTime: 0,
-    owner: 0,
+    owner: 1,
     id: taskId,
     createdWithLocalId: taskId,
     subject: text.value,

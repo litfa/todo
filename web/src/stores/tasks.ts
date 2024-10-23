@@ -26,5 +26,5 @@ export const useTasksStore = defineStore('tasks', () => {
     })
   }
 
-  return { tasks: tasks as Ref<ReadonlyDeep<Task[]>>, action, getTasksByParentFolderId }
+  return { tasks: tasks as Ref<ReadonlyDeep<Task[]>>, ...action, getTasksByParentFolderId }
 })
