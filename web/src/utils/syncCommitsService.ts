@@ -3,6 +3,7 @@ import type { Commit, Task, SubTask, TaskList } from '@ltfei/todo-common'
 import { Create, Delete } from '@ltfei/todo-common'
 import { pull, push } from '@/apis/task'
 import type { Update as UpdateFunction } from '@/types/store'
+import { throttle } from 'lodash'
 
 // todo: action加一个改id
 
@@ -22,6 +23,19 @@ export class SyncCommitsService {
     this.timer = setTimeout(() => {
       this.startSync(interval)
     }, interval)
+  }
+
+  public listen() {
+    watch(
+      () => this.commitsStore.commits,
+      throttle(() => this.sync(), 5000, {
+        leading: false,
+        trailing: true
+      }),
+      {
+        deep: true
+      }
+    )
   }
 
   public async sync() {

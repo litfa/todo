@@ -3,7 +3,7 @@ import { SyncCommitsService } from '@/utils/syncCommitsService'
 
 const syncCommitsService = new SyncCommitsService()
 
-// syncCommitsService.startSync(6000)
+syncCommitsService.listen()
 
 onUnmounted(() => {
   syncCommitsService.destroy()
@@ -11,7 +11,6 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <button @click="syncCommitsService.sync()">sync</button>
   <RouterView />
 </template>
 
