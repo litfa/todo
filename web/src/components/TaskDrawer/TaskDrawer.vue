@@ -74,10 +74,11 @@ export type { Expose }
   flex-direction: column;
   transition: all 0.3s;
   width: 0;
-  padding: 8px;
+  padding: 8px 0;
   box-sizing: border-box;
   &.open {
     width: @width;
+    padding: 8px;
   }
   .header {
     display: flex;
@@ -104,7 +105,6 @@ export type { Expose }
     // width: @width;
   }
   .footer {
-    width: @width;
     height: 40px;
     font-size: 14px;
     display: flex;
