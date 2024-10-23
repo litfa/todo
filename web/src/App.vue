@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SyncCommitsService } from '@/utils/useSyncCommits'
+import { SyncCommitsService } from '@/utils/syncCommitsService'
 
 const syncCommitsService = new SyncCommitsService()
 

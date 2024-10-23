@@ -4,60 +4,6 @@ import { Create, Delete } from '@ltfei/todo-common'
 import { pull, push } from '@/apis/task'
 import type { Update as UpdateFunction } from '@/types/store'
 
-/**
- * @deprecated
- */
-export const useSyncCommits = () => {
-  const commitsStore = useCommitsStore()
-  const tasks = useTasksStore()
-  // const subTasks = useSubTasksStore()
-  const tasksList = useTasksListStore()
-
-  console.log(commitsStore)
-
-  const interval = setInterval(() => {
-    const commits = commitsStore.commits.filter((e) => {
-      return !e.synced
-    })
-    syncCommit(commits, commitsStore.lastSyncTime)
-  }, 3000)
-
-  const getStore = (commit: Commit) => {
-    if (commit.targetTable == 'tasks') {
-      return tasks
-    } else if (commit.targetTable == 'subTasks') {
-      return tasks
-    } else if (commit.targetTable == 'taskList') {
-      return tasksList
-    } else {
-      const a: never = commit.targetTable
-      return a
-    }
-  }
-
-  const action = (commit: Commit) => {
-    const store = getStore(commit)
-    if (!store) return
-    ;(store.action as UpdateFunction<SubTask | Task | TaskList>)(commit.operation, commit.data, {
-      notCreateCommit: true
-    })
-  }
-
-  const syncCommit = async (commits: Commit[], lastSyncTime: number) => {
-    const { data } = await pull(lastSyncTime)
-    commitsStore.lastSyncTime = data.syncTime
-    data.commits.forEach((e) => {
-      action(e)
-    })
-  }
-
-  const destroy = () => {
-    clearInterval(interval)
-  }
-
-  return destroy
-}
-
 // todo: action加一个改id
 
 export class SyncCommitsService {
