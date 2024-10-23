@@ -32,5 +32,5 @@ export const useTasksListStore = defineStore('taskList', () => {
     })
   }
 
-  return { tasks: taskList as Ref<ReadonlyDeep<TaskList[]>>, createList, ...action }
+  return { taskList: taskList as Ref<ReadonlyDeep<TaskList[]>>, createList, ...action }
 })

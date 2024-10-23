@@ -19,7 +19,7 @@ const tasksStore = useTasksStore()
 const subTasksStore = useSubTasksStore()
 
 const task = computed(() => tasksStore.tasks.find((e) => e.id == props.taskId)!)
-const subTasks = computed(() => subTasksStore.tasks.filter((e) => e.parentId == props.taskId))
+const subTasks = computed(() => subTasksStore.subTasks.filter((e) => e.parentId == props.taskId))
 
 const addTask = (value: string, clearInput: () => void) => {
   const id = generateIdWithSource()
@@ -40,7 +40,7 @@ const addTask = (value: string, clearInput: () => void) => {
 }
 
 const deleteSubTask = (id: string) => {
-  const subTask = subTasksStore.tasks.find((e) => e.id == id)!
+  const subTask = subTasksStore.subTasks.find((e) => e.id == id)!
 
   return new Promise((resolve) => {
     Modal.confirm({
@@ -63,7 +63,7 @@ const focus = (id: string, subject: string) => {
   originSubject.set(id, subject)
 }
 const subTaskTextareaBlur = async (id: string) => {
-  const subTask = subTasksStore.tasks.find((e) => e.id == id)
+  const subTask = subTasksStore.subTasks.find((e) => e.id == id)
 
   if (!subTask) {
     return

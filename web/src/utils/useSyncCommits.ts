@@ -1,6 +1,6 @@
 import { useCommitsStore, useTasksStore, useSubTasksStore, useTasksListStore } from '@/stores'
 import type { Commit, Task, SubTask, TaskList } from '@ltfei/todo-common'
-import { Create, Delete, Update } from '@ltfei/todo-common'
+import { Create, Delete } from '@ltfei/todo-common'
 import { pull, push } from '@/apis/task'
 import type { Update as UpdateFunction } from '@/types/store'
 
@@ -10,7 +10,7 @@ import type { Update as UpdateFunction } from '@/types/store'
 export const useSyncCommits = () => {
   const commitsStore = useCommitsStore()
   const tasks = useTasksStore()
-  const subTasks = useSubTasksStore()
+  // const subTasks = useSubTasksStore()
   const tasksList = useTasksListStore()
 
   console.log(commitsStore)

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import TaskListItem from './TaskListItem.vue'
-import { useTasksStore, useTasksListStore } from '@/stores/'
+import { useTasksStore } from '@/stores/'
 import { keys } from '@ltfei/todo-common'
 import { Right as IconRight } from '@icon-park/vue-next'
 

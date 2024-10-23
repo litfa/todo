@@ -2,7 +2,7 @@ import type { taskGroup } from '@ltfei/todo-common'
 import { defineStore } from 'pinia'
 
 export const useTaskGroupStore = defineStore('taskGroup', () => {
-  const tasks = ref<taskGroup[]>([])
+  const taskGroup = ref<taskGroup[]>([])
 
-  return { tasks }
+  return { taskGroup }
 })

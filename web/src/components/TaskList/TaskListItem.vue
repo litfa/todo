@@ -17,7 +17,7 @@ const tasksStore = useTasksStore()
 const subTasksStore = useSubTasksStore()
 
 const subTasks = computed(() => {
-  return subTasksStore.tasks.filter((e) => e.parentId == props.id)
+  return subTasksStore.subTasks.filter((e) => e.parentId == props.id)
 })
 
 const completedCount = computed(() => {

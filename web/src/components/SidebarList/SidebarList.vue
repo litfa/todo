@@ -1,21 +1,19 @@
 <script setup lang="ts">
-import type { MenuProps, ItemType } from 'ant-design-vue'
-import { useTaskGroupStore, useTasksListStore } from '@/stores/index'
+import { useTasksListStore } from '@/stores/index'
 import SidebarListItem from './SidebarListItem.vue'
-import SidebarListGroup from './SidebarListGroup.vue'
 import { defaultList } from '@ltfei/todo-common'
 
 defineOptions({
   name: 'SidebarList'
 })
 
-const taskGroup = useTaskGroupStore()
+// const taskGroup = useTaskGroupStore()
 const taskList = useTasksListStore()
 const router = useRouter()
 const route = useRoute()
 
 const items = computed(() => {
-  return taskList.tasks.filter((list) => {
+  return taskList.taskList.filter((list) => {
     return !list.parentFolderGroupId
   })
 })

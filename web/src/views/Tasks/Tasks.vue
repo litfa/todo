@@ -3,8 +3,8 @@ import TaskList from '@/components/TaskList/TaskList.vue'
 import AddTask from '@/components/AddTask/AddTask.vue'
 import TaskDrawer from '@/components/TaskDrawer/TaskDrawer.vue'
 import type { Expose } from '@/components/TaskDrawer/TaskDrawer.vue'
-import { useTasksStore, useTasksListStore } from '@/stores/'
-import { defaultList, inboxTaskListId } from '@ltfei/todo-common'
+import { useTasksListStore } from '@/stores/'
+import { defaultList } from '@ltfei/todo-common'
 
 defineOptions({
   name: 'TasksPage'
@@ -16,7 +16,7 @@ const id = computed(() => route.params.id as string)
 const tasksListStore = useTasksListStore()
 
 const taskList = computed(() => {
-  return tasksListStore.tasks.find((e) => {
+  return tasksListStore.taskList.find((e) => {
     return e.id == id.value
   })
 })
