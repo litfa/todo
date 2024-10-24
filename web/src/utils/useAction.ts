@@ -41,8 +41,13 @@ export const useAction = <T extends SubTask | Task | TaskList>(
     return true
   }
 
+  const getStateById = (id: string) => {
+    return state.value.find((e) => e.id == id)
+  }
+
   return {
     action,
-    updateId
+    updateId,
+    getStateById
   }
 }

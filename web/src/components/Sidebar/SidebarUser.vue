@@ -9,13 +9,17 @@ const commitsStore = useCommitsStore()
 
 const syncStatus = computed(() => {
   const notSyncCount = commitsStore.commits.reduce((previousValue, currentValue) => {
-    if (currentValue) {
+    if (!currentValue.synced) {
       return previousValue + 1
     }
-    return currentValue
+    return previousValue
   }, 0)
 
-  return notSyncCount
+  // if(commitsStore.syncError) {
+  //   return ''
+  // }
+
+  return notSyncCount > 0 ? '正在同步' : '同步完成'
 })
 </script>
 

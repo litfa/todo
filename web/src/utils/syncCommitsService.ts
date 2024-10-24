@@ -5,8 +5,6 @@ import { pull, push } from '@/apis/task'
 import type { Update as UpdateFunction } from '@/types/store'
 import { throttle } from 'lodash'
 
-// todo: action加一个改id
-
 export class SyncCommitsService {
   private commitsStore = useCommitsStore()
   private tasks = useTasksStore()
@@ -64,6 +62,7 @@ export class SyncCommitsService {
   }
 
   /**
+   * - 判断这个 commit 是否已经处理
    * - Create 和 Delete 全量处理(不创建commit)
    * - 判断是否有已有的commit
    * - 如有 对比修改时间，若拿到的更早，不做处理，如果更晚，则提交新的commit
@@ -73,8 +72,14 @@ export class SyncCommitsService {
     const { data } = await pull(this.commitsStore.lastSyncTime)
     this.commitsStore.lastSyncTime = data.syncTime
     data.commits.forEach((e) => {
+      const store = this.getStore(e)
       const action = this.getStoreAction(e)
       if (!action) return false
+
+      const exists = store.getStateById(e.data.id)
+      if (exists) {
+        return
+      }
 
       if (e.operation == Create || e.operation == Delete) {
         action(e.operation, e.data, {
