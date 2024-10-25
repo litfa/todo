@@ -3,6 +3,8 @@ import type { Task } from '@ltfei/todo-common'
 import { keys } from '@ltfei/todo-common'
 import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
 import { useTasksStore, useSubTasksStore } from '@/stores/'
+import Switch from '@/components/Switch/Switch.vue'
+import { Star as IconStar } from '@icon-park/vue-next'
 
 defineOptions({
   name: 'TaskListItem'
@@ -44,30 +46,60 @@ const status = computed({
     updateStatus(value)
   }
 })
+
+const isImported = computed({
+  get() {
+    return props.isImported
+  },
+  set(value) {
+    tasksStore.action('update', {
+      id: props.id,
+      isImported: value
+    })
+  }
+})
 </script>
 
 <template>
   <div class="task-list-item" :class="{ completed }">
-    <!-- <a-radio v-model:checked="checked"></a-radio> -->
     <TaskRadio v-model:status="status" />
     <div class="info">
       <div class="title">{{ subject }}</div>
       <div class="desc">
         <template v-if="subTasks.length > 0">
-          第 {{ completedCount }} 步，共 {{ subTasks.length }} 步
+          {{ $t('step_tips', [completedCount, subTasks.length]) }}
         </template>
       </div>
     </div>
     <div class="extra">
+      <Switch v-model:checked="isImported">
+        <template #default="{ checked }">
+          <a-tooltip
+            placement="bottomRight"
+            color="var(--bg-color)"
+            arrow-point-at-center
+            :mouseEnterDelay="0.6"
+          >
+            <template #title>
+              <span class="tooltip-text">
+                {{ $t(checked ? 'delete_important_flags' : 'marked_as_important') }}
+              </span>
+            </template>
+            <IconStar :theme="checked ? 'filled' : 'outline'" fill="var(--primary)" />
+          </a-tooltip>
+        </template>
+      </Switch>
       <slot name="extra"></slot>
     </div>
   </div>
 </template>
 
 <style lang="less" scoped>
+.tooltip-text {
+  color: @text-color;
+}
 .task-list-item {
   background-color: @bg-color;
-  // margin: 8px;
   border-radius: 5px;
   display: flex;
   padding: 8px;
@@ -84,7 +116,7 @@ const status = computed({
       font-size: 12px;
     }
   }
-  .right {
+  .extra {
     margin-left: auto;
   }
   &.completed {
