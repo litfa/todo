@@ -22,6 +22,7 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <!-- <button @click="syncCommitsService.sync()">sync</button> -->
   <a-config-provider
     :theme="{
       token: {

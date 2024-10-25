@@ -4,6 +4,7 @@ import { Create, Delete } from '@ltfei/todo-common'
 import { pull, push } from '@/apis/task'
 import type { Update as UpdateFunction } from '@/types/store'
 import { throttle } from 'lodash'
+import { parse36RadixId } from '@/utils/snowflake'
 
 export class SyncCommitsService {
   private commitsStore = useCommitsStore()
@@ -76,7 +77,7 @@ export class SyncCommitsService {
       const action = this.getStoreAction(e)
       if (!action) return false
 
-      const exists = store.getStateById(e.data.id)
+      const exists = store.getStateById(parse36RadixId(e.data.id))
       if (exists) {
         return
       }
@@ -85,6 +86,7 @@ export class SyncCommitsService {
         action(e.operation, e.data, {
           notCreateCommit: true
         })
+        return
       }
 
       let notCreateCommit = true
@@ -147,7 +149,7 @@ export class SyncCommitsService {
       commit.synced = true
       if (commit.operation == 'create') {
         const store = this.getStore(commit)
-        store.updateId(commit.data.createdWithLocalId, e.value.value.toString(36))
+        store.updateId(commit.data.createdWithLocalId, parse36RadixId(e.value.value))
       }
     })
     return true

@@ -34,6 +34,7 @@ export const useAction = <T extends SubTask | Task | TaskList>(
 
   const updateId = (before: string, after: string) => {
     const el = state.value.find((e) => e.id == before)
+    console.log('updateId', before, after, el)
     if (!el) {
       return false
     }
