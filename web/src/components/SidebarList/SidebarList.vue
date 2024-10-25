@@ -32,6 +32,7 @@ const handleClick = (id: string) => {
       v-for="i in defaultList"
       :key="i"
       :name="i"
+      :id="i"
       @click="handleClick(i)"
       :checked="openKeys == i"
     />
@@ -40,6 +41,7 @@ const handleClick = (id: string) => {
       v-for="i in items"
       :key="i.id"
       :name="i.name"
+      :id="i.id"
       @click="handleClick(i.id)"
       :checked="openKeys == i.id"
     />
