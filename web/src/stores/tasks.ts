@@ -1,9 +1,18 @@
 import type { Task } from '@ltfei/todo-common'
-import { defaultList, inboxTaskListId, inbox } from '@ltfei/todo-common'
+import {
+  defaultList,
+  inbox,
+  important,
+  myday,
+  planned,
+  assignedToMe,
+  inboxTaskListId
+} from '@ltfei/todo-common'
 import { defineStore } from 'pinia'
 import type { ReadonlyDeep } from '@/types'
 import { useAction } from '@/utils/useAction'
 import { useStorage } from '@/utils/useStorage'
+import dayjs from 'dayjs'
 
 export const useTasksStore = defineStore('tasks', () => {
   const tasks = ref<Task[]>([])
@@ -13,16 +22,25 @@ export const useTasksStore = defineStore('tasks', () => {
   const action = useAction(tasks, 'tasks')
 
   const getTasksByParentFolderId = (id: string) => {
-    if (defaultList.includes(id)) {
-      const inboxTasks = tasks.value.filter((e) => {
-        return e.parentFolderId == inboxTaskListId
+    if (!defaultList.includes(id)) {
+      return tasks.value.filter((e) => {
+        return !(e.parentFolderId == id)
       })
-      if (id == inbox) {
-        return inboxTasks
-      }
     }
-    return tasks.value.filter((e) => {
-      return e.parentFolderId == id
+    const inboxList = tasks.value.filter((e) => {
+      return e.parentFolderId == inboxTaskListId
+    })
+
+    return inboxList.filter((e) => {
+      const filterRules = {
+        [inbox]: true,
+        [important]: e.isImported,
+        [myday]: dayjs(e.expirationTime).isSame(dayjs(), 'day'),
+        [planned]: e.expirationTime,
+        [assignedToMe]: false
+      }
+
+      return filterRules[id as keyof typeof filterRules]
     })
   }
 

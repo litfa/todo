@@ -16,8 +16,8 @@ const props = defineProps<{
 const tasks = useTasksStore()
 
 const count = computed(() => {
-  return tasks.tasks.filter((e) => {
-    return e.parentFolderId == props.id && e.status == keys.task.status.notStarted
+  return tasks.getTasksByParentFolderId(props.id).filter((e) => {
+    return e.status == keys.task.status.notStarted
   }).length
 })
 </script>
