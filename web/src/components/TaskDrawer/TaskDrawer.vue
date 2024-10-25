@@ -2,6 +2,7 @@
 import { useTasksStore } from '@/stores/'
 import Editor from './Editor.vue'
 import { CloseSmall as IconCloseSmall, Delete as IconDelete } from '@icon-park/vue-next'
+import dayjs from 'dayjs'
 
 defineOptions({
   name: 'TaskDrawer'
@@ -56,7 +57,9 @@ export type { Expose }
         <Editor :task-id="taskId" />
       </div>
       <div class="footer">
-        <div class="create-time">创建于 {{ task.createdTime }}</div>
+        <div class="create-time">
+          创建于 {{ dayjs(task.createdTime).format('YYYY-MM-DD HH:mm') }}
+        </div>
         <div class="remove">
           <icon-delete />
         </div>
