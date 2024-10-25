@@ -31,7 +31,7 @@ const handleClick = (id: string) => {
     <SidebarListItem
       v-for="i in defaultList"
       :key="i"
-      :name="i"
+      :name="$t(i)"
       :id="i"
       @click="handleClick(i)"
       :checked="openKeys == i"
