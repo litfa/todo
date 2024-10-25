@@ -60,15 +60,16 @@ const clickTaskItem = (id: string) => {
     display: flex;
     padding: 8px 16px;
     flex-direction: column;
-    background-color: rgb(111, 131, 211);
+    background-color: @primary;
     .header {
-      padding: 8px 0;
+      padding: 10px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
       .title {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: bold;
+        color: @white;
       }
     }
     .task-list {

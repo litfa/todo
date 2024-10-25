@@ -75,7 +75,7 @@ const submitCreateList = () => {
 
     cursor: pointer;
     &:hover {
-      background-color: #ddd;
+      background-color: @black-opacity-1;
       transition: all 0.1s;
     }
   }

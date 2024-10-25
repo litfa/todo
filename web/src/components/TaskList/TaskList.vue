@@ -89,7 +89,7 @@ const completedCount = computed(() =>
     justify-content: center;
     width: 100px;
     height: 30px;
-    background-color: pink;
+    background-color: @white-opacity-7;
     font-size: 14px;
     border-radius: 4px;
     cursor: pointer;

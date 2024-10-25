@@ -70,7 +70,7 @@ const submit = () => {
     // margin-left: 30px;
     margin-left: v-bind(iconSizePx);
     &::placeholder {
-      color: #000;
+      color: @text-color;
     }
     &:focus ~ .icon-add {
       opacity: 0;

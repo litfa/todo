@@ -12,9 +12,11 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@ctrl/tinycolor": "^4.1.0",
     "@icon-park/vue-next": "^1.4.2",
     "@ltfei/todo-common": "workspace:^",
     "@sapphire/snowflake": "^3.5.3",
+    "@vueuse/core": "^11.1.0",
     "ant-design-vue": "^4.2.5",
     "axios": "^1.5.0",
     "dayjs": "^1.11.10",

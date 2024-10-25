@@ -66,7 +66,7 @@ const status = computed({
 
 <style lang="less" scoped>
 .task-list-item {
-  background-color: pink;
+  background-color: @bg-color;
   // margin: 8px;
   border-radius: 5px;
   display: flex;

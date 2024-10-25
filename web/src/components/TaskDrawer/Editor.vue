@@ -208,18 +208,18 @@ const updateSubTaskSubject = (id: string, value: string) => {
       line-height: 18px;
       font-size: 18px;
     }
-    .icon {
-      width: 25px;
-      height: 25px;
-      padding: 5px;
-      box-sizing: border-box;
-      border-radius: 4px;
-      display: flex;
-      justify-content: center;
-      &:hover {
-        background-color: #aaaaaa28;
-      }
-    }
+    // .icon {
+    //   width: 25px;
+    //   height: 25px;
+    //   padding: 5px;
+    //   box-sizing: border-box;
+    //   border-radius: 4px;
+    //   display: flex;
+    //   justify-content: center;
+    //   &:hover {
+    //     background-color: #aaaaaa28;
+    //   }
+    // }
   }
 }
 </style>

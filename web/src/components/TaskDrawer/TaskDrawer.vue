@@ -96,7 +96,7 @@ export type { Expose }
       }
 
       &:hover {
-        background-color: #aaaaaa2f;
+        background-color: @black-opacity-1;
         border-radius: 4px;
       }
     }
@@ -116,7 +116,7 @@ export type { Expose }
     .create-time {
       flex: 1;
       text-align: center;
-      color: #383838;
+      color: @text-color-primary;
     }
     .remove {
       width: 40px;

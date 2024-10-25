@@ -39,7 +39,7 @@ const checked = computed({
   .radio {
     width: 16px;
     height: 16px;
-    border: 1px solid #d9d9d9;
+    border: 1px solid @text-color-secondary;
     border-radius: 50%;
     background-color: #fff;
     display: flex;
@@ -55,7 +55,7 @@ const checked = computed({
   }
   &.checked {
     .radio {
-      background-color: rgb(22, 119, 255);
+      background-color: @primary;
       .icon {
         opacity: 1;
         color: #fff;

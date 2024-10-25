@@ -41,7 +41,7 @@ defineProps<{
   }
   &.checked,
   &:hover {
-    background-color: #aaaaaa3c;
+    background-color: @black-opacity-1;
   }
 }
 </style>
