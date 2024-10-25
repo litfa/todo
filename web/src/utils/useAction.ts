@@ -3,6 +3,7 @@ import { useCommitsStore } from '@/stores/'
 import type { TargetTable } from '@ltfei/todo-common'
 import { Create, Update, Delete } from '@ltfei/todo-common'
 import type { SubTask, Task, TaskList } from '@ltfei/todo-common'
+import { emit } from '@/utils/eventbus'
 
 export const useAction = <T extends SubTask | Task | TaskList>(
   state: Ref<T[]>,
@@ -33,8 +34,8 @@ export const useAction = <T extends SubTask | Task | TaskList>(
   }
 
   const updateId = (before: string, after: string) => {
+    emit('update_tasklist_id', before, after)
     const el = state.value.find((e) => e.id == before)
-    console.log('updateId', before, after, el)
     if (!el) {
       return false
     }
