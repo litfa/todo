@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { List as IconList } from '@icon-park/vue-next'
 import { useTasksStore } from '@/stores/index'
 import { keys } from '@ltfei/todo-common'
 

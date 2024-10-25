@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useTasksStore } from '@/stores/'
 import Editor from './Editor.vue'
-import { CloseSmall as IconCloseSmall, Delete as IconDelete } from '@icon-park/vue-next'
 import dayjs from 'dayjs'
 
 defineOptions({

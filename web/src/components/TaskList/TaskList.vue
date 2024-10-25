@@ -2,7 +2,6 @@
 import TaskListItem from './TaskListItem.vue'
 import { useTasksStore } from '@/stores/'
 import { keys } from '@ltfei/todo-common'
-import { Right as IconRight } from '@icon-park/vue-next'
 
 defineOptions({
   name: 'TaskList'

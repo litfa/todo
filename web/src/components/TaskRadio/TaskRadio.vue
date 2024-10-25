@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { CheckSmall as IconCheckSmall } from '@icon-park/vue-next'
 import { keys } from '@ltfei/todo-common'
 
 defineOptions({

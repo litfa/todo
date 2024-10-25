@@ -4,7 +4,6 @@ import { keys } from '@ltfei/todo-common'
 import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
 import { useTasksStore, useSubTasksStore } from '@/stores/'
 import Switch from '@/components/Switch/Switch.vue'
-import { Star as IconStar } from '@icon-park/vue-next'
 
 defineOptions({
   name: 'TaskListItem'

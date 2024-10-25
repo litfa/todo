@@ -19,7 +19,14 @@ export default defineConfig({
       resolvers: [AntDesignVueResolver()]
     }),
     Components({
-      resolvers: [AntDesignVueResolver({ importStyle: false, resolveIcons: true })]
+      resolvers: [
+        AntDesignVueResolver({ importStyle: false, resolveIcons: true }),
+        (componentName) => {
+          if (componentName.startsWith('Icon')) {
+            return { name: componentName.slice(4), from: '@icon-park/vue-next' }
+          }
+        }
+      ]
     })
   ],
   css: {

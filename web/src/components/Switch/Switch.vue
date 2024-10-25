@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Round as IconRound, CheckOne as IconCheckOne } from '@icon-park/vue-next'
-
 defineOptions({
   name: 'SwitchButton'
 })

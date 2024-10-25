@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Plus as IconPlus, FolderPlus as IconFolderPlus } from '@icon-park/vue-next'
 import { useTasksListStore } from '@/stores/'
 
 defineOptions({

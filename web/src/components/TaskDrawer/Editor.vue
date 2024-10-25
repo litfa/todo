@@ -4,7 +4,6 @@ import { useTasksStore, useSubTasksStore } from '@/stores/'
 import AddTaskInput from '@/components/AddTask/AddTaskInput.vue'
 import { generateIdWithSource } from '@/utils/snowflake'
 import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
-import { MoreOne as IconMoreOne, Delete as IconDelete } from '@icon-park/vue-next'
 import { Modal } from 'ant-design-vue'
 
 defineOptions({

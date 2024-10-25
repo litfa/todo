@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Round as IconRound, Plus as IconPlus } from '@icon-park/vue-next'
-
 const props = withDefaults(
   defineProps<{
     placeholder?: string

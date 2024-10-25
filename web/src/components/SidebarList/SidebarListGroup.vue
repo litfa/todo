@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Components as IconComponents, Right as IconRight } from '@icon-park/vue-next'
-
 defineOptions({
   name: 'SidebarListGroup'
 })
