@@ -3,7 +3,7 @@ import { SyncCommitsService } from '@/utils/syncCommitsService'
 
 const syncCommitsService = new SyncCommitsService()
 
-syncCommitsService.listen()
+syncCommitsService.startSync(1000 * 10)
 
 onUnmounted(() => {
   syncCommitsService.destroy()

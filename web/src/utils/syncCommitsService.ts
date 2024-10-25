@@ -121,6 +121,10 @@ export class SyncCommitsService {
       return !commit.synced
     })
 
+    if (commits.length == 0) {
+      return true
+    }
+
     const { data, status } = await push(
       commits.map((e) => {
         delete e.synced
