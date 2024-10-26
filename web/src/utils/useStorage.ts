@@ -21,3 +21,27 @@ export const useStorage = async (key: string, refValue: Ref) => {
     }
   )
 }
+
+import {
+  useCommitsStore,
+  useSubTasksStore,
+  // useTaskGroupStore,
+  useTasksListStore,
+  useTasksStore
+} from '@/stores'
+
+export const useStoreStorage = async () => {
+  const commits = useCommitsStore()
+  const subTasks = useSubTasksStore()
+  // const taskGroup = useTaskGroupStore()
+  const tasksList = useTasksListStore()
+  const tasks = useTasksStore()
+
+  await Promise.allSettled([
+    commits.useStorage(),
+    subTasks.useStorage(),
+    // taskGroup.useStorage(),
+    tasksList.useStorage(),
+    tasks.useStorage()
+  ])
+}

@@ -83,9 +83,13 @@ export class SyncCommitsService {
       }
 
       if (e.operation == Create || e.operation == Delete) {
-        action(e.operation, e.data, {
-          notCreateCommit: true
-        })
+        action(
+          e.operation,
+          { ...e.data, id: parse36RadixId(e.data.id) },
+          {
+            notCreateCommit: true
+          }
+        )
         return
       }
 

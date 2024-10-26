@@ -3,10 +3,15 @@ import { SyncCommitsService } from '@/utils/syncCommitsService'
 import { useViewLayerEvent } from '@/utils/useViewLayerEvent'
 import { useThemes } from '@/utils/theme'
 import themes from '@/assets/theme'
+import { useStoreStorage } from '@/utils/useStorage'
 
 const syncCommitsService = new SyncCommitsService()
 
-syncCommitsService.startSync(1000 * 10)
+const startService = async () => {
+  await useStoreStorage()
+  syncCommitsService.startSync(1000 * 10)
+}
+startService()
 
 const { theme, mode } = useThemes(themes)
 

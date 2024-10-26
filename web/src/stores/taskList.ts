@@ -8,8 +8,6 @@ import { useStorage } from '@/utils/useStorage'
 export const useTasksListStore = defineStore('taskList', () => {
   const taskList = ref<TaskList[]>([])
 
-  useStorage('taskList', taskList)
-
   const action = useAction(taskList, 'taskList')
 
   const createList = (name: string) => {
@@ -32,5 +30,10 @@ export const useTasksListStore = defineStore('taskList', () => {
     })
   }
 
-  return { taskList: taskList as Ref<ReadonlyDeep<TaskList[]>>, createList, ...action }
+  return {
+    taskList: taskList as Ref<ReadonlyDeep<TaskList[]>>,
+    createList,
+    ...action,
+    useStorage: () => useStorage('taskList', taskList)
+  }
 })

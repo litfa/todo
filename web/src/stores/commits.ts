@@ -9,9 +9,6 @@ export const useCommitsStore = defineStore('commitsStore', () => {
   const syncError = ref(false)
   const isSynchronizing = ref(false)
 
-  useStorage('commitsStore', commits)
-  useStorage('lastSyncTime', lastSyncTime)
-
   const createCommit = (
     operation: Operation,
     targetTable: TargetTable,
@@ -35,6 +32,10 @@ export const useCommitsStore = defineStore('commitsStore', () => {
     lastSyncTime,
     syncError,
     isSynchronizing,
-    createCommit
+    createCommit,
+    async useStorage() {
+      await useStorage('commitsStore', commits)
+      await useStorage('lastSyncTime', lastSyncTime)
+    }
   }
 })
