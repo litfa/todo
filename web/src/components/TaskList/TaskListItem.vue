@@ -4,6 +4,11 @@ import { keys } from '@ltfei/todo-common'
 import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
 import { useTasksStore, useSubTasksStore } from '@/stores/'
 import Switch from '@/components/Switch/Switch.vue'
+import dayjs from 'dayjs'
+import i18n from '@/lang'
+import { type Component } from 'vue'
+import { Calendar as IconCalendar } from '@icon-park/vue-next'
+import { isToday } from '@/utils/date'
 
 defineOptions({
   name: 'TaskListItem'
@@ -13,6 +18,7 @@ interface Props extends Task {
   completed?: boolean
 }
 
+const { t } = i18n.global
 const props = defineProps<Props>()
 const tasksStore = useTasksStore()
 const subTasksStore = useSubTasksStore()
@@ -57,6 +63,27 @@ const isImported = computed({
     })
   }
 })
+
+const desc = computed(() => {
+  const texts: { icon?: Component; text: string; color?: string }[] = []
+  if (subTasks.value.length > 0) {
+    texts.push({
+      text: t('step_tips', [completedCount.value, subTasks.value.length])
+    })
+  }
+  if (props.expirationTime) {
+    const expiration = dayjs().isAfter(dayjs(props.expirationTime))
+
+    texts.push({
+      icon: IconCalendar,
+      text: isToday(props.expirationTime)
+        ? t('today')
+        : dayjs(props.expirationTime).format('MM-DD'),
+      color: expiration ? 'var(--danger)' : undefined
+    })
+  }
+  return texts
+})
 </script>
 
 <template>
@@ -65,9 +92,11 @@ const isImported = computed({
     <div class="info">
       <div class="title">{{ subject }}</div>
       <div class="desc">
-        <template v-if="subTasks.length > 0">
-          {{ $t('step_tips', [completedCount, subTasks.length]) }}
-        </template>
+        <span v-for="(i, index) in desc" :key="i.text" :style="{ '--color': i.color }">
+          <a-divider v-if="index != 0" type="vertical" />
+          <component :is="i.icon" />
+          {{ i.text }}
+        </span>
       </div>
     </div>
     <div class="extra">
@@ -113,6 +142,9 @@ const isImported = computed({
   .info {
     .desc {
       font-size: 12px;
+      span {
+        color: var(--color, @text-color);
+      }
     }
   }
   .extra {

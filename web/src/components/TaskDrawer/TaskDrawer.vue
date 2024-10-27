@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useTasksStore } from '@/stores/'
 import Editor from './Editor.vue'
+import ExpirationTime from './ExpirationTime.vue'
 import dayjs from 'dayjs'
 
 defineOptions({
@@ -54,6 +55,7 @@ export type { Expose }
       </div>
       <div class="content">
         <Editor :task-id="taskId" />
+        <ExpirationTime :task-id="taskId" />
       </div>
       <div class="footer">
         <div class="create-time">
