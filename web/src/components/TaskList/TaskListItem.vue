@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import type { Task } from '@ltfei/todo-common'
-import { keys } from '@ltfei/todo-common'
+import { keys, inboxTaskListId, inbox } from '@ltfei/todo-common'
 import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
-import { useTasksStore, useSubTasksStore } from '@/stores/'
+import { useTasksStore, useSubTasksStore, useTasksListStore } from '@/stores/'
 import Switch from '@/components/Switch/Switch.vue'
 import dayjs from 'dayjs'
 import i18n from '@/lang'
 import { type Component } from 'vue'
 import { Calendar as IconCalendar } from '@icon-park/vue-next'
-import { isToday } from '@/utils/date'
+import { isToday, isTomorrow, isYesterday } from '@/utils/date'
 
 defineOptions({
   name: 'TaskListItem'
@@ -22,6 +22,9 @@ const { t } = i18n.global
 const props = defineProps<Props>()
 const tasksStore = useTasksStore()
 const subTasksStore = useSubTasksStore()
+const tasksListStore = useTasksListStore()
+const route = useRoute()
+const taskListId = computed(() => route.params.id as string)
 
 const subTasks = computed(() => {
   return subTasksStore.subTasks.filter((e) => e.parentId == props.id)
@@ -73,13 +76,33 @@ const desc = computed(() => {
   }
   if (props.expirationTime) {
     const expiration = dayjs().isAfter(dayjs(props.expirationTime))
+    let text = dayjs(props.expirationTime).format('MM-DD')
+    let color: string | undefined
+    if (expiration) {
+      color = 'var(--danger)'
+    }
+    if (isToday(props.expirationTime)) {
+      text = t('today')
+      color = 'var(--primary)'
+    } else if (isTomorrow(props.expirationTime)) {
+      text = t('tomorrow')
+    } else if (isYesterday(props.expirationTime)) {
+      text = t('yesterday')
+    }
 
     texts.push({
       icon: IconCalendar,
-      text: isToday(props.expirationTime)
-        ? t('today')
-        : dayjs(props.expirationTime).format('MM-DD'),
-      color: expiration ? 'var(--danger)' : undefined
+      text,
+      color
+    })
+  }
+  if (taskListId.value != props.parentFolderId && taskListId.value != inbox) {
+    const taskList = tasksListStore.getStateById(props.parentFolderId)
+
+    texts.push({
+      text:
+        taskList?.name ||
+        (props.parentFolderId == inboxTaskListId ? t('inbox') : t('unnamed_tasklist'))
     })
   }
   return texts

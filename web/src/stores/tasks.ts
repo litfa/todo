@@ -25,15 +25,15 @@ export const useTasksStore = defineStore('tasks', () => {
         return e.parentFolderId == id
       })
     }
-    const inboxList = tasks.value.filter((e) => {
-      return e.parentFolderId == inboxTaskListId
-    })
 
-    return inboxList.filter((e) => {
+    return tasks.value.filter((e) => {
+      const expirationTime = dayjs(e.expirationTime)
+      const expirationTimeIsSameOrAfter =
+        expirationTime.isSame(dayjs(), 'day') || expirationTime.isBefore(dayjs(), 'day')
       const filterRules = {
-        [inbox]: true,
+        [inbox]: e.parentFolderId == inboxTaskListId,
         [important]: e.isImported,
-        [myday]: dayjs(e.expirationTime).isSame(dayjs(), 'day'),
+        [myday]: e.expirationTime > 0 && expirationTimeIsSameOrAfter,
         [planned]: e.expirationTime,
         [assignedToMe]: false
       }

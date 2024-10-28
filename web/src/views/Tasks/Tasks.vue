@@ -5,11 +5,13 @@ import TaskDrawer from '@/components/TaskDrawer/TaskDrawer.vue'
 import type { Expose } from '@/components/TaskDrawer/TaskDrawer.vue'
 import { useTasksListStore } from '@/stores/'
 import { defaultList } from '@ltfei/todo-common'
+import i18n from '@/lang'
 
 defineOptions({
   name: 'TasksPage'
 })
 
+const { t } = i18n.global
 const taskDrawerRef = ref<Expose>()
 const route = useRoute()
 const id = computed(() => route.params.id as string)
@@ -22,8 +24,7 @@ const taskList = computed(() => {
 })
 
 const taskListName = computed(() => {
-  // todo: 默认列表使用i18n展示
-  return defaultList.includes(id.value) ? '任务' : taskList.value?.name
+  return defaultList.includes(id.value) ? t(id.value) : taskList.value?.name
 })
 
 const clickTaskItem = (id: string) => {
