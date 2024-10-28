@@ -2,12 +2,12 @@
 import EditItem from './EditItem.vue'
 import { useTasksStore } from '@/stores/'
 import dayjs, { type Dayjs } from 'dayjs'
-import {
-  Close as IconClose,
-  ArrowCircleRight as IconArrowCircleRight,
-  CircleDoubleRight as IconCircleDoubleRight,
-  Time as IconTime
-} from '@icon-park/vue-next'
+// import {
+//   Close as IconClose,
+//   ArrowCircleRight as IconArrowCircleRight,
+//   CircleDoubleRight as IconCircleDoubleRight,
+//   Time as IconTime
+// } from '@icon-park/vue-next'
 import i18n from '@/lang'
 import { formatDate } from '@/utils/date'
 
@@ -104,7 +104,7 @@ const subText = computed(() => {
       <EditItem
         :text="editItemText"
         :subText="subText"
-        :extendIcon="hasReminderDateTime && IconClose"
+        :extendIcon="hasReminderDateTime && 'close'"
         @clickExtendIcon="setReminderOn(0)"
         :highlight="hasReminderDateTime"
       >

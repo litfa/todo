@@ -8,6 +8,13 @@ import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 
 import { lessAdditionalData } from './src/utils/theme'
+import { ComponentResolver } from 'unplugin-vue-components/types'
+
+const IconParkResovle: ComponentResolver = (componentName) => {
+  if (componentName.startsWith('Icon')) {
+    return { name: componentName.slice(4), from: '@icon-park/vue-next' }
+  }
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -16,17 +23,10 @@ export default defineConfig({
     AutoImport({
       imports: ['vue', 'vue-router'],
       dts: 'src/auto-import.d.ts',
-      resolvers: [AntDesignVueResolver()]
+      resolvers: [AntDesignVueResolver(), IconParkResovle]
     }),
     Components({
-      resolvers: [
-        AntDesignVueResolver({ importStyle: false, resolveIcons: true }),
-        (componentName) => {
-          if (componentName.startsWith('Icon')) {
-            return { name: componentName.slice(4), from: '@icon-park/vue-next' }
-          }
-        }
-      ]
+      resolvers: [AntDesignVueResolver({ importStyle: false, resolveIcons: true }), IconParkResovle]
     })
   ],
   css: {

@@ -2,7 +2,7 @@
 import EditItem from './EditItem.vue'
 import { useTasksStore } from '@/stores/'
 import dayjs, { type Dayjs } from 'dayjs'
-import { Close as IconClose } from '@icon-park/vue-next'
+// import { Close as IconClose } from '@icon-park/vue-next'
 import i18n from '@/lang'
 
 defineOptions({
@@ -68,7 +68,7 @@ const setExpirationTime = (time: string | Dayjs | number) => {
 
       <EditItem
         :text="hasExpirationTime ? dayjs(task.expirationTime).format('YYYY-MM-DD') : '添加截止时间'"
-        :extendIcon="hasExpirationTime && IconClose"
+        :extendIcon="hasExpirationTime && 'close'"
         @clickExtendIcon="setExpirationTime(0)"
         :highlight="hasExpirationTime"
       >

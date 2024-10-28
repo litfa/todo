@@ -7,7 +7,7 @@ import Switch from '@/components/Switch/Switch.vue'
 import dayjs from 'dayjs'
 import i18n from '@/lang'
 import { type Component } from 'vue'
-import { Calendar as IconCalendar } from '@icon-park/vue-next'
+// import { Calendar as IconCalendar } from '@icon-park/vue-next'
 import { isToday, isTomorrow, isYesterday } from '@/utils/date'
 
 defineOptions({

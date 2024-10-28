@@ -9,7 +9,7 @@ defineProps<{
   text: string
   subText?: string
   extendText?: string
-  extendIcon?: Component | false
+  extendIcon?: Component | 'close' | false
   highlight?: boolean
 }>()
 
@@ -37,7 +37,8 @@ defineEmits(['clickExtendIcon'])
       </div>
     </div>
     <div class="extend-icon" @click.stop="$emit('clickExtendIcon')" v-if="extendIcon">
-      <component :is="extendIcon" />
+      <IconClose v-if="extendIcon == 'close'" />
+      <component v-else :is="extendIcon" />
     </div>
   </div>
 </template>
