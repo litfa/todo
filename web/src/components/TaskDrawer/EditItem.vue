@@ -7,6 +7,7 @@ defineOptions({
 defineProps<{
   icon?: Component
   text: string
+  subText?: string
   extendText?: string
   extendIcon?: Component | false
   highlight?: boolean
@@ -23,7 +24,12 @@ defineEmits(['clickExtendIcon'])
           <component :is="icon" />
         </slot>
       </div>
-      <div class="text">{{ text }}</div>
+      <div class="text">
+        <span class="text-line1">
+          {{ text }}
+        </span>
+        <span class="text-line2" v-if="subText"> {{ subText }} </span>
+      </div>
       <div class="extend">
         <slot name="extend">
           {{ extendText }}
@@ -64,10 +70,18 @@ defineEmits(['clickExtendIcon'])
     }
     .icon {
       margin-right: 8px;
-      size: 18px;
+      font-size: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+    .text {
+      display: flex;
+      flex-direction: column;
+      .text-line2 {
+        color: @text-color;
+        font-size: 12px;
+      }
     }
     .extend {
       margin-left: auto;
