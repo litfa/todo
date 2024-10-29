@@ -10,7 +10,36 @@ defineOptions({
 
 <template>
   <div class="sidebar">
-    <SidebarUser />
+    <a-dropdown trigger="click">
+      <template #overlay>
+        <a-menu>
+          <a-menu-item>
+            <template #icon> <IconSetting /> </template>
+            设置
+          </a-menu-item>
+          <a-menu-divider />
+          <a-menu-item disabled>
+            <template #icon> <IconLog /> </template>
+            操作记录
+          </a-menu-item>
+          <a-menu-divider />
+          <a-menu-item disabled>
+            <template #icon> <IconHelp /> </template>
+            帮助
+          </a-menu-item>
+          <a-menu-item disabled>
+            <template #icon> <IconDownload /> </template>
+            下载客户端
+          </a-menu-item>
+          <a-menu-divider />
+          <a-menu-item disabled>
+            <template #icon> <IconLogout /> </template>
+            退出登录
+          </a-menu-item>
+        </a-menu>
+      </template>
+      <SidebarUser />
+    </a-dropdown>
 
     <div class="search"></div>
 
@@ -25,6 +54,9 @@ defineOptions({
 </template>
 
 <style lang="less" scoped>
+.i-icon {
+  display: flex;
+}
 .sidebar {
   max-width: 200px;
   height: 100%;
