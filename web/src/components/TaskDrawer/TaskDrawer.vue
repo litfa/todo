@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { useTasksStore } from '@/stores/'
-import Editor from './Editor.vue'
-import ExpirationTime from './ExpirationTime.vue'
-import EditReminder from './EditReminder.vue'
-import dayjs from 'dayjs'
+import TaskDrawerContent from './TaskDrawerContent.vue'
+import { useWindowSize } from '@vueuse/core'
 
 defineOptions({
   name: 'TaskDrawer'
@@ -14,6 +12,8 @@ const tasksStore = useTasksStore()
 const open = ref(false)
 const taskId = ref<string | null>(null)
 const task = computed(() => tasksStore.tasks.find((e) => e.id == taskId.value)!)
+const { width } = useWindowSize()
+const useMask = computed(() => width.value < 870)
 
 const openTaskDrawer = (id: string) => {
   // 重复点击已打开的应当关闭
@@ -47,87 +47,24 @@ export type { Expose }
 </script>
 
 <template>
-  <div class="task-drawer" :class="{ open }">
-    <template v-if="taskId">
-      <div class="header">
-        <div class="close" @click="closeTaskDrawer">
-          <icon-close-small />
-        </div>
-      </div>
-      <div class="content">
-        <Editor :task-id="taskId" />
-        <ExpirationTime :task-id="taskId" />
-        <EditReminder :task-id="taskId" />
-      </div>
-      <div class="footer">
-        <div class="create-time">
-          创建于 {{ dayjs(task.createdTime).format('YYYY-MM-DD HH:mm') }}
-        </div>
-        <div class="remove">
-          <icon-delete />
-        </div>
-      </div>
-    </template>
-  </div>
+  <template v-if="useMask">
+    <a-drawer
+      v-model:open="open"
+      placement="right"
+      width="350"
+      :headerStyle="{
+        display: 'none'
+      }"
+      :bodyStyle="{
+        padding: 0
+      }"
+    >
+      <TaskDrawerContent :open="open" :task @close="closeTaskDrawer" />
+    </a-drawer>
+  </template>
+  <template v-else>
+    <TaskDrawerContent :open="open" :task transition-time="0.3s" @close="closeTaskDrawer" />
+  </template>
 </template>
 
-<style lang="less" scoped>
-@width: 350px;
-.task-drawer {
-  overflow: hidden;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s;
-  width: 0;
-  padding: 8px 0;
-  box-sizing: border-box;
-  &.open {
-    width: @width;
-    padding: 8px;
-  }
-  .header {
-    display: flex;
-    justify-content: flex-end;
-    .close {
-      padding: 4px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      .i-icon {
-        display: flex;
-      }
-
-      &:hover {
-        background-color: @black-opacity-1;
-        border-radius: 4px;
-      }
-    }
-  }
-  .content {
-    flex: 1;
-    overflow: auto;
-    padding: 8px 0;
-    // width: @width;
-  }
-  .footer {
-    height: 40px;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    border-top: #3838382f 1px solid;
-    .create-time {
-      flex: 1;
-      text-align: center;
-      color: @text-color-primary;
-    }
-    .remove {
-      width: 40px;
-      height: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-}
-</style>
+<style lang="less" scoped></style>
