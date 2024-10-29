@@ -1,0 +1,62 @@
+<script setup lang="ts">
+import AccountSetting from './components/AccountSetting.vue'
+import AboutSetting from './components/AboutSetting.vue'
+
+defineOptions({
+  name: 'SettingContent'
+})
+
+const components = {
+  AccountSetting,
+  AboutSetting
+}
+
+const selectedKeys = ref<(keyof typeof components)[]>(['AccountSetting'])
+const current = computed(() => {
+  return selectedKeys.value[0]
+})
+</script>
+
+<template>
+  <div class="setting-content">
+    <a-menu v-model:selected-keys="selectedKeys" class="menu">
+      <a-menu-item key="AccountSetting">
+        <template #icon> <icon-user /> </template>
+        账户
+      </a-menu-item>
+      <a-menu-item disabled>
+        <template #icon> <icon-setting /> </template>
+        常规
+      </a-menu-item>
+      <a-menu-item disabled>
+        <template #icon> <icon-remind /> </template>
+        提醒
+      </a-menu-item>
+      <a-menu-item disabled>
+        <template #icon> <icon-sync /> </template>
+        同步
+      </a-menu-item>
+      <a-menu-divider />
+      <a-menu-item key="AboutSetting">
+        <template #icon> <icon-info /> </template>
+        关于
+      </a-menu-item>
+    </a-menu>
+    <div class="content">
+      <component :is="components[current]" />
+    </div>
+  </div>
+</template>
+
+<style lang="less" scoped>
+.setting-content {
+  display: flex;
+  gap: 16px;
+  width: 500px;
+  height: 100%;
+  .menu {
+    width: 150px;
+    height: 100%;
+  }
+}
+</style>

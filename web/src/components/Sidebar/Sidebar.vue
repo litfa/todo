@@ -2,10 +2,15 @@
 import SidebarUser from './SidebarUser.vue'
 import SidebarList from '../SidebarList/SidebarList.vue'
 import SidebarFooter from './SidebarFooter.vue'
+import { openSettingWindow } from '@/components/Setting'
 
 defineOptions({
   name: 'SideBar'
 })
+
+const openSetting = () => {
+  openSettingWindow()
+}
 </script>
 
 <template>
@@ -13,7 +18,7 @@ defineOptions({
     <a-dropdown trigger="click">
       <template #overlay>
         <a-menu>
-          <a-menu-item>
+          <a-menu-item key="1" @click="openSetting">
             <template #icon> <IconSetting /> </template>
             设置
           </a-menu-item>
