@@ -17,6 +17,9 @@ const route = useRoute()
 const id = computed(() => route.params.id as string)
 const tasksListStore = useTasksListStore()
 
+const useMenuMask = inject('useMenuMask')
+const openMenu = inject<() => void>('openMenu')
+
 const taskList = computed(() => {
   return tasksListStore.taskList.find((e) => {
     return e.id == id.value
@@ -39,8 +42,13 @@ const clickTaskItem = (id: string) => {
   <div class="tasks-page">
     <div class="list">
       <div class="header">
-        <div class="title">{{ taskListName }}</div>
-        <div class="more"></div>
+        <div class="open-menu" v-if="useMenuMask" @click="openMenu">
+          <icon-hamburger-button />
+        </div>
+        <div class="info">
+          <div class="title">{{ taskListName }}</div>
+          <div class="more"></div>
+        </div>
       </div>
       <TaskList @click-task-item="clickTaskItem" />
       <AddTask />
@@ -64,13 +72,19 @@ const clickTaskItem = (id: string) => {
     background-color: @primary;
     .header {
       padding: 10px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .title {
-        font-size: 20px;
-        font-weight: bold;
-        color: @white;
+      color: @white;
+      .open-menu {
+        font-size: 18px;
+      }
+      .info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .title {
+          font-size: 20px;
+          font-weight: bold;
+          color: @white;
+        }
       }
     }
     .task-list {

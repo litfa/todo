@@ -27,6 +27,7 @@ defineOptions({
 <style lang="less" scoped>
 .sidebar {
   max-width: 200px;
+  height: 100%;
   background-color: @bg-color;
   display: flex;
   flex-direction: column;
