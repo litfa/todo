@@ -1,6 +1,8 @@
 import { Modal } from 'ant-design-vue'
-import SettingContent from './SettingContent.vue'
+import SettingContent from '@/views/Setting/Setting.vue'
 import './settingModal.less'
+import { type, type OsType } from '@tauri-apps/plugin-os'
+import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
 
 const openSettingModal = () => {
   const modal = Modal.info({
@@ -21,13 +23,40 @@ const openSettingModal = () => {
   return destroy
 }
 
+const openWindow = () => {
+  const webview = new WebviewWindow('setting', {
+    url: '/setting',
+    title: '设置',
+    resizable: false,
+    maximizable: false,
+    minimizable: false
+  })
+
+  webview.once('tauri://created', function () {
+    console.log('created')
+  })
+  webview.once('tauri://error', function (e) {
+    console.log(e)
+  })
+}
+
 /**
  * setting
  * web/android 使用弹窗
  * win考虑使用弹出窗口
  */
 export const openSettingWindow = () => {
-  console.log(111)
+  let platformName
+  try {
+    platformName = type()
+  } catch {
+    //
+  }
+  const desktop: OsType[] = ['windows', 'macos', 'linux']
+
+  if (platformName && desktop.includes(platformName)) {
+    return openWindow()
+  }
 
   const destroy = openSettingModal()
 

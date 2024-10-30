@@ -3,7 +3,7 @@ import AccountSetting from './components/AccountSetting.vue'
 import AboutSetting from './components/AboutSetting.vue'
 
 defineOptions({
-  name: 'SettingContent'
+  name: 'SettingPage'
 })
 
 const components = {
@@ -18,7 +18,7 @@ const current = computed(() => {
 </script>
 
 <template>
-  <div class="setting-content">
+  <div class="setting-page">
     <a-menu v-model:selected-keys="selectedKeys" class="menu">
       <a-menu-item key="AccountSetting">
         <template #icon> <icon-user /> </template>
@@ -49,7 +49,7 @@ const current = computed(() => {
 </template>
 
 <style lang="less" scoped>
-.setting-content {
+.setting-page {
   display: flex;
   gap: 16px;
   width: 500px;
