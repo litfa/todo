@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { inbox } from '@ltfei/todo-common'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,11 +8,12 @@ const router = createRouter({
       path: '/',
       name: 'layout',
       component: () => import('@/layout/Default.vue'),
+      redirect: `/tasks/${inbox}`,
       children: [
-        {
-          path: 'tasks',
-          component: () => import('../views/Tasks/Tasks.vue')
-        },
+        // {
+        //   path: 'tasks',
+        //   component: () => import('../views/Tasks/Tasks.vue')
+        // },
         {
           path: 'tasks/:id',
           component: () => import('../views/Tasks/Tasks.vue')
