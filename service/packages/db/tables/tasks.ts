@@ -24,6 +24,8 @@ export const Tasks = sequelize.define<Model<Table, Table>, Table>(
     start_time: DataTypes.BIGINT,
     is_reminder_on: DataTypes.BOOLEAN,
     parent_folder_id: DataTypes.BIGINT,
+    is_repeat: DataTypes.BOOLEAN,
+    repetition_period: DataTypes.CHAR,
     reminder_date_time: DataTypes.BIGINT,
     owner: DataTypes.INET,
     created_with_local_id: {

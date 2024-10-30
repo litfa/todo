@@ -58,6 +58,15 @@ export interface Task extends BasisTask {
    * 是否提醒
    */
   isReminderOn: boolean
+  /**
+   * 是否重复
+   */
+  isRepeat: boolean
+  /**
+   * 重复周期
+   * cron
+   */
+  repetitionPeriod: string
 
   /**
    * 所在分组id
