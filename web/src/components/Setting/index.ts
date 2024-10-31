@@ -8,7 +8,9 @@ const openSettingModal = () => {
   const modal = Modal.info({
     title: '设置',
     wrapClassName: 'setting-modal',
-    content: h(SettingContent),
+    content: h(SettingContent, {
+      padding: false
+    }),
     icon: null,
     footer: null,
     closable: true,

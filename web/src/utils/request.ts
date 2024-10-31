@@ -2,7 +2,9 @@ import axios from 'axios'
 import type { AxiosRequestConfig } from 'axios'
 import { emit } from '@/utils/eventbus'
 
-const baseURL = import.meta.env.VITE_API_BASE_URL || ''
+const LocalbaseURL = localStorage.getItem('baseUrl')
+
+const baseURL = LocalbaseURL || import.meta.env.VITE_API_BASE_URL || ''
 
 const axiosRequest = axios.create({
   baseURL: baseURL
