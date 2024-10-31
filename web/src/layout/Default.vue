@@ -1,19 +1,29 @@
 <script setup lang="ts">
 import Sidebar from '@/components/Sidebar/Sidebar.vue'
 import { useWindowSize } from '@vueuse/core'
+
 defineOptions({
   name: 'DefaultLayout'
 })
 
 const { width } = useWindowSize()
-
 const useMenuMask = computed(() => width.value < 520)
-
 const open = ref(true)
+const route = useRoute()
 
 const openMenu = () => {
   open.value = true
 }
+const closeMenu = () => {
+  open.value = false
+}
+
+watch(
+  () => route.path,
+  () => {
+    closeMenu()
+  }
+)
 
 provide('useMenuMask', useMenuMask)
 provide('openMenu', openMenu)
