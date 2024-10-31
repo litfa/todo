@@ -9,7 +9,7 @@ const openSettingModal = () => {
     title: '设置',
     wrapClassName: 'setting-modal',
     content: h(SettingContent, {
-      padding: false
+      isPage: false
     }),
     icon: null,
     footer: null,
@@ -31,7 +31,8 @@ const openWindow = () => {
     title: '设置',
     resizable: false,
     maximizable: false,
-    minimizable: false
+    minimizable: false,
+    center: true
   })
 
   webview.once('tauri://created', function () {
