@@ -36,6 +36,7 @@ const handleClick = (id: string) => {
       @click="handleClick(i)"
       :checked="openKeys == i"
     />
+    <a-divider class="divider" />
 
     <SidebarListItem
       v-for="i in items"
@@ -53,6 +54,9 @@ const handleClick = (id: string) => {
 .sidebar-list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  .divider {
+    margin: 4px 0;
+  }
 }
 </style>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useTasksStore } from '@/stores/index'
 import { keys } from '@ltfei/todo-common'
+import { inbox, important, myday, planned, assignedToMe } from '@ltfei/todo-common'
 
 defineOptions({
   name: 'SidebarListItem'
@@ -24,7 +25,13 @@ const count = computed(() => {
 <template>
   <div class="sidebar-list-item" :class="{ checked }">
     <div class="icon">
-      <icon-list />
+      <icon-star v-if="id == important" fill="var(--warning)" />
+      <icon-home v-else-if="id == inbox" fill="var(--primary)" />
+      <icon-sun-one v-else-if="id == myday" fill="var(--info)" />
+      <icon-plan v-else-if="id == planned" fill="var(--info)" />
+      <icon-user v-else-if="id == assignedToMe" fill="var(--info)" />
+
+      <icon-list v-else />
     </div>
     <div class="title">{{ name }}</div>
     <a-badge
