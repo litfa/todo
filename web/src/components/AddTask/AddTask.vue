@@ -35,7 +35,9 @@ const addTask = () => {
     status: keys.task.status.notStarted,
     createdTime: Date.now(),
     completedDateTime: 0,
-    lastEditTime: 0
+    lastEditTime: 0,
+    isRepeat: false,
+    repetitionPeriod: ''
   })
   text.value = ''
 }

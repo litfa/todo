@@ -44,7 +44,7 @@ const count = computed(() => {
   display: flex;
 }
 .sidebar-list-item {
-  padding: 0 8px;
+  padding: 0 12px;
   box-sizing: border-box;
   display: flex;
   align-items: center;

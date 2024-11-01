@@ -63,6 +63,7 @@ const openSetting = () => {
   display: flex;
 }
 .sidebar {
+  width: 100%;
   max-width: 200px;
   height: 100%;
   background-color: @bg-color;
