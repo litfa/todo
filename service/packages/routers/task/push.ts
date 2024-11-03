@@ -10,7 +10,7 @@ import {
 } from '@ltfei/todo-common'
 import { Request } from '@/app/types'
 import Joi from 'joi'
-import { handlingCommits } from '@/utils/commit'
+import { handlingCommits } from '@/utils/handlingCommits'
 
 const router = Router()
 
@@ -54,35 +54,13 @@ router.post('/', async (req: Request, res) => {
     })
   }
 
-  const results = await Promise.allSettled(
-    commits.map((commit) => {
-      return handlingCommits(commit)
-    })
-  )
+  const { errCount, results } = await handlingCommits(commits)
 
   res.send({
     status: 200,
     data: {
-      errCount: results.reduce((previousValue, currentValue) => {
-        if (currentValue.status == 'rejected') {
-          console.log(currentValue)
-
-          return previousValue + 1
-        }
-        return previousValue
-      }, 0),
-      results: results.map((e) => {
-        const err = e.status == 'rejected'
-        if (err) {
-          return {
-            err
-          }
-        }
-        return {
-          err,
-          value: e.value
-        }
-      })
+      errCount,
+      results
     }
   })
 })

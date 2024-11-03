@@ -8,7 +8,9 @@ import { DataTypes, Model } from 'sequelize'
 import { Task } from '@ltfei/todo-common'
 import { UnderlineObjectKeys } from '../types'
 
-type Table = UnderlineObjectKeys<Task>
+type Table = Omit<UnderlineObjectKeys<Task>, 'id'> & {
+  id: bigint
+}
 
 export const Tasks = sequelize.define<Model<Table, Table>, Table>(
   'tasks',
@@ -49,3 +51,5 @@ export const Tasks = sequelize.define<Model<Table, Table>, Table>(
     ]
   }
 )
+
+export { Table as TasksTable }

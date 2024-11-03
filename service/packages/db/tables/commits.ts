@@ -9,7 +9,7 @@ import { Commit } from '@ltfei/todo-common'
 import { UnderlineObjectKeys } from '../types'
 
 interface TableType extends Commit<string> {
-  commit_id: number
+  commit_id: bigint
 }
 
 type Table = UnderlineObjectKeys<TableType>
