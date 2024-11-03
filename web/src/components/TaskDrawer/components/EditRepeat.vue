@@ -5,10 +5,8 @@ import dayjs, { type Dayjs } from 'dayjs'
 import i18n from '@/lang'
 import { formatDate } from '@/utils/date'
 
-// todo: 提醒任务
-
 defineOptions({
-  name: 'EditReminder'
+  name: 'EditRepeat'
 })
 
 const props = defineProps<{
@@ -17,58 +15,65 @@ const props = defineProps<{
 const { t } = i18n.global
 const tasksStore = useTasksStore()
 const task = computed(() => tasksStore.tasks.find((e) => e.id == props.taskId)!)
-const editReminderRef = ref<HTMLElement>()
+const editRepeatRef = ref<HTMLElement>()
 const open = ref(false)
-const hasReminderDateTime = computed(() => {
-  return task.value.isReminderOn && Boolean(task.value.reminderDateTime)
+const hasRepetitionPeriod = computed(() => {
+  return task.value.isReminderOn && Boolean(task.value.repetitionPeriod)
 })
 const presets = [
   {
-    time: dayjs().startOf('day').set('hour', 18),
-    text: t('later_today'),
-    extendText: '18:00',
-    icon: IconTime
-  },
-  {
-    time: dayjs().add(1, 'day').startOf('day').set('hour', 9),
-    text: t('tomorrow'),
-    extendText: '9:00',
-    icon: IconArrowCircleRight
-  },
-  {
-    time: dayjs().add(7, 'day').startOf('day'),
-    text: t('next_week'),
-    extendText: '9:00',
-    icon: IconCircleDoubleRight
+    time: '0 0 0 * * *',
+    text: t('everyday'),
+    icon: null
   }
+  // {
+  //   time: '0 0 0 0 * *',
+  //   text: t('weekly'),
+  //   extendText: '9:00',
+  //   icon: null
+  // },
+  // {
+  //   time: '0 0 0 0 0 *',
+  //   text: t('monthly'),
+  //   extendText: '9:00',
+  //   icon: null
+  // }
 ]
 
-const setReminderOn = (time: string | Dayjs | number) => {
+const setRepeat = (cron: string | null) => {
   open.value = false
+  if (!cron) {
+    tasksStore.action('update', {
+      id: task.value.id,
+      isRepeat: false
+    })
+    return
+  }
   tasksStore.action('update', {
     id: task.value.id,
-    isReminderOn: time != 0,
-    reminderDateTime: dayjs(time).valueOf()
+    isRepeat: true,
+    repetitionPeriod: cron
   })
 }
 
 const editItemText = computed(() => {
-  return hasReminderDateTime.value
-    ? t('remind_at', [dayjs(task.value.reminderDateTime).format('HH:mm')])
-    : t('reminder')
+  return hasRepetitionPeriod.value
+    ? // ? t('repeat', [dayjs(task.value.repetitionPeriod).format('HH:mm')])
+      task.value.repetitionPeriod
+    : t('repeat')
 })
 const subText = computed(() => {
-  if (hasReminderDateTime.value) {
-    return formatDate(task.value.reminderDateTime, 'day')
+  if (hasRepetitionPeriod.value) {
+    return formatDate(task.value.repetitionPeriod, 'day')
   }
 })
 </script>
 
 <template>
-  <div class="edit-reminder" ref="editReminderRef">
+  <div class="edit-repeat" ref="editRepeatRef">
     <a-popover
       v-model:open="open"
-      :getPopupContainer="() => editReminderRef!"
+      :getPopupContainer="() => editRepeatRef!"
       :arrow="false"
       trigger="click"
       placement="bottom"
@@ -79,31 +84,30 @@ const subText = computed(() => {
           v-for="i in presets"
           :key="i.time.valueOf()"
           :text="i.text"
-          :extendText="i.extendText"
-          @click="setReminderOn(i.time)"
+          @click="setRepeat(i.time)"
         >
           <template #icon>
             <component :is="i.icon" />
           </template>
         </EditItem>
         <div class="select-date">
-          <a-date-picker
-            @update:value="setReminderOn"
+          <!-- <a-date-picker
+            @update:value="setRepeat"
             :show-time="{ showMinute: false }"
             :show-now="false"
-          />
+          /> -->
         </div>
       </template>
 
       <EditItem
         :text="editItemText"
         :subText="subText"
-        :extendIcon="hasReminderDateTime && 'close'"
-        @clickExtendIcon="setReminderOn(0)"
-        :highlight="hasReminderDateTime"
+        :extendIcon="hasRepetitionPeriod && 'close'"
+        @clickExtendIcon="setRepeat(null)"
+        :highlight="hasRepetitionPeriod"
       >
         <template #icon>
-          <icon-alarm-clock />
+          <icon-play-cycle />
         </template>
       </EditItem>
     </a-popover>

@@ -65,6 +65,8 @@ router.post('/', async (req: Request, res) => {
     data: {
       errCount: results.reduce((previousValue, currentValue) => {
         if (currentValue.status == 'rejected') {
+          console.log(currentValue)
+
           return previousValue + 1
         }
         return previousValue

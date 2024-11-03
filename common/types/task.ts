@@ -67,7 +67,10 @@ export interface Task extends BasisTask {
    * cron
    */
   repetitionPeriod: string
-
+  /**
+   * 创建的下一个重复任务的id
+   */
+  nextRepeatTaskId: string | null
   /**
    * 所在分组id
    */

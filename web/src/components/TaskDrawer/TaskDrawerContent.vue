@@ -2,6 +2,7 @@
 import Editor from './components/Editor.vue'
 import ExpirationTime from './components/ExpirationTime.vue'
 import EditReminder from './components/EditReminder.vue'
+import EditRepeat from './components/EditRepeat.vue'
 import dayjs from 'dayjs'
 import type { Task } from '@ltfei/todo-common'
 
@@ -40,6 +41,7 @@ const closeTaskDrawer = () => {
         <Editor :task-id="task.id" />
         <ExpirationTime :task-id="task.id" />
         <EditReminder :task-id="task.id" />
+        <EditRepeat :task-id="task.id" />
       </div>
       <div class="footer">
         <div class="create-time">

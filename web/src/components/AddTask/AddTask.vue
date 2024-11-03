@@ -37,7 +37,8 @@ const addTask = () => {
     completedDateTime: 0,
     lastEditTime: 0,
     isRepeat: false,
-    repetitionPeriod: ''
+    repetitionPeriod: '',
+    nextRepeatTaskId: null
   })
   text.value = ''
 }
