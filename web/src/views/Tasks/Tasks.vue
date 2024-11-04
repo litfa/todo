@@ -51,7 +51,9 @@ const clickTaskItem = (id: string) => {
         </div>
       </div>
       <TaskList @click-task-item="clickTaskItem" />
-      <AddTask />
+      <div class="footer">
+        <AddTask />
+      </div>
     </div>
     <div class="drawer">
       <TaskDrawer ref="taskDrawerRef" />
@@ -67,12 +69,18 @@ const clickTaskItem = (id: string) => {
   .list {
     flex: 1;
     display: flex;
-    padding: 8px 16px;
     flex-direction: column;
     background-color: @primary;
+    height: 100%;
+    overflow: auto;
     .header {
-      padding: 10px 0;
+      padding: 12px 16px;
       color: @white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: @primary;
+      // background-color: #fff;
       .open-menu {
         font-size: 18px;
       }
@@ -88,7 +96,14 @@ const clickTaskItem = (id: string) => {
       }
     }
     .task-list {
+      padding: 8px 16px;
       flex: 1;
+    }
+    .footer {
+      padding: 8px 16px;
+      position: sticky;
+      bottom: 0;
+      background-color: @primary;
     }
   }
 }

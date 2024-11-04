@@ -42,6 +42,7 @@ const submit = () => {
 }
 
 .add-task-input {
+  width: 100%;
   height: 40px;
   align-items: center;
   padding: 8px;
