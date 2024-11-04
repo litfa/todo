@@ -46,16 +46,19 @@ export const parse36RadixId = (id: string | number | BigInt): string => {
 /**
  * 解析id并转为10进制bigint
  */
-export const parse10RadixId = (id: string | number | BigInt): string => {
+export const parse10RadixId = (id: string | number | BigInt | bigint): bigint => {
   if (typeof id == 'number') {
-    return BigInt(id).toString()
+    return BigInt(id)
   }
   if (typeof id == 'object') {
-    return id.toString()
+    return BigInt(id.toString())
   }
-
-  if (/[0-9]{0,}/.test(id)) {
+  if (typeof id == 'bigint') {
     return id
   }
-  return bigInt(id, 36).toString()
+
+  if (/^[0-9]{0,}$/.test(id)) {
+    return BigInt(id)
+  }
+  return BigInt(bigInt(id, 36).toString())
 }

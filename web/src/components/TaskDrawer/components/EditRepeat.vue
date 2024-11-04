@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import EditItem from './EditItem.vue'
 import { useTasksStore } from '@/stores/'
-import dayjs, { type Dayjs } from 'dayjs'
 import i18n from '@/lang'
 import { formatDate } from '@/utils/date'
 
@@ -18,26 +17,24 @@ const task = computed(() => tasksStore.tasks.find((e) => e.id == props.taskId)!)
 const editRepeatRef = ref<HTMLElement>()
 const open = ref(false)
 const hasRepetitionPeriod = computed(() => {
-  return task.value.isReminderOn && Boolean(task.value.repetitionPeriod)
+  return task.value.isRepeat && Boolean(task.value.repetitionPeriod)
 })
 const presets = [
   {
     time: '0 0 0 * * *',
     text: t('everyday'),
     icon: null
+  },
+  {
+    time: '0 0 0 0 * *',
+    text: t('weekly'),
+    icon: null
+  },
+  {
+    time: '0 0 0 0 0 *',
+    text: t('monthly'),
+    icon: null
   }
-  // {
-  //   time: '0 0 0 0 * *',
-  //   text: t('weekly'),
-  //   extendText: '9:00',
-  //   icon: null
-  // },
-  // {
-  //   time: '0 0 0 0 0 *',
-  //   text: t('monthly'),
-  //   extendText: '9:00',
-  //   icon: null
-  // }
 ]
 
 const setRepeat = (cron: string | null) => {
@@ -57,15 +54,21 @@ const setRepeat = (cron: string | null) => {
 }
 
 const editItemText = computed(() => {
-  return hasRepetitionPeriod.value
-    ? // ? t('repeat', [dayjs(task.value.repetitionPeriod).format('HH:mm')])
-      task.value.repetitionPeriod
-    : t('repeat')
+  if (!hasRepetitionPeriod.value) {
+    return t('repeat')
+  }
+  const preset = presets.find((e) => e.time == task.value.repetitionPeriod)
+  if (preset) {
+    return preset.text
+  }
+
+  return task.value.repetitionPeriod!
 })
 const subText = computed(() => {
-  if (hasRepetitionPeriod.value) {
-    return formatDate(task.value.repetitionPeriod, 'day')
-  }
+  // if (hasRepetitionPeriod.value) {
+  //   return formatDate(task.value, 'day')
+  // }
+  return ''
 })
 </script>
 

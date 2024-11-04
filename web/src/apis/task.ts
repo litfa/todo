@@ -26,10 +26,8 @@ export const push = (
       }
     | {
         err: false
-        value: {
-          commitId: string
-          value: number | string
-        }
+        commitId: string
+        value: number | string
       }
   )[]
 }> => {

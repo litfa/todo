@@ -146,14 +146,14 @@ export class SyncCommitsService {
       if (e.err) {
         return
       }
-      const commit = commits.find((commit) => commit.commitId == e.value.commitId)
+      const commit = commits.find((commit) => commit.commitId == e.commitId)
       if (!commit) {
         return
       }
       commit.synced = true
       if (commit.operation == 'create') {
         const store = this.getStore(commit)
-        store.updateId(commit.data.createdWithLocalId, parse36RadixId(e.value.value))
+        store.updateId(commit.data.createdWithLocalId, parse36RadixId(e.value))
       }
     })
     return true

@@ -38,7 +38,7 @@ export const parse36RadixId = (id: string | number | BigInt): string => {
 }
 
 /**
- * 解析id并转为10进制字符串
+ * 解析id并转为10进制bigint
  */
 export const parse10RadixId = (id: string | number | BigInt | bigint): bigint => {
   if (typeof id == 'number') {

@@ -66,11 +66,11 @@ export interface Task extends BasisTask {
    * 重复周期
    * cron
    */
-  repetitionPeriod: string
+  repetitionPeriod?: string
   /**
    * 创建的下一个重复任务的id
    */
-  nextRepeatTaskId: string | null
+  nextRepeatTaskId?: string | null
   /**
    * 所在分组id
    */

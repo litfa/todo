@@ -58,21 +58,28 @@ export const handlingCommits = async (
  * 处理重复任务
  * 创建commit
  */
-const handlingCommit = async (commit: Commit): Promise<Result> => {
-  const t = await sequelize.transaction()
+const handlingCommit = async (commit: Commit, t?: Transaction): Promise<Result> => {
+  const notCommit = Boolean(t)
+  t = t || (await sequelize.transaction())
 
   let err = false
   let value: string | number
 
   try {
     value = await updateData(commit, t)
+
+    if (commit.operation == Create) {
+      commit.data.id = value as string
+    }
+
     await handlingRepeatTask(commit, t)
     await insertCommit(commit, t)
+    if (notCommit) {
+      return
+    }
     await t.commit()
   } catch (e) {
     await t.rollback()
-    console.log(e)
-
     err = true
   }
 
@@ -211,7 +218,7 @@ const createRepeatCommit = async (task: CamelObjectKeys<TasksTable>, t: Transact
     }
   )
 
-  await handlingCommit(commit)
+  await handlingCommit(commit, t)
 }
 
 /**
