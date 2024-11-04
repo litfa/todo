@@ -3,6 +3,7 @@ import SettingContent from '@/views/Setting/Setting.vue'
 import './settingModal.less'
 import { type, type OsType } from '@tauri-apps/plugin-os'
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
+import router from '@/router'
 
 const openSettingModal = () => {
   const modal = Modal.info({
@@ -59,6 +60,12 @@ export const openSettingWindow = () => {
 
   if (platformName && desktop.includes(platformName)) {
     return openWindow()
+  }
+
+  const clientWidth = document.body.clientWidth
+
+  if (clientWidth < 480) {
+    return router.push('/setting-mobie')
   }
 
   const destroy = openSettingModal()

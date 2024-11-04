@@ -35,4 +35,8 @@ const token = computed({
   </div>
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.dev-setting {
+  padding: 8px;
+}
+</style>
