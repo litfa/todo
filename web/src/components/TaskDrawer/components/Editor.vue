@@ -97,7 +97,8 @@ const updateTaskSubject = (value: string) => {
 const updateTaskStatus = (value: number) => {
   tasksStore.action('update', {
     id: task.value.id,
-    status: value
+    status: value,
+    completedDateTime: Date.now()
   })
 }
 const updateSubTaskStatus = (id: string, value: number) => {

@@ -42,7 +42,8 @@ const completedCount = computed(() => {
 const updateStatus = (status: number) => {
   tasksStore.action('update', {
     id: props.id,
-    status: status
+    status: status,
+    completedDateTime: status == keys.task.status.completed ? Date.now() : 0
   })
 }
 

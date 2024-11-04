@@ -3,8 +3,9 @@ import Editor from './components/Editor.vue'
 import ExpirationTime from './components/ExpirationTime.vue'
 import EditReminder from './components/EditReminder.vue'
 import EditRepeat from './components/EditRepeat.vue'
-import dayjs from 'dayjs'
 import type { Task } from '@ltfei/todo-common'
+import { formatDate } from '@/utils/date'
+import { keys } from '@ltfei/todo-common'
 
 defineOptions({
   name: 'TaskDrawerContent'
@@ -44,8 +45,11 @@ const closeTaskDrawer = () => {
         <EditRepeat :task-id="task.id" />
       </div>
       <div class="footer">
-        <div class="create-time">
-          创建于 {{ dayjs(task.createdTime).format('YYYY-MM-DD HH:mm') }}
+        <div class="create-time" v-if="task.status == keys.task.status.completed">
+          {{ $t('completed_in', [formatDate(task.completedDateTime, 'day')]) }}
+        </div>
+        <div class="create-time" v-else>
+          {{ $t('create_in', [formatDate(task.createdTime, 'day')]) }}
         </div>
         <div class="remove">
           <icon-delete />

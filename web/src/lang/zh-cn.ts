@@ -32,5 +32,7 @@ export default {
   week_6: '周六',
   this_week_n: '本{0}',
   next_week_n: '下{0}',
-  last_week_n: '上{0}'
+  last_week_n: '上{0}',
+  create_in: '创建于 {0}',
+  completed_in: '已在 {0} 完成'
 }
