@@ -29,6 +29,7 @@ const version = getVersion()
   display: flex;
   flex-direction: column;
   padding: 8px;
+  box-sizing: border-box;
   footer {
     width: 100%;
     text-align: center;

@@ -43,6 +43,7 @@ const route = useRoute()
   }
   .page {
     flex: 1;
+    overflow: auto;
   }
 }
 </style>
