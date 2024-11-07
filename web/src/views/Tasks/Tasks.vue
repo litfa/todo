@@ -106,5 +106,8 @@ const clickTaskItem = (id: string) => {
       background-color: @primary;
     }
   }
+  .drawer {
+    // width: 350px;
+  }
 }
 </style>

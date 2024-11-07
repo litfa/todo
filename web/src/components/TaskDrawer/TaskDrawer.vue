@@ -48,18 +48,8 @@ export type { Expose }
 
 <template>
   <template v-if="useMask">
-    <a-drawer
-      v-model:open="open"
-      placement="right"
-      width="350"
-      :headerStyle="{
-        display: 'none'
-      }"
-      :bodyStyle="{
-        padding: 0
-      }"
-    >
-      <TaskDrawerContent :open="open" :task @close="closeTaskDrawer" />
+    <a-drawer v-model:open="open" placement="right" root-class-name="task-drawer-root">
+      <TaskDrawerContent :open="open" width="100%" :task @close="closeTaskDrawer" />
     </a-drawer>
   </template>
   <template v-else>
@@ -67,4 +57,17 @@ export type { Expose }
   </template>
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less">
+.task-drawer-root {
+  .ant-drawer-content-wrapper {
+    width: 100vw !important;
+    max-width: 350px;
+    .ant-drawer-header {
+      display: none;
+    }
+    .ant-drawer-body {
+      padding: 0;
+    }
+  }
+}
+</style>

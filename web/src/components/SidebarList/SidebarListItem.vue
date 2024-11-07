@@ -51,11 +51,11 @@ const count = computed(() => {
   display: flex;
 }
 .sidebar-list-item {
-  padding: 0 12px;
+  padding: 0 14px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  height: 30px;
+  height: 35px;
   transition: all 0.2s;
   user-select: none;
   flex-shrink: 0;
@@ -64,7 +64,7 @@ const count = computed(() => {
     margin-right: 8px;
   }
   .title {
-    font-size: 14px;
+    font-size: 16px;
     flex: 1;
     overflow: hidden;
     white-space: nowrap;

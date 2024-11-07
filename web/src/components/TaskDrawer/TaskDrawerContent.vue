@@ -15,9 +15,11 @@ withDefaults(
   defineProps<{
     transitionTime?: string
     task?: Task
+    width?: string
   }>(),
   {
-    transitionTime: '0'
+    transitionTime: '0',
+    width: '350px'
   }
 )
 
@@ -60,7 +62,7 @@ const closeTaskDrawer = () => {
 </template>
 
 <style lang="less" scoped>
-@width: 350px;
+@width: v-bind(width);
 .task-drawer-content {
   overflow: hidden;
   height: 100%;
