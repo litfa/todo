@@ -106,6 +106,12 @@ const desc = computed(() => {
         (props.parentFolderId == inboxTaskListId ? t('inbox') : t('unnamed_tasklist'))
     })
   }
+  if (props.isRepeat) {
+    texts.push({
+      text: '',
+      icon: IconPlayCycle
+    })
+  }
   return texts
 })
 </script>
