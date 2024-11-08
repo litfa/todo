@@ -4,6 +4,13 @@ import { useViewLayerEvent } from '@/utils/useViewLayerEvent'
 import { useThemes } from '@/utils/theme'
 import themes from '@/assets/theme'
 import { useStoreStorage } from '@/utils/useStorage'
+import VConsole from 'vconsole'
+
+const vConsole = localStorage.getItem('vConsole') || ''
+
+if (vConsole && vConsole == '1') {
+  new VConsole()
+}
 
 const syncCommitsService = new SyncCommitsService()
 
