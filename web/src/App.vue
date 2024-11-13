@@ -5,6 +5,7 @@ import { useThemes } from '@/utils/theme'
 import themes from '@/assets/theme'
 import { useStoreStorage } from '@/utils/useStorage'
 import VConsole from 'vconsole'
+import { NotificationService } from '@/utils/notification'
 
 const vConsole = localStorage.getItem('vConsole') || ''
 
@@ -13,10 +14,12 @@ if (vConsole && vConsole == '1') {
 }
 
 const syncCommitsService = new SyncCommitsService()
+const notificationService = new NotificationService()
 
 const startService = async () => {
   await useStoreStorage()
   syncCommitsService.startSync(1000 * 10)
+  notificationService.startNotificationProcessing()
 }
 startService()
 
@@ -30,6 +33,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   syncCommitsService.destroy()
+  notificationService.destroy()
 })
 </script>
 

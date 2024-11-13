@@ -1,9 +1,9 @@
 import { Modal } from 'ant-design-vue'
 import SettingContent from '@/views/Setting/Setting.vue'
 import './settingModal.less'
-import { type, type OsType } from '@tauri-apps/plugin-os'
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
 import router from '@/router'
+import { isDesktop } from '@/utils/os'
 
 const openSettingModal = () => {
   const modal = Modal.info({
@@ -50,15 +50,7 @@ const openWindow = () => {
  * win考虑使用弹出窗口
  */
 export const openSettingWindow = () => {
-  let platformName
-  try {
-    platformName = type()
-  } catch {
-    //
-  }
-  const desktop: OsType[] = ['windows', 'macos', 'linux']
-
-  if (platformName && desktop.includes(platformName)) {
+  if (isDesktop()) {
     return openWindow()
   }
 

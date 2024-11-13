@@ -89,7 +89,7 @@ const subText = computed(() => {
         <div class="select-date">
           <a-date-picker
             @update:value="setReminderOn"
-            :show-time="{ showMinute: false }"
+            :show-time="{ showSecond: false }"
             :show-now="false"
           />
         </div>
