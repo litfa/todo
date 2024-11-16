@@ -71,6 +71,11 @@ export class SyncCommitsService {
    */
   private async pull(): Promise<boolean> {
     const { data } = await pull(this.commitsStore.lastSyncTime)
+    console.log(
+      `[pull] ${data.commits.length} ${this.commitsStore.lastSyncTime} ${data.syncTime}`,
+      data
+    )
+
     this.commitsStore.lastSyncTime = data.syncTime
     data.commits.forEach((e) => {
       const store = this.getStore(e)
@@ -137,6 +142,7 @@ export class SyncCommitsService {
         return e
       })
     )
+    console.log(`[push] ${commits.length} err:${data.errCount}`, data)
     if (status != 200) {
       this.commitsStore.syncError = true
       return false

@@ -14,7 +14,7 @@ export const useViewLayerEvent = () => {
 
   on('authentication_failed', () => {
     localStorage.removeItem('token')
-    router.replace('/login')
+    // router.replace('/login')
     message.warn('请先登录')
   })
 

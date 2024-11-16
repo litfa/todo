@@ -5,6 +5,7 @@ import { Commits } from '@/db'
 import { Op } from 'sequelize'
 import { convertKeysToCamelCase } from '@/utils/camelToSnakeCase'
 import { Update } from '@ltfei/todo-common'
+import { app as logger } from '@/utils/log'
 
 const router = Router()
 
@@ -24,7 +25,6 @@ router.use('/', async (req: Request, res) => {
   const { lastSyncTime } = body
   const user = req.auth
 
-  console.log(lastSyncTime)
   const syncTime = Date.now()
 
   /**
@@ -64,6 +64,10 @@ router.use('/', async (req: Request, res) => {
       user: user.id
     }
   })
+
+  logger.debug(
+    `[pull] lastSyncTime:${lastSyncTime} syncTime:${syncTime} count:${results.length}`
+  )
 
   res.send({
     status: 200,

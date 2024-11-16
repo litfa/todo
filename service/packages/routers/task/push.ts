@@ -11,6 +11,7 @@ import {
 import { Request } from '@/app/types'
 import Joi from 'joi'
 import { handlingCommits } from '@/utils/handlingCommits'
+import { app as logger } from '@/utils/log'
 
 const router = Router()
 
@@ -55,6 +56,8 @@ router.post('/', async (req: Request, res) => {
   }
 
   const { errCount, results } = await handlingCommits(commits)
+
+  logger.debug(`[push] ${commits.length} err:${errCount}`)
 
   res.send({
     status: 200,
