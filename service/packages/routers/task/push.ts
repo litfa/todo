@@ -57,7 +57,7 @@ router.post('/', async (req: Request, res) => {
 
   const { errCount, results } = await handlingCommits(commits)
 
-  logger.debug(`[push] ${commits.length} err:${errCount}`)
+  logger.info(`[push] ${commits.length} err:${errCount}`)
 
   res.send({
     status: 200,

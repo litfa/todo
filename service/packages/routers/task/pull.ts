@@ -65,7 +65,7 @@ router.use('/', async (req: Request, res) => {
     }
   })
 
-  logger.debug(
+  logger.info(
     `[pull] lastSyncTime:${lastSyncTime} syncTime:${syncTime} count:${results.length}`
   )
 
