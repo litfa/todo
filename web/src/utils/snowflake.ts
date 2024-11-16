@@ -37,7 +37,7 @@ export const parse36RadixId = (id: string | number | BigInt): string => {
   if (typeof id == 'bigint' || typeof id == 'object') {
     return id.toString(36)
   }
-  if (/[0-9]{0,}/.test(id)) {
+  if (/^[0-9]{0,}$/.test(id)) {
     return bigInt(id).toString(36)
   }
   return id
