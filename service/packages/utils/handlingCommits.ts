@@ -14,6 +14,7 @@ import { generateId, generateIdString, parse10RadixId } from '@/utils/snowflake'
 import { convertKeysToSnakeCase, convertKeysToCamelCase } from './camelToSnakeCase'
 import cronParser from 'cron-parser'
 import { CamelObjectKeys } from '@/db/types'
+import { app as logger } from '@/utils/log'
 
 type Table = SubTasksTable | TaskListTable | TasksTable
 
@@ -79,6 +80,7 @@ const handlingCommit = async (commit: Commit, t?: Transaction): Promise<Result> 
     }
     await t.commit()
   } catch (e) {
+    logger.error(e)
     await t.rollback()
     err = true
   }
