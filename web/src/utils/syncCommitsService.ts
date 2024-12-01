@@ -63,7 +63,7 @@ export class SyncCommitsService {
   }
 
   /**
-   * - 判断这个 commit 是否已经处理
+   * - 如果是 Create，判断数据是否已经存在，如果已经存在 则不做处理
    * - Create 和 Delete 全量处理(不创建commit)
    * - 判断是否有已有的commit
    * - 如有 对比修改时间，若拿到的更早，不做处理，如果更晚，则提交新的commit
@@ -82,9 +82,11 @@ export class SyncCommitsService {
       const action = this.getStoreAction(e)
       if (!action) return false
 
-      const exists = store.getStateById(parse36RadixId(e.data.id))
-      if (exists) {
-        return
+      if (e.operation == Create) {
+        const exists = store.getStateById(parse36RadixId(e.data.id))
+        if (exists) {
+          return
+        }
       }
 
       if (e.operation == Create || e.operation == Delete) {
@@ -100,7 +102,7 @@ export class SyncCommitsService {
 
       let notCreateCommit = true
       const existingCommit = this.commitsStore.commits.find((commit) => {
-        return commit.data.id == e.data.id
+        return commit.data.id == e.data.id && !commit.synced
       })
 
       if (existingCommit) {
