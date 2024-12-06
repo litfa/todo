@@ -28,6 +28,7 @@ watch(
 
 provide(injectionKey.useMenuMask, useMenuMask)
 provide(injectionKey.openMenu, openMenu)
+provide(injectionKey.closeMenu, closeMenu)
 </script>
 
 <template>

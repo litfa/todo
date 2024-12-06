@@ -27,6 +27,7 @@ startService()
 const { theme, mode } = useThemes(themes)
 
 provide(injectionKey.themeMode, mode)
+provide(injectionKey.syncCommits, syncCommitsService.sync.bind(syncCommitsService))
 
 onMounted(() => {
   useViewLayerEvent()
