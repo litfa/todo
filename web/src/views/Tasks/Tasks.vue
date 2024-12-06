@@ -6,6 +6,7 @@ import type { Expose } from '@/components/TaskDrawer/TaskDrawer.vue'
 import { useTasksListStore } from '@/stores/'
 import { defaultList } from '@ltfei/todo-common'
 import i18n from '@/lang'
+import { injectionKey } from '@/types/'
 
 defineOptions({
   name: 'TasksPage'
@@ -17,8 +18,8 @@ const route = useRoute()
 const id = computed(() => route.params.id as string)
 const tasksListStore = useTasksListStore()
 
-const useMenuMask = inject('useMenuMask')
-const openMenu = inject<() => void>('openMenu')
+const useMenuMask = inject(injectionKey.useMenuMask)
+const openMenu = inject(injectionKey.openMenu)
 
 const taskList = computed(() => {
   return tasksListStore.taskList.find((e) => {

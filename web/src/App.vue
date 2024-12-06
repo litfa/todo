@@ -6,6 +6,7 @@ import themes from '@/assets/theme'
 import { useStoreStorage } from '@/utils/useStorage'
 import VConsole from 'vconsole'
 import { NotificationService } from '@/utils/notification'
+import { injectionKey } from '@/types/'
 
 const vConsole = localStorage.getItem('vConsole') || ''
 
@@ -25,7 +26,7 @@ startService()
 
 const { theme, mode } = useThemes(themes)
 
-provide('themeMode', mode)
+provide(injectionKey.themeMode, mode)
 
 onMounted(() => {
   useViewLayerEvent()

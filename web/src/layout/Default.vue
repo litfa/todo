@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Sidebar from '@/components/Sidebar/Sidebar.vue'
 import { useWindowSize } from '@vueuse/core'
+import { injectionKey } from '@/types/'
 
 defineOptions({
   name: 'DefaultLayout'
@@ -25,8 +26,8 @@ watch(
   }
 )
 
-provide('useMenuMask', useMenuMask)
-provide('openMenu', openMenu)
+provide(injectionKey.useMenuMask, useMenuMask)
+provide(injectionKey.openMenu, openMenu)
 </script>
 
 <template>
