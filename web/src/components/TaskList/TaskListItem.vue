@@ -9,6 +9,7 @@ import i18n from '@/lang'
 import { type Component } from 'vue'
 // import { Calendar as IconCalendar } from '@icon-park/vue-next'
 import { isToday, isTomorrow, isYesterday } from '@/utils/date'
+import { parse36RadixId } from '@/utils/snowflake'
 
 defineOptions({
   name: 'TaskListItem'
@@ -27,7 +28,9 @@ const route = useRoute()
 const taskListId = computed(() => route.params.id as string)
 
 const subTasks = computed(() => {
-  return subTasksStore.subTasks.filter((e) => e.parentId == props.id)
+  return subTasksStore.subTasks.filter(
+    (e) => parse36RadixId(e.parentId) == parse36RadixId(props.id)
+  )
 })
 
 const completedCount = computed(() => {

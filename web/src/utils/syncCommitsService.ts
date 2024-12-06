@@ -49,7 +49,7 @@ export class SyncCommitsService {
     if (commit.targetTable === 'tasks') {
       return this.tasks
     } else if (commit.targetTable === 'subTasks') {
-      return this.tasks
+      return this.subTasks
     } else if (commit.targetTable === 'taskList') {
       return this.tasksList
     } else {
