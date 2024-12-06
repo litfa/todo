@@ -2,7 +2,6 @@
 import EditItem from './EditItem.vue'
 import { useTasksStore } from '@/stores/'
 import i18n from '@/lang'
-import { formatDate } from '@/utils/date'
 
 defineOptions({
   name: 'EditRepeat'
@@ -26,12 +25,12 @@ const presets = [
     icon: null
   },
   {
-    time: '0 0 0 0 * *',
+    time: '0 0 0 * * 1',
     text: t('weekly'),
     icon: null
   },
   {
-    time: '0 0 0 0 0 *',
+    time: '0 0 0 1 * *',
     text: t('monthly'),
     icon: null
   }
