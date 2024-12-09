@@ -9,13 +9,13 @@ export const useViewLayerEvent = () => {
   const router = useRouter()
 
   on('error_axios', (data) => {
-    message.error('网络异常' + data)
+    // message.error('网络异常' + data)
   })
 
   on('authentication_failed', () => {
     localStorage.removeItem('token')
     // router.replace('/login')
-    message.warn('请先登录')
+    // message.warn('请先登录')
   })
 
   on('update_tasklist_id', (before: string, after: string) => {

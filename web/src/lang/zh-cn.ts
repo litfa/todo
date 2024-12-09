@@ -34,5 +34,7 @@ export default {
   next_week_n: '下{0}',
   last_week_n: '上{0}',
   create_in: '创建于 {0}',
-  completed_in: '已在 {0} 完成'
+  completed_in: '已在 {0} 完成',
+  completed: '完成',
+  be_reminded_later: '稍后提醒'
 }

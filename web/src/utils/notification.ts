@@ -7,6 +7,8 @@ import { useTasksStore } from '@/stores'
 import { getOsType } from '@/utils/os'
 import type { OsType } from '@tauri-apps/plugin-os'
 import { keys } from '@ltfei/todo-common'
+import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
+import { primaryMonitor } from '@tauri-apps/api/window'
 
 interface NotificationOption {
   id: string
@@ -101,6 +103,58 @@ export class NotificationService {
       extra: {
         id: option.id
       }
+    })
+  }
+
+  public async createTauriNotificationWindow(option: NotificationOption) {
+    const width = 270
+    const height = 150
+    const margin = 20
+    // todo: 动态获取任务栏高度
+    const taskbarHeigh = 50
+
+    const { x, y } = await (async () => {
+      const monitor = await primaryMonitor()
+      if (!monitor) {
+        return {
+          x: 0,
+          y: 0
+        }
+      }
+      const monitorWidth = monitor!.size.width / monitor.scaleFactor
+      const monitorHeight = monitor!.size.height / monitor.scaleFactor - taskbarHeigh
+
+      const x = monitorWidth - width - margin
+      const y = monitorHeight - height - margin
+
+      return {
+        x,
+        y
+      }
+    })()
+
+    const webview = new WebviewWindow('notification', {
+      url: `/notification?taskId=${option?.id}`,
+      title: '通知',
+      width,
+      height,
+      x: Math.max(x, margin),
+      y: Math.max(y, margin),
+      resizable: false,
+      maximizable: false,
+      minimizable: false,
+      transparent: true,
+      skipTaskbar: true,
+      decorations: false,
+      visibleOnAllWorkspaces: true,
+      alwaysOnTop: true
+    })
+
+    webview.once('tauri://created', function () {
+      console.log('created')
+    })
+    webview.once('tauri://error', function (e) {
+      console.log(e)
     })
   }
 }

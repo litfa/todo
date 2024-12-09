@@ -70,7 +70,10 @@ export class SyncCommitsService {
    * - 如果没有 则不产生新的commit直接修改
    */
   private async pull(): Promise<boolean> {
-    const { data } = await pull(this.commitsStore.lastSyncTime)
+    const { data, status } = await pull(this.commitsStore.lastSyncTime)
+    if (status != 200) {
+      return false
+    }
     console.log(
       `[pull] ${data.commits.length} ${this.commitsStore.lastSyncTime} ${data.syncTime}`,
       data

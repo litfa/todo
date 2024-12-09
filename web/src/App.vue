@@ -41,6 +41,18 @@ onUnmounted(() => {
 
 <template>
   <!-- <button @click="syncCommitsService.sync()">sync</button> -->
+  <!-- <button
+    @click="
+      notificationService.createTauriNotificationWindow({
+        id: 'p00dnrafdqtd',
+        time: 0,
+        title: ''
+      })
+    "
+    v-if="$route.path != '/notification'"
+  >
+    open notification
+  </button> -->
   <a-config-provider
     :theme="{
       token: {
