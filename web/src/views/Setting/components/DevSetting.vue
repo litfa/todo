@@ -1,33 +1,15 @@
 <script setup lang="ts">
+import { useUserSetting } from '@/stores/'
+import { storeToRefs } from 'pinia'
+
 defineOptions({
   name: 'DevSetting'
 })
 
-const baseUrl = computed({
-  get() {
-    return localStorage.getItem('baseUrl') || ''
-  },
-  set(value) {
-    localStorage.setItem('baseUrl', value)
-  }
-})
-const token = computed({
-  get() {
-    return localStorage.getItem('token') || ''
-  },
-  set(value) {
-    localStorage.setItem('token', value)
-  }
-})
+const userSetting = useUserSetting()
 
-const vConsole = computed({
-  get() {
-    return localStorage.getItem('vConsole') || ''
-  },
-  set(value) {
-    localStorage.setItem('vConsole', value)
-  }
-})
+const { setting } = storeToRefs(userSetting)
+const { dev: devSetting } = setting.value
 </script>
 
 <template>
@@ -35,13 +17,13 @@ const vConsole = computed({
     开发设置，仅用于调试，修改实时保存，刷新后生效
     <a-form name="basic" layout="vertical" autocomplete="off">
       <a-form-item label="baseUrl">
-        <a-input v-model:value="baseUrl" />
+        <a-input v-model:value="devSetting.baseUrl" />
       </a-form-item>
       <a-form-item label="token">
-        <a-textarea v-model:value="token" :rows="6" />
+        <a-textarea v-model:value="devSetting.token" :rows="6" />
       </a-form-item>
       <a-form-item label="vConsole">
-        <a-input v-model:value="vConsole" />
+        <a-input v-model:value="devSetting.vConsole" />
       </a-form-item>
     </a-form>
   </div>

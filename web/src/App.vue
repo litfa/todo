@@ -7,18 +7,18 @@ import { useStoreStorage } from '@/utils/useStorage'
 import VConsole from 'vconsole'
 import { NotificationService } from '@/utils/notification'
 import { injectionKey } from '@/types/'
+import { useUserSetting } from '@/stores/setting'
 
-const vConsole = localStorage.getItem('vConsole') || ''
-
-if (vConsole && vConsole == '1') {
-  new VConsole()
-}
+const setting = useUserSetting()
 
 const syncCommitsService = new SyncCommitsService()
 const notificationService = new NotificationService()
 
 const startService = async () => {
   await useStoreStorage()
+  if (setting.setting.dev.vConsole == '1') {
+    new VConsole()
+  }
   syncCommitsService.startSync(1000 * 10)
   notificationService.startNotificationProcessing()
 }

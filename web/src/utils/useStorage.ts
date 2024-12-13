@@ -27,7 +27,8 @@ import {
   useSubTasksStore,
   // useTaskGroupStore,
   useTasksListStore,
-  useTasksStore
+  useTasksStore,
+  useUserSetting
 } from '@/stores'
 
 export const useStoreStorage = async () => {
@@ -36,12 +37,14 @@ export const useStoreStorage = async () => {
   // const taskGroup = useTaskGroupStore()
   const tasksList = useTasksListStore()
   const tasks = useTasksStore()
+  const userSetting = useUserSetting()
 
   await Promise.allSettled([
     commits.useStorage(),
     subTasks.useStorage(),
     // taskGroup.useStorage(),
     tasksList.useStorage(),
-    tasks.useStorage()
+    tasks.useStorage(),
+    userSetting.useStorage()
   ])
 }
