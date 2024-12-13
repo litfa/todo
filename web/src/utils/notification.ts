@@ -4,11 +4,12 @@ import {
   requestPermission
 } from '@tauri-apps/plugin-notification'
 import { useTasksStore } from '@/stores'
-import { getOsType } from '@/utils/os'
+import { getOsType, isDesktop } from '@/utils/os'
 import type { OsType } from '@tauri-apps/plugin-os'
 import { keys } from '@ltfei/todo-common'
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
 import { primaryMonitor } from '@tauri-apps/api/window'
+import { useUserSetting } from '@/stores/'
 
 interface NotificationOption {
   id: string
@@ -18,7 +19,9 @@ interface NotificationOption {
 
 export class NotificationService {
   private readonly osType: OsType | 'browser' = getOsType()
+  private readonly isDesktop = isDesktop()
   private readonly tasks = useTasksStore()
+  private readonly userSetting = useUserSetting()
   private interval?: number
   private lastReminderTime = Date.now()
 
@@ -86,6 +89,13 @@ export class NotificationService {
   }
 
   public createNotification(option: NotificationOption) {
+    if (!this.userSetting.getSettingItem('remind', 'enable')) {
+      return
+    }
+    const notificationMethod = this.userSetting.getSettingItem('remind', 'notificationMethod').value
+    if (this.isDesktop && notificationMethod == keys.userSetting.Remind.inApp) {
+      return this.createTauriNotificationWindow(option)
+    }
     if (this.osType == 'browser') {
       return this.createWebNotification(option)
     } else {
@@ -93,11 +103,17 @@ export class NotificationService {
     }
   }
 
-  private createTauriNotification(option: NotificationOption) {
+  /**
+   * 使用 web 的 Notification api
+   */
+  private createWebNotification(option: NotificationOption) {
     new Notification(option.title)
   }
 
-  private createWebNotification(option: NotificationOption) {
+  /**
+   * 使用 tauri 的 Notification api
+   */
+  private createTauriNotification(option: NotificationOption) {
     sendNotification({
       title: option.title,
       extra: {
@@ -106,6 +122,9 @@ export class NotificationService {
     })
   }
 
+  /**
+   * 桌面端右下角弹窗提醒
+   */
   public async createTauriNotificationWindow(option: NotificationOption) {
     const width = 270
     const height = 150

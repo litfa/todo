@@ -16,7 +16,7 @@ const notificationService = new NotificationService()
 
 const startService = async () => {
   await useStoreStorage()
-  if (setting.setting.dev.vConsole == '1') {
+  if (setting.getSettingItem('dev', 'vConsole').value == '1') {
     new VConsole()
   }
   syncCommitsService.startSync(1000 * 10)

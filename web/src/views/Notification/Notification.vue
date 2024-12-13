@@ -2,6 +2,7 @@
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { useTasksStore } from '@/stores/tasks'
 import { formatDate } from '@/utils/date'
+import { keys } from '@ltfei/todo-common'
 
 defineOptions({
   name: 'NotificationPage'
@@ -27,6 +28,14 @@ const closeWindow = () => {
   const currentWindow = getCurrentWindow()
   currentWindow.close()
 }
+
+const completed = () => {
+  tasks.action('update', {
+    id: task.value!.id,
+    status: keys.task.status.completed,
+    completedDateTime: Date.now()
+  })
+}
 </script>
 
 <template>
@@ -48,7 +57,7 @@ const closeWindow = () => {
     </div>
     <div class="content">{{ task?.subject }}</div>
     <div class="footer">
-      <a-button type="primary">{{ $t('completed') }}</a-button>
+      <a-button type="primary" @click="completed">{{ $t('completed') }}</a-button>
       <a-button>{{ $t('be_reminded_later') }}</a-button>
     </div>
   </div>

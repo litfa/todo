@@ -2,7 +2,7 @@ import type { UserSetting } from '@ltfei/todo-common'
 import { defaultUserSetting } from '@ltfei/todo-common'
 import { defineStore } from 'pinia'
 import { useStorage } from '@/utils/useStorage'
-import type { ReadonlyDeep } from '@/types'
+// import type { ReadonlyDeep } from '@/types'
 
 export const useUserSetting = defineStore('userSetting', () => {
   const setting = ref<UserSetting>(defaultUserSetting)
@@ -29,7 +29,7 @@ export const useUserSetting = defineStore('userSetting', () => {
   }
 
   return {
-    setting: setting as Ref<ReadonlyDeep<UserSetting>>,
+    // setting: setting as Ref<ReadonlyDeep<UserSetting>>,
     getSettingItem,
     useStorage: () => useStorage('setting', setting)
   }
