@@ -4,6 +4,12 @@ export interface Dev {
   vConsole: string
 }
 
+export interface Remind {
+  enable: boolean
+  notificationMethod: number
+}
+
 export interface UserSetting {
   dev: Dev
+  remind: Remind
 }

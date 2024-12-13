@@ -36,5 +36,8 @@ export default {
   create_in: '创建于 {0}',
   completed_in: '已在 {0} 完成',
   completed: '完成',
-  be_reminded_later: '稍后提醒'
+  be_reminded_later: '稍后提醒',
+  remind_setting: '提醒与通知',
+  remind_enable: '提醒',
+  remind_notification_method: '提醒方式'
 }

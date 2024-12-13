@@ -38,7 +38,7 @@ const select: MenuProps['onSelect'] = (e) => {
       <template #icon> <icon-setting /> </template>
       常规
     </a-menu-item>
-    <a-menu-item disabled>
+    <a-menu-item key="RemindSetting">
       <template #icon> <icon-remind /> </template>
       提醒
     </a-menu-item>
