@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useUserSetting } from '@/stores/'
+import { NotificationService } from '@/utils/notification'
 
 defineOptions({
   name: 'DevSetting'
 })
 
 const userSetting = useUserSetting()
+const notificationService = new NotificationService()
 
 const { getSettingItem } = userSetting
 </script>
@@ -22,6 +24,18 @@ const { getSettingItem } = userSetting
       </a-form-item>
       <a-form-item label="vConsole">
         <a-input v-model:value="getSettingItem('dev', 'vConsole').value" />
+      </a-form-item>
+      <a-form-item label="发送通知">
+        <a-button
+          @click="
+            notificationService.createTauriNotificationWindow({
+              id: 'p0n4tjazzeo0',
+              time: Date.now(),
+              title: '测试'
+            })
+          "
+          >发送窗口通知</a-button
+        >
       </a-form-item>
     </a-form>
   </div>

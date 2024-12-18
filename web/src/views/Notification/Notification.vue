@@ -2,6 +2,7 @@
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { useTasksStore } from '@/stores/tasks'
 import { formatDate } from '@/utils/date'
+import { NotificationService, type TaskCompletedEventPayload } from '@/utils/notification'
 import { keys } from '@ltfei/todo-common'
 
 defineOptions({
@@ -11,6 +12,7 @@ defineProps<{}>()
 
 const route = useRoute()
 const tasks = useTasksStore()
+const currentWindow = getCurrentWindow()
 
 const task = computed(() => {
   const taskId = route.query.taskId as string
@@ -25,16 +27,17 @@ const task = computed(() => {
 })
 
 const closeWindow = () => {
-  const currentWindow = getCurrentWindow()
   currentWindow.close()
 }
 
 const completed = () => {
-  tasks.action('update', {
+  const payload: TaskCompletedEventPayload = {
     id: task.value!.id,
     status: keys.task.status.completed,
     completedDateTime: Date.now()
-  })
+  }
+  currentWindow.emit(NotificationService.TaskCompletedEvent, payload)
+  currentWindow.close()
 }
 </script>
 

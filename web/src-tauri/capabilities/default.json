@@ -9,6 +9,7 @@
     "core:webview:allow-create-webview-window",
     "core:app:allow-version",
     "notification:default",
-    "core:window:allow-close"
+    "core:window:allow-close",
+    "core:window:allow-hide"
   ]
 }

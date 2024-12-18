@@ -6,16 +6,20 @@ import {
 import { useTasksStore } from '@/stores'
 import { getOsType, isDesktop } from '@/utils/os'
 import type { OsType } from '@tauri-apps/plugin-os'
-import { keys } from '@ltfei/todo-common'
+import { keys, type Task } from '@ltfei/todo-common'
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
-import { primaryMonitor } from '@tauri-apps/api/window'
+import { getCurrentWindow, primaryMonitor } from '@tauri-apps/api/window'
 import { useUserSetting } from '@/stores/'
+import type { OptionalExcept } from '@/types/'
+import type { EventCallback, UnlistenFn } from '@tauri-apps/api/event'
 
 interface NotificationOption {
   id: string
   title: string
   time: number
 }
+
+export type TaskCompletedEventPayload = OptionalExcept<Task, 'id'>
 
 export class NotificationService {
   private readonly osType: OsType | 'browser' = getOsType()
@@ -24,6 +28,8 @@ export class NotificationService {
   private readonly userSetting = useUserSetting()
   private interval?: number
   private lastReminderTime = Date.now()
+  public static readonly TaskCompletedEvent = 'TaskCompletedEvent'
+  private unlisten: UnlistenFn | null = null
 
   getNotificationQueue(): NotificationOption[] {
     const now = Date.now()
@@ -70,7 +76,7 @@ export class NotificationService {
   //   return this.notificationQueue.push(option)
   // }
 
-  public startNotificationProcessing() {
+  public async startNotificationProcessing() {
     this.interval = setInterval(() => {
       const reminderTasks = this.getNotificationQueue()
       reminderTasks.sort((a, b) => a.time - b.time)
@@ -82,10 +88,22 @@ export class NotificationService {
         }
       }
     }, 1000)
+
+    const unlisten = await getCurrentWindow().listen(
+      NotificationService.TaskCompletedEvent,
+      this.onTaskCompletedEvent
+    )
+    this.unlisten = unlisten
+  }
+
+  private onTaskCompletedEvent: EventCallback<TaskCompletedEventPayload> = ({ payload }) => {
+    console.log(payload)
+    this.tasks.action('update', payload)
   }
 
   public destroy() {
     clearInterval(this.interval)
+    this.unlisten && this.unlisten()
   }
 
   public createNotification(option: NotificationOption) {
@@ -167,6 +185,7 @@ export class NotificationService {
       decorations: false,
       visibleOnAllWorkspaces: true,
       alwaysOnTop: true
+      // visible: false
     })
 
     webview.once('tauri://created', function () {
