@@ -6,6 +6,8 @@ import VConsole from 'vconsole'
 import { NotificationService } from '@/utils/notification'
 import { useUserSetting } from '@/stores/setting'
 import { injectionKey } from '@/types/'
+import { TrayService } from '@/utils/tray'
+import { isDesktop } from '@/utils/os'
 
 defineOptions({
   name: 'MainRoot'
@@ -23,6 +25,10 @@ const startService = async () => {
   }
   syncCommitsService.startSync(1000 * 10)
   notificationService.startNotificationProcessing()
+
+  if (isDesktop()) {
+    new TrayService()
+  }
 }
 startService()
 

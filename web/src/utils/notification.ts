@@ -89,11 +89,13 @@ export class NotificationService {
       }
     }, 1000)
 
-    const unlisten = await getCurrentWindow().listen(
-      NotificationService.TaskCompletedEvent,
-      this.onTaskCompletedEvent
-    )
-    this.unlisten = unlisten
+    if (this.osType != 'browser') {
+      const unlisten = await getCurrentWindow().listen(
+        NotificationService.TaskCompletedEvent,
+        this.onTaskCompletedEvent
+      )
+      this.unlisten = unlisten
+    }
   }
 
   private onTaskCompletedEvent: EventCallback<TaskCompletedEventPayload> = ({ payload }) => {
