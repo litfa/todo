@@ -7,9 +7,8 @@ defineOptions({
 
 const trayMenu = ref<HTMLElement>()
 const currentWindow = getCurrentWindow()
-currentWindow.once('tauri://blur', (e) => {
-  console.log(e)
-  currentWindow.close()
+currentWindow.listen('tauri://blur', () => {
+  currentWindow.hide()
 })
 
 onMounted(async () => {
@@ -47,5 +46,6 @@ onMounted(async () => {
 
 <style lang="less" scoped>
 .tray-menu {
+  max-width: 150px;
 }
 </style>
