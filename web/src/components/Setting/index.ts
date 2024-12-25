@@ -2,6 +2,7 @@ import { Modal } from 'ant-design-vue'
 import SettingContent from '@/views/Setting/Setting.vue'
 import './settingModal.less'
 import { WebviewWindow } from '@tauri-apps/api/webviewWindow'
+import { Window } from '@tauri-apps/api/window'
 import router from '@/router'
 import { isDesktop } from '@/utils/os'
 
@@ -26,8 +27,16 @@ const openSettingModal = () => {
   return destroy
 }
 
-const openWindow = () => {
-  const webview = new WebviewWindow('setting', {
+const SettingLabel = 'setting'
+const openWindow = async () => {
+  const setting = await Window.getByLabel(SettingLabel)
+  if (setting) {
+    await setting.unminimize()
+    await setting.setFocus()
+    return
+  }
+
+  const webview = new WebviewWindow(SettingLabel, {
     url: '/setting',
     title: '设置',
     resizable: false,

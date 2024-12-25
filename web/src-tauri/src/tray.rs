@@ -1,4 +1,7 @@
-use tauri::{tray::{TrayIconBuilder, TrayIconEvent}, Runtime, Emitter};
+use tauri::{
+    tray::{TrayIconBuilder, TrayIconEvent},
+    Emitter, Runtime,
+};
 
 pub fn create_tray<R: Runtime>(app: &tauri::AppHandle<R>) -> tauri::Result<()> {
     let _ = TrayIconBuilder::with_id("tray")
@@ -20,23 +23,26 @@ pub fn create_tray<R: Runtime>(app: &tauri::AppHandle<R>) -> tauri::Result<()> {
                     "buttonState": button_state,
                 });
                 tray.app_handle().emit("tray_click", event_data).unwrap();
-            }            
+            }
             #[cfg(target_os = "windows")]
             TrayIconEvent::Enter {
                 id: _,
                 position: _,
-                rect: _} => {
-                tray.app_handle().emit("notify_enter", &tray.rect().unwrap()).unwrap();
+                rect: _,
+            } => {
+                tray.app_handle()
+                    .emit("notify_enter", &tray.rect().unwrap())
+                    .unwrap();
             }
             #[cfg(target_os = "windows")]
             TrayIconEvent::Leave {
                 id: _,
                 position: _,
-                rect: _} => {
+                rect: _,
+            } => {
                 tray.app_handle().emit("notify_leave", ()).unwrap();
             }
             _ => {}
-
         })
         .build(app);
     Ok(())

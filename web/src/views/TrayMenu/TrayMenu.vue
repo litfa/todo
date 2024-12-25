@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { getCurrentWindow, LogicalSize } from '@tauri-apps/api/window'
+import { useTrayMenu } from './useTrayMenu'
 
 defineOptions({
   name: 'TrayMenu'
@@ -11,19 +12,21 @@ currentWindow.listen('tauri://blur', () => {
   currentWindow.hide()
 })
 
-onMounted(async () => {
+onMounted(() => {
   if (!trayMenu.value) {
     return
   }
   const { clientWidth, clientHeight } = trayMenu.value
   currentWindow.setSize(new LogicalSize(clientWidth, clientHeight))
 })
+
+const { exitApp, openSetting } = useTrayMenu()
 </script>
 
 <template>
   <div class="tray-menu" ref="trayMenu">
-    <a-menu>
-      <a-menu-item key="1" disabled>
+    <a-menu :selectable="false">
+      <a-menu-item @click="openSetting">
         <template #icon> <IconSetting /> </template>
         设置
       </a-menu-item>
@@ -36,7 +39,7 @@ onMounted(async () => {
         帮助
       </a-menu-item>
       <a-menu-divider />
-      <a-menu-item disabled>
+      <a-menu-item @click="exitApp">
         <template #icon> <IconLogout /> </template>
         退出
       </a-menu-item>
