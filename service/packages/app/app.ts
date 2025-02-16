@@ -8,13 +8,17 @@ import { app as logger } from '@/utils/log'
 import cors from 'cors'
 import { Request } from './types'
 import './procexit'
-import { createUserToken } from '@/utils/token'
+import { createUserToken, createRefreshToken } from '@/utils/token'
 import { validate } from '@/utils/validate'
 
 const t = await createUserToken({
   id: 1
 })
-console.log(t)
+const t2 = await createRefreshToken({
+  id: 1
+})
+console.log(`[createUserToken]: ${t}
+[createRefreshToken]: ${t2}`)
 
 const { port, baseUrl, jwtSecret, cors: corsOrigin } = await getConfig('app')
 const app = express()
