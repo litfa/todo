@@ -8,7 +8,7 @@ import { isDesktop } from '@/utils/os'
 
 const openSettingModal = () => {
   const modal = Modal.info({
-    title: '设置',
+    title: null,
     wrapClassName: 'setting-modal',
     content: h(SettingContent, {
       isPage: false

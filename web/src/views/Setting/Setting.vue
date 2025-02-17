@@ -20,30 +20,45 @@ const current = ref<keyof typeof components>('DevSetting')
 
 <template>
   <div class="setting-page" :class="{ isPage }">
-    <SettingMenu @change="(e) => (current = e)" />
-    <div class="content">
-      <component :is="components[current]" />
+    <div class="title" v-if="!isPage">设置</div>
+    <div class="setting-content">
+      <SettingMenu @change="(e) => (current = e)" />
+      <div class="content">
+        <component :is="components[current]" />
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="less" scoped>
 .setting-page {
-  display: flex;
-  gap: 16px;
-  // width: 500px;
-  box-sizing: border-box;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   &.isPage {
     height: 100vh;
     padding: 16px;
   }
-  .setting-menu {
-    width: 150px;
-    height: 100%;
+  .title {
+    font-weight: 600;
+    font-size: 16px;
   }
-  .content {
-    flex: 1;
+  .setting-content {
+    display: flex;
+    gap: 16px;
+    // width: 500px;
+    box-sizing: border-box;
+    flex: auto;
+    height: 0;
+
+    .setting-menu {
+      width: 150px;
+      height: 100%;
+    }
+    .content {
+      flex: 1;
+      overflow: auto;
+    }
   }
 }
 </style>
