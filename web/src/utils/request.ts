@@ -1,6 +1,7 @@
 import axios from 'axios'
 import type { AxiosRequestConfig } from 'axios'
 import { emit } from '@/utils/eventbus'
+import { refreshToken as refreshTokenApi } from '@/apis/auth'
 
 const LocalbaseURL = localStorage.getItem('baseUrl')
 
@@ -10,10 +11,35 @@ const axiosRequest = axios.create({
   baseURL: baseURL
 })
 
+const storageKey = {
+  refreshToken: 'refreshToken',
+  userToken: 'token'
+}
+
+/**
+ * 刷新令牌
+ */
+const refreshToken = async () => {
+  const refreshToken = localStorage.getItem(storageKey.refreshToken)
+
+  if (!refreshToken) {
+    return false
+  }
+  const { status, data } = await refreshTokenApi(refreshToken)
+
+  if (status == 401) {
+    return false
+  }
+
+  localStorage.setItem(storageKey.refreshToken, data.refreshToken)
+  localStorage.setItem(storageKey.userToken, data.userToken)
+  return true
+}
+
 axiosRequest.interceptors.request.use((config) => {
   let token
   try {
-    token = localStorage.getItem('token')
+    token = localStorage.getItem(storageKey.userToken)
   } catch {
     return config
   }
@@ -24,12 +50,18 @@ axiosRequest.interceptors.request.use((config) => {
 })
 
 axiosRequest.interceptors.response.use(
-  (data) => {
+  async (data) => {
     /**
      * todo: 封装权限 让用户点击时直接跳转登录，而不需要发送请求
      */
     if (data.data.status == 4001) {
-      emit('authentication_failed')
+      const isRefresh = await refreshToken()
+
+      if (!isRefresh) {
+        emit('authentication_failed')
+        return data
+      }
+      return await axiosRequest.request(data.config)
     }
     return data
   },
