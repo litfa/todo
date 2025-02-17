@@ -9,11 +9,13 @@
     "cz": "git-cz",
     "format": "pnpm run \"/^format:.*/\"",
     "format:service": "pnpm run -C service format",
-    "format:web": "pnpm run -C web format"
+    "format:web": "pnpm run -C web format",
+    "format:miniprogram": "pnpm run -C miniprogram format"
   },
   "workspaces": [
     "service",
-    "web"
+    "web",
+    "miniprogram"
   ],
   "keywords": [],
   "author": "ltfei<ltfei@ltfei.cn>",

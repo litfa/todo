@@ -3,3 +3,4 @@ packages:
   - service
   - 'service/build'
   - common
+  - miniprogram
