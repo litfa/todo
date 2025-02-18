@@ -11,5 +11,7 @@ export * from './tables/tasks'
 export * from './tables/taskList'
 export * from './tables/subTasks'
 export * from './tables/commits'
+export * from './tables/users'
+export * from './tables/login_queue'
 
 import('./assocs')
