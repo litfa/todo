@@ -27,4 +27,4 @@ export const loginStatus = {
    * 登录失败(登录超时) (不在数据库体现，仅返回数据时判断时间)
    */
   loginFailedTimeout: 22
-}
+} as const

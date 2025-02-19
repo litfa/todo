@@ -38,6 +38,7 @@ defineOptions({
     // flex-direction: column;
     gap: 40px;
     border-radius: 8px;
+    align-items: center;
 
     .logo {
       width: 100%;

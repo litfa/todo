@@ -14,3 +14,5 @@ export type ReadonlyDeep<T> = {
       : // 否则，保持原类型但变为只读
         T[P]
 }
+
+export type ValueOf<T> = T[keyof T]
