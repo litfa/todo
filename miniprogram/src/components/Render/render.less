@@ -1,0 +1,147 @@
+@import url(./Consolas.less);
+
+.render {
+  margin: 15rpx 20rpx;
+
+  .md-h1,
+  .md-h2,
+  .md-h3,
+  .md-h4,
+  .md-h5,
+  .md-h6 {
+    margin: 15rpx 0 20rpx 0;
+    font-weight: 500;
+  }
+
+  .md-h1 {
+    font-size: 54rpx;
+  }
+
+  .md-h2 {
+    font-size: 46rpx;
+  }
+
+  .md-h3 {
+    font-size: 40rpx;
+  }
+
+  .md-h4 {
+    font-size: 40rpx;
+    font-weight: 600;
+  }
+
+  // 代码块
+  .md-pre {
+    background-color: #282c34;
+    border-radius: 6px;
+
+    color: #ccc;
+    font-size: 1em;
+    white-space: pre;
+    text-align: left;
+    word-wrap: normal;
+    word-break: normal;
+    word-spacing: normal;
+    hyphens: none;
+    padding: 20rpx 24rpx;
+    margin: 15rpx 0;
+    overflow-x: scroll;
+
+    .md-code {
+      color: #fff;
+      font-family: 'Consolas';
+    }
+
+    .hljs-comment {
+      color: #999;
+    }
+
+    .hljs-function {
+      color: #67cdcc;
+    }
+
+    .hljs-params {
+      color: #fff;
+    }
+
+    .hljs-keyword {
+      color: #cc99cd;
+    }
+
+    .hljs-tag {
+      color: #fff;
+    }
+
+    .hljs-name {
+      color: #e2777a;
+    }
+
+    .hljs-attr {
+      color: #e2777a;
+    }
+
+    .hljs-string {
+      color: #7ec699;
+    }
+
+    .function_ {
+      color: #f08d49;
+    }
+
+    .hljs-attribute {
+      color: #f8c555;
+    }
+
+    .md-thead {
+      background-color: red;
+    }
+  }
+
+  // 表格
+  .md-table {
+    border-collapse: collapse;
+  }
+
+  .md-td,
+  .md-th {
+    border: 1px solid #aaaa;
+  }
+
+  .md-p {
+    line-height: 1.7;
+    font-size: 30.5rpx;
+    margin: 20rpx 0;
+    // font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: monospace;
+    // font-family: 'mon';
+    font-family:
+      Monospaced Number,
+      Chinese Quote,
+      -apple-system,
+      BlinkMacSystemFont,
+      Segoe UI,
+      Roboto,
+      PingFang SC,
+      Hiragino Sans GB,
+      Microsoft YaHei,
+      Helvetica Neue,
+      Helvetica,
+      Arial,
+      sans-serif !important;
+  }
+
+  .md-a {
+    color: @primary;
+  }
+
+  .md-ul,
+  .md-ol {
+    margin-left: 0;
+    padding-left: 40rpx;
+  }
+
+  .md-li {
+    line-height: 1.5;
+    margin-left: 0rpx;
+  }
+}

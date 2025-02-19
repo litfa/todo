@@ -5,6 +5,7 @@ import type { LoginRequest } from '@/app/types'
 import { createUserToken } from '@/utils/token'
 import { findOrCreateUser } from '@/utils/findOrCreateUser'
 import { keys } from '@ltfei/todo-common'
+import { loginMethod } from '@ltfei/todo-common'
 
 const router = Router()
 
@@ -22,7 +23,7 @@ router.post(
     /**
      * 检查是否允许qq互联登录
      */
-    const qqConnect = await getConfig('login_method', 'qq_connect')
+    const qqConnect = await getConfig('login_method', loginMethod.qqConnect)
     if (!qqConnect.enable) {
       return res.send({ status: 403 })
     }

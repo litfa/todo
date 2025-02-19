@@ -43,5 +43,10 @@ export default <RouteRecordRaw[]>[
     path: '/tray-menu',
     name: 'tray-menu',
     component: () => import('@/views/TrayMenu/TrayMenu.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/Login/Login.vue')
   }
 ]

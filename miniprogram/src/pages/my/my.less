@@ -1,0 +1,95 @@
+.my {
+  .background-top {
+    background-color: @primary;
+    height: 49.72vmin;
+  }
+  .background-bottom {
+    background-color: #ffffff;
+    border-radius: 5.56vmin 5.56vmin 0px 0px;
+    height: 500px;
+    transform: translateY(-22.22vmin);
+  }
+
+  .user {
+    display: flex;
+    padding: 2vmin 7vmin;
+    justify-content: space-between;
+    align-items: center;
+    .userinfo {
+      display: flex;
+      flex: 1;
+      .username {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 40vmin;
+      }
+      .avatar {
+        width: 18.5vmin;
+        height: 18.5vmin;
+        border: 0.3vmin solid #fff;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .image {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #fff;
+        margin-left: 4vmin;
+        .username {
+          font-size: 6.11vmin;
+          font-weight: 700;
+        }
+        .desc {
+          font-size: 3.33vmin;
+        }
+      }
+    }
+    .scan {
+      width: 5vmin;
+      height: 5vmin;
+      .image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    &.not-login .userinfo .avatar {
+      align-items: flex-end;
+
+      .image {
+        width: 80%;
+        height: 80%;
+      }
+    }
+  }
+
+  .background-bottom {
+    overflow: hidden;
+    .data {
+      display: flex;
+      margin: 5vmin 0 0 7vmin;
+      .item {
+        margin-right: 4vmin;
+        display: flex;
+        align-items: flex-end;
+        .value {
+          font-size: 5vmin;
+        }
+        .name {
+          font-size: 4.44vmin;
+          color: rgba(89, 89, 89, 1);
+          margin-left: 1vmin;
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import type { AxiosRequestConfig } from 'axios'
 import { emit } from '@/utils/eventbus'
-import { refreshToken as refreshTokenApi } from '@/apis/auth'
+import { refreshToken as refreshTokenApi } from '@/apis/auth/refreshToken'
 
 const LocalbaseURL = localStorage.getItem('baseUrl')
 

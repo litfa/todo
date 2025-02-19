@@ -1,3 +1,5 @@
+import { loginMethod } from '@ltfei/todo-common'
+
 export interface Config {
   app: {
     port: number
@@ -8,16 +10,16 @@ export interface Config {
     jwtRefreshSecret: string
   }
   login_method: {
-    qq_connect: {
+    [loginMethod.qqConnect]: {
       enable: boolean
       appid: string
       appkey: string
       redirect_uri: string
     }
-    wx_open: {
+    [loginMethod.wxOpen]: {
       enable: boolean
     }
-    wx_miniprogram: {
+    [loginMethod.wxMiniprogram]: {
       enable: boolean
       appid: string
       secret: string

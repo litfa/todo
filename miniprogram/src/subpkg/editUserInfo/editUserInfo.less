@@ -1,0 +1,53 @@
+.edit-user-info {
+  width: 89.17vmin;
+  margin: 9vmin auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .edit-user-info-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .username_input {
+    width: 100%;
+    height: 7.22vmin;
+    border: 1px solid #aaaa;
+    transition: all 0.3s;
+    // margin: 2vmin 0 0 0;
+    border-radius: 1vmin;
+    padding: 0 2vmin;
+    box-sizing: border-box;
+    &:hover {
+      border: 1px solid @primary;
+    }
+  }
+  .sub_title {
+    margin: 8vmin 0 3vmin 0;
+  }
+  .upload {
+    width: 19.44vmin;
+    height: 19.44vmin;
+    margin: 0;
+    padding: 0;
+    .upload-icon {
+      max-width: 55%;
+      max-height: 100%;
+    }
+    .avatar {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .submit {
+    width: 100%;
+    height: 10vmin;
+    padding: 0;
+    background-color: @primary;
+    font-size: 4.5vmin;
+    line-height: 10vmin;
+    color: #fff;
+    margin-top: 8vmin;
+  }
+}
