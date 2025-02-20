@@ -17,7 +17,7 @@ export const getStatus = (
   uuid: string
 ): Response<{
   status: ValueOf<typeof loginStatus>
-  token?: string
+  usertToken?: string
   refreshToken?: string
 }> => {
   return axiosRequest({

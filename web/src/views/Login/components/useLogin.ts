@@ -3,6 +3,8 @@ import type { ValueOf } from '@/types'
 import type { Icon } from '@icon-park/vue-next/lib/runtime'
 import { loginMethod } from '@ltfei/todo-common'
 import { keys } from '@ltfei/todo-common'
+import { setToken } from '@/utils/auth'
+import { message } from 'ant-design-vue'
 
 const { loginStatus: loginStatusKeys } = keys.loginQueue
 
@@ -49,6 +51,7 @@ export const useLogin = async () => {
     return views[loginStatus.value]
   })
 
+  const router = useRouter()
   const uuid = ref<string>()
   const loginMethods = ref<string[]>([])
   const loginStatus = ref<ValueOf<typeof loginStatusKeys>>(loginStatusKeys.notLogin)
@@ -76,6 +79,20 @@ export const useLogin = async () => {
 
     loginStatus.value = data.status
 
+    if (data.status == loginStatusKeys.loginSucceed) {
+      setToken({
+        userToken: data.usertToken,
+        refreshToken: data.refreshToken
+      })
+
+      message.success('登录成功')
+
+      setTimeout(() => {
+        router.push('/')
+      }, 1000)
+
+      return
+    }
     if (data.status >= 10) {
       return
     }
