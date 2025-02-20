@@ -2,7 +2,7 @@ import { Router } from 'express'
 import Joi from 'joi'
 import { checkLogin } from '@/utils/wx/checkLogin'
 import { findOrCreateUser } from '@/utils/findOrCreateUser'
-import { createUserToken } from '@/utils/token'
+import { createToken } from '@/utils/token'
 import { getUnlimited } from '@/utils/wx/getUnlimited'
 import { LoginQueue } from '@/db'
 import { keys } from '@ltfei/todo-common'
@@ -100,14 +100,15 @@ router.post('/login', checkUuid(loginStatus.scanCode), async (req: LoginRequest,
     auth_method: 'wx_miniprogram'
   })
 
-  const token = await createUserToken({
+  const { userToken, refreshToken } = await createToken({
     id: userId
   })
 
   res.send({
     status: 200,
     data: {
-      token,
+      userToken,
+      refreshToken,
       type: created ? 'register' : 'login'
     }
   })

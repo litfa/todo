@@ -2,7 +2,7 @@ import { getConfig } from '@/config'
 import { Router } from 'express'
 import { getAccessToken, getUserInfo, checkUuid } from '@/utils/loginApi'
 import type { LoginRequest } from '@/app/types'
-import { createUserToken } from '@/utils/token'
+import { createToken } from '@/utils/token'
 import { findOrCreateUser } from '@/utils/findOrCreateUser'
 import { keys } from '@ltfei/todo-common'
 import { loginMethod } from '@ltfei/todo-common'
@@ -107,14 +107,15 @@ router.post(
       auth_method: 'qq_connect'
     })
 
-    const token = await createUserToken({
+    const { refreshToken, userToken } = await createToken({
       id: user.toJSON().id
     })
 
     res.send({
       status: 200,
       data: {
-        token,
+        refreshToken,
+        userToken,
         type: created ? 'register' : 'login'
       }
     })

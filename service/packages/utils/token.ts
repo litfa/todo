@@ -24,6 +24,19 @@ export const createRefreshToken = async (user: TokenUser) => {
 }
 
 /**
+ * 同时生成两个令牌
+ */
+export const createToken = async (user: TokenUser) => {
+  const userToken = await createUserToken(user)
+  const refreshToken = await createRefreshToken(user)
+
+  return {
+    userToken,
+    refreshToken
+  }
+}
+
+/**
  * 验证刷新令牌
  */
 export const verifyRefreshToken = async (token: string) => {

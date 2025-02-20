@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { Request } from '@/app/types'
 import Joi from 'joi'
-import { verifyRefreshToken, createRefreshToken, createUserToken } from '@/utils/token'
+import { verifyRefreshToken, createToken } from '@/utils/token'
 const router = Router()
 
 router.post('/', async (req: Request, res) => {
@@ -29,8 +29,7 @@ router.post('/', async (req: Request, res) => {
     id: auth.id
   }
 
-  const userToken = await createUserToken(user)
-  const refreshToken = await createRefreshToken(user)
+  const { refreshToken, userToken } = await createToken(user)
 
   res.send({
     status: 200,

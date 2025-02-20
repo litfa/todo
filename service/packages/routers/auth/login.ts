@@ -3,7 +3,7 @@ import { getConfig } from '@/config'
 import { Router } from 'express'
 import { checkUuid, generateRandomString } from '@/utils/loginApi'
 import type { LoginRequest } from '@/app/types'
-import { createUserToken } from '@/utils/token'
+import { createToken } from '@/utils/token'
 import { keys } from '@ltfei/todo-common'
 
 const router = Router()
@@ -66,14 +66,15 @@ router.post('/getStatus', checkUuid(), async (req: LoginRequest, res) => {
     await req.UpdataLoginQueue({
       ineffective: true
     })
-    const token = await createUserToken({
+    const { userToken, refreshToken } = await createToken({
       id: user_id
     })
     return res.send({
       status: 200,
       data: {
         status,
-        token
+        userToken,
+        refreshToken
       }
     })
   }
