@@ -16,7 +16,7 @@ import cronParser from 'cron-parser'
 import { CamelObjectKeys } from '@/db/types'
 import { app as logger } from '@/utils/log'
 
-type Table = SubTasksTable | TaskListTable | TasksTable
+export type Table = SubTasksTable | TaskListTable | TasksTable
 
 type Result =
   | {
@@ -101,7 +101,7 @@ const handlingCommit = async (commit: Commit, t?: Transaction): Promise<Result> 
 /**
  * 获取对应的数据库实例
  */
-const getModel = (table: Commit<any>['targetTable']): ModelStatic<Model<any>> => {
+export const getModel = (table: Commit<any>['targetTable']): ModelStatic<Model<any>> => {
   switch (table) {
     case 'tasks':
       return Tasks

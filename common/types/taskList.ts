@@ -54,4 +54,8 @@ export interface TaskList {
    * 创建时间
    */
   createdTime: number
+  /**
+   * 最后编辑时间
+   */
+  lastEditTime: number
 }

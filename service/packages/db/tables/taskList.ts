@@ -24,6 +24,7 @@ export const TaskList = sequelize.define<Model<Table, Table>, Table>(
     created_with_local_id: DataTypes.CHAR,
     status: DataTypes.INTEGER,
     created_time: DataTypes.BIGINT,
+    last_edit_time: DataTypes.BIGINT,
     is_shared_folder: DataTypes.BOOLEAN,
     name: DataTypes.CHAR,
     sharing_link: DataTypes.CHAR,
