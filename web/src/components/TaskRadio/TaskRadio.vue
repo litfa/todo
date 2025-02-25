@@ -5,7 +5,9 @@ defineOptions({
   name: 'TaskRadio'
 })
 
-const status = defineModel<number>('status')
+const status = defineModel<number>('status', {
+  required: true
+})
 const checked = computed({
   set(value) {
     status.value = value ? keys.task.status.completed : keys.task.status.notStarted

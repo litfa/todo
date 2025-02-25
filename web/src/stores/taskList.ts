@@ -26,7 +26,8 @@ export const useTasksListStore = defineStore('taskList', () => {
       themeColor: '',
       parentFolderGroupId: '',
       status: 0,
-      createdTime: Date.now()
+      createdTime: Date.now(),
+      lastEditTime: 0
     })
   }
 
