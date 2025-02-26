@@ -1,7 +1,7 @@
 import { Config } from '@tarojs/taro'
 
 export default {
-  appid: 'wx6b0d1bd73ae522b0',
+  appid: 'wxbf9769e7ef535e44',
   pages: [
     //
     'pages/index/index',

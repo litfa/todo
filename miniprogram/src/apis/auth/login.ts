@@ -1,4 +1,4 @@
-import { request } from './request'
+import { request } from '../request'
 
 export const init = () => {
   return request<{
@@ -11,7 +11,8 @@ export const init = () => {
 
 export const login = (code: string, scene: string) => {
   return request<{
-    token: string
+    userToken: string
+    refreshToken: string
     type: 'login' | 'register'
   }>({
     url: '/auth/wxLogin/login',

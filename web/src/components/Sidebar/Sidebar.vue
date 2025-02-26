@@ -4,7 +4,9 @@ import SidebarList from '../SidebarList/SidebarList.vue'
 import SidebarFooter from './SidebarFooter.vue'
 import { openSettingWindow } from '@/components/Setting'
 import { injectionKey } from '@/types/'
-import { message } from 'ant-design-vue'
+import { message, Modal } from 'ant-design-vue'
+import { deleteToken } from '@/utils/auth'
+import { useRouter } from 'vue-router'
 
 defineOptions({
   name: 'SideBar'
@@ -12,6 +14,7 @@ defineOptions({
 
 const syncCommits = inject(injectionKey.syncCommits)
 const closeMenu = inject(injectionKey.closeMenu)
+const router = useRouter()
 
 const openSetting = () => {
   openSettingWindow()
@@ -21,6 +24,16 @@ const onSyncCommits = async () => {
   syncCommits && (await syncCommits())
   message.success('已同步')
   closeMenu && closeMenu()
+}
+
+const logout = () => {
+  Modal.confirm({
+    title: '确定要退出登录吗？',
+    onOk() {
+      deleteToken()
+      router.push('/login')
+    }
+  })
 }
 </script>
 
@@ -52,7 +65,7 @@ const onSyncCommits = async () => {
             下载客户端
           </a-menu-item>
           <a-menu-divider />
-          <a-menu-item disabled>
+          <a-menu-item @click="logout">
             <template #icon> <IconLogout /> </template>
             退出登录
           </a-menu-item>

@@ -12,7 +12,7 @@ export const getUserinfo = () => {
     status?: any
     avatar_pendant?: any
   }>({
-    url: '/users/userInfo',
-    method: 'POST'
+    url: '/user/userInfo',
+    method: 'GET'
   })
 }

@@ -7,8 +7,9 @@ import {
   login as loginApi,
   checkScene as checkSceneApi,
   init as initApi
-} from '../../apis/login'
+} from '../../apis/auth/login'
 import { getUserinfo } from '../../utils/getUserInfo'
+import { setToken } from '../../utils/auth'
 
 defineOptions({
   name: 'login'
@@ -67,9 +68,9 @@ const login = async () => {
     })
   }
 
-  await Taro.setStorage({
-    data: res.data.token,
-    key: 'token'
+  setToken({
+    userToken: res.data.userToken,
+    refreshToken: res.data.refreshToken
   })
 
   await getUserinfo()

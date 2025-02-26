@@ -35,6 +35,12 @@ export const setToken = (token: { refreshToken?: string; userToken?: string }) =
   token.userToken && localStorage.setItem(storageKey.userToken, token.userToken)
 }
 
+export const deleteToken = () => {
+  localStorage.removeItem(storageKey.refreshToken)
+  localStorage.removeItem(storageKey.userToken)
+  token.clear()
+}
+
 export const getUserToken = () => {
   return token.get('userToken') || localStorage.getItem(storageKey.userToken)
 }

@@ -6,7 +6,7 @@ export const uploadAvatar = (filePath: string) => {
     path: string
     url: string
   }>({
-    url: '/users/avatar',
+    url: '/user/avatar',
     name: 'file',
     filePath
   })
@@ -19,7 +19,7 @@ export const editUserInfo = (data: {
   gender?: string
 }) => {
   return request({
-    url: '/users/editUserInfo',
+    url: '/user/editUserInfo',
     data,
     method: 'POST'
   })

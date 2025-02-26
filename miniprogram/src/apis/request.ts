@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro'
 // import type {request } from '@tarojs/taro'
+import { getUserToken, refreshToken } from '../utils/auth'
 
 const baseUrl = process.env.TARO_APP_API
 
@@ -9,25 +10,13 @@ type Request<T> = {
   msg?: string
 }
 
-let cach = ''
 const getToken = async () => {
-  if (cach) {
-    return cach
-  }
-  try {
-    const token = await Taro.getStorage({
-      key: 'token'
-    })
-    cach = 'Bearer ' + token.data
-    return cach
-  } catch {
-    return null
-  }
+  const token = await getUserToken()
+  return 'Bearer ' + token
 }
 
 export const request = async <T>(option: Taro.request.Option) => {
-  // todo: 拦截加上token
-  const res = await Taro.request<Request<T>>({
+  const config: Taro.request.Option = {
     ...option,
     ...{
       url: baseUrl + option.url,
@@ -35,9 +24,14 @@ export const request = async <T>(option: Taro.request.Option) => {
         Authorization: await getToken()
       }
     }
-  })
+  }
+
+  const res = await Taro.request<Request<T>>(config)
   if (res.data.status == 4001) {
-    cach = ''
+    const refresh = await refreshToken()
+    if (refresh) {
+      return request(option)
+    }
   }
   return res.data
 }
@@ -56,7 +50,7 @@ export const upload = async <T>(option: Taro.uploadFile.Option): Promise<Request
   const data = JSON.parse(res.data) as Request<T>
 
   if (data.status == 4001) {
-    cach = ''
+    // cach = ''
   }
 
   return data
