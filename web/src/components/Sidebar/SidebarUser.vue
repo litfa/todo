@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { useCommitsStore } from '@/stores/'
+import { useUserStore, useCommitsStore } from '@/stores'
+import { storeToRefs } from 'pinia'
 
 defineOptions({
   name: 'SidebarUser'
 })
 
 const commitsStore = useCommitsStore()
+const userStore = useUserStore()
+
+const { user } = storeToRefs(userStore)
 
 const syncStatus = computed(() => {
   const notSyncCount = commitsStore.commits.reduce((previousValue, currentValue) => {
@@ -24,10 +28,12 @@ const syncStatus = computed(() => {
 </script>
 
 <template>
-  <div class="sidebar-user">
-    <div class="avatar"></div>
+  <div class="sidebar-user" v-if="user.isLogin">
+    <div class="avatar">
+      <img :src="user.userInfo.avatar" alt="" />
+    </div>
     <div class="info">
-      <div class="username">Username</div>
+      <div class="username" :title="user.userInfo.username">{{ user.userInfo.username }}</div>
       <div class="sync">{{ syncStatus }}</div>
     </div>
   </div>
@@ -38,15 +44,25 @@ const syncStatus = computed(() => {
   display: flex;
   align-items: center;
   padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
 
   .avatar {
     width: 45px;
     height: 45px;
     background-color: red;
     border-radius: 50%;
+    flex-shrink: 0;
   }
   .info {
     margin-left: 8px;
+    width: 0;
+    flex: auto;
+    .username {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     .sync {
       font-size: 12px;
     }

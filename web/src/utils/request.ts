@@ -1,7 +1,7 @@
-import axios from 'axios'
-import type { AxiosRequestConfig } from 'axios'
 import { emit } from '@/utils/eventbus'
-import { refreshToken, storageKey } from './auth'
+import type { AxiosRequestConfig } from 'axios'
+import axios from 'axios'
+import { getUserToken, refreshToken } from './auth'
 
 const LocalbaseURL = localStorage.getItem('baseUrl')
 
@@ -12,12 +12,7 @@ const axiosRequest = axios.create({
 })
 
 axiosRequest.interceptors.request.use((config) => {
-  let token
-  try {
-    token = localStorage.getItem(storageKey.userToken)
-  } catch {
-    return config
-  }
+  const token = getUserToken()
   if (token && config.headers) {
     config.headers.Authorization = 'Bearer ' + token
   }

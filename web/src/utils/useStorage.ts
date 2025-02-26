@@ -4,8 +4,22 @@ import localforage from 'localforage'
 const prefix = 'todo_'
 const getStoreKey = (storeId: string) => `${prefix}${storeId}`
 
-export const useStorage = async (key: string, refValue: Ref) => {
-  const data = await localforage.getItem(getStoreKey(key))
+type StorageType = 'localforage' | 'localStorage'
+const useLocalStorage = (type: StorageType) => {
+  if (type == 'localforage') {
+    return localforage
+  } else {
+    return localStorage
+  }
+}
+
+export const useStorage = async (
+  key: string,
+  refValue: Ref,
+  storageType: StorageType = 'localforage'
+) => {
+  const storage = useLocalStorage(storageType)
+  const data = await storage.getItem(getStoreKey(key))
 
   if (data) {
     refValue.value = data
@@ -14,7 +28,7 @@ export const useStorage = async (key: string, refValue: Ref) => {
   watch(
     refValue,
     async (value) => {
-      localforage.setItem(getStoreKey(key), toRaw(value))
+      storage.setItem(getStoreKey(key), toRaw(value))
     },
     {
       deep: true

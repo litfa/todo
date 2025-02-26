@@ -1,30 +1,10 @@
-import { sequelize } from '../connect'
+import { User } from '@ltfei/todo-common'
 import { DataTypes, Model } from 'sequelize'
+import { sequelize } from '../connect'
+import { UnderlineObjectKeys } from '../types'
 
 // todo: 添加注册来源
-
-type Table = {
-  id: number
-  username: string
-  password: string
-  avatar: string
-  city: string
-  /**
-   * 0 女
-   * 1 男
-   * 2 保密
-   */
-  gender: 0 | 1 | 2
-  register_date: number
-  last_login_date: number
-  register_ip: string
-  status: number
-  avatar_pendant: string
-  desc: string
-  wx_openid: string
-  wx_unionid: string
-  qq_openid: string
-}
+type Table = UnderlineObjectKeys<User>
 
 export const Users = sequelize.define<Model<Table>>(
   'users',

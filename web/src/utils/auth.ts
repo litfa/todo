@@ -5,6 +5,8 @@ export const storageKey = {
   userToken: 'token'
 }
 
+const token = new Map<keyof typeof storageKey, string | null>()
+
 /**
  * 刷新令牌
  */
@@ -32,3 +34,13 @@ export const setToken = (token: { refreshToken?: string; userToken?: string }) =
   token.refreshToken && localStorage.setItem(storageKey.refreshToken, token.refreshToken)
   token.userToken && localStorage.setItem(storageKey.userToken, token.userToken)
 }
+
+export const getUserToken = () => {
+  return token.get('userToken') || localStorage.getItem(storageKey.userToken)
+}
+export const getRefreshToken = () => {
+  return token.get('refreshToken') || localStorage.getItem(storageKey.refreshToken)
+}
+
+token.set('userToken', getUserToken())
+token.set('refreshToken', getUserToken())

@@ -8,18 +8,21 @@ import { useUserSetting } from '@/stores/setting'
 import { injectionKey } from '@/types/'
 import { TrayService } from '@/utils/tray'
 import { isDesktop } from '@/utils/os'
+import { useUserStore } from '@/stores'
 
 defineOptions({
   name: 'MainRoot'
 })
 
 const setting = useUserSetting()
+const user = useUserStore()
 
 const syncCommitsService = new SyncCommitsService()
 const notificationService = new NotificationService()
 
 const startService = async () => {
   await useStoreStorage()
+  await user.getUserInfo()
   if (setting.getSettingItem('dev', 'vConsole').value == '1') {
     new VConsole()
   }
