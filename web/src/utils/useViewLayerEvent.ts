@@ -9,12 +9,13 @@ export const useViewLayerEvent = () => {
   const router = useRouter()
 
   on('error_axios', (data) => {
+    // todo: 离线展示在视图
     // message.error('网络异常' + data)
   })
 
   on('authentication_failed', () => {
     localStorage.removeItem('token')
-    // router.replace('/login')
+    router.replace('/login')
     message.warn('请先登录')
   })
 

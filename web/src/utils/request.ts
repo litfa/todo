@@ -37,13 +37,18 @@ axiosRequest.interceptors.response.use(
   },
   (err: Error) => {
     emit('error_axios', err.message)
-    // console.log('axios error', err.message)
+    console.log('axios error', err.message)
   }
 )
 
 const request = async (AxiosRequestConfig: AxiosRequestConfig<any>) => {
-  const { data: res } = await axiosRequest(AxiosRequestConfig)
-  return res
+  const res = await axiosRequest(AxiosRequestConfig)
+  if (!res?.data) {
+    return {
+      status: 500
+    }
+  }
+  return res.data
 }
 
 export type Response<T> = Promise<{
