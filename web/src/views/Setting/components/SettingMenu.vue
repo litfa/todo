@@ -30,7 +30,7 @@ const select: MenuProps['onSelect'] = (e) => {
       <template #icon> <icon-api /> </template>
       开发设置
     </a-menu-item>
-    <a-menu-item key="AccountSetting" disabled>
+    <a-menu-item key="AccountSetting">
       <template #icon> <icon-user /> </template>
       账户
     </a-menu-item>

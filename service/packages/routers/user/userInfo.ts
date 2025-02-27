@@ -1,5 +1,6 @@
 import { Request } from '@/app/types'
 import { Users } from '@/db'
+import { convertKeysToCamelCase } from '@/utils/camelToSnakeCase'
 import { Router } from 'express'
 
 const router = Router()
@@ -31,7 +32,7 @@ router.get('/', async (req: Request, res) => {
 
   res.send({
     status: 200,
-    data: userinfo
+    data: convertKeysToCamelCase(userinfo.toJSON())
   })
 })
 
