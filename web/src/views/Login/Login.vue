@@ -30,6 +30,11 @@ defineOptions({
   align-items: center;
   height: 100vh;
   background-color: @bg-color-page;
+  .min-width(500px, {
+    .login-card {
+      flex-direction: column
+    }
+  });
 
   .login-card {
     padding: 16px;
