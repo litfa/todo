@@ -4,9 +4,9 @@ import { refreshToken as refreshTokenApi } from '../apis/auth/refreshToken'
 export const storageKey = {
   refreshToken: 'refreshToken',
   userToken: 'token'
-}
+} as const
 
-const token = new Map<keyof typeof storageKey, string | null>()
+const token = new Map<(typeof storageKey)[keyof typeof storageKey], string | null>()
 
 const storage = {
   async getItem(key: string) {
@@ -64,10 +64,16 @@ export const refreshToken = async () => {
   return true
 }
 
-export const setToken = async (token: { refreshToken?: string; userToken?: string }) => {
-  token.refreshToken &&
-    (await storage.setItem(storageKey.refreshToken, token.refreshToken))
-  token.userToken && (await storage.setItem(storageKey.userToken, token.userToken))
+export const setToken = async (data: { refreshToken?: string; userToken?: string }) => {
+  if (data.refreshToken) {
+    await storage.setItem(storageKey.refreshToken, data.refreshToken)
+    token.set(storageKey.refreshToken, data.refreshToken)
+  }
+
+  if (data.userToken) {
+    await storage.setItem(storageKey.userToken, data.userToken)
+    token.set(storageKey.userToken, data.userToken)
+  }
 }
 
 export const deleteToken = async () => {
@@ -77,10 +83,12 @@ export const deleteToken = async () => {
 }
 
 export const getUserToken = async () => {
-  return token.get('userToken') || (await storage.getItem(storageKey.userToken))
+  return token.get(storageKey.userToken) || (await storage.getItem(storageKey.userToken))
 }
 export const getRefreshToken = async () => {
-  return token.get('refreshToken') || (await storage.getItem(storageKey.refreshToken))
+  return (
+    token.get(storageKey.refreshToken) || (await storage.getItem(storageKey.refreshToken))
+  )
 }
 
 // const init = () => {
