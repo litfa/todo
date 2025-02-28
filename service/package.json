@@ -1,6 +1,6 @@
 {
   "name": "@your-project-name/service",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha",
   "description": "",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
