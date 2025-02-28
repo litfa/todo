@@ -9,12 +9,15 @@ export default <RouteRecordRaw[]>[
   {
     path: '/setting',
     name: 'setting',
+    meta: {
+      auth: true
+    },
     component: () => import('@/views/Setting/Setting.vue')
   },
   {
     path: '/setting-mobie',
     component: () => import('@/layout/NavBar.vue'),
-    meta: { title: '设置' },
+    meta: { title: '设置', auth: true },
     children: [
       {
         path: '',

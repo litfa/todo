@@ -37,6 +37,15 @@ const syncStatus = computed(() => {
       <div class="sync">{{ syncStatus }}</div>
     </div>
   </div>
+  <div class="sidebar-user" v-else>
+    <div class="avatar">
+      <!-- <img :src="" alt="" /> -->
+    </div>
+    <div class="info">
+      <div class="username">未登录</div>
+      <div class="sync">{{ syncStatus }}</div>
+    </div>
+  </div>
 </template>
 
 <style lang="less" scoped>

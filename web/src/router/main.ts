@@ -1,5 +1,5 @@
-import type { RouteRecordRaw } from 'vue-router'
 import { inbox } from '@ltfei/todo-common'
+import type { RouteRecordRaw } from 'vue-router'
 
 export default <RouteRecordRaw[]>[
   {
@@ -7,6 +7,9 @@ export default <RouteRecordRaw[]>[
     name: 'layout',
     component: () => import('@/layout/Default.vue'),
     redirect: `/tasks/${inbox}`,
+    meta: {
+      auth: true
+    },
     children: [
       // {
       //   path: 'tasks',

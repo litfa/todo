@@ -1,3 +1,4 @@
+import { hasToken } from '@/utils/auth'
 import { createRouter, createWebHistory } from 'vue-router'
 import mainRouters from './main'
 import simpleRouters from './simple'
@@ -16,6 +17,17 @@ const router = createRouter({
       children: simpleRouters
     }
   ]
+})
+
+router.beforeEach((to) => {
+  if (!to.meta.auth) {
+    return
+  }
+  if (hasToken()) {
+    return
+  }
+
+  return '/login'
 })
 
 export default router

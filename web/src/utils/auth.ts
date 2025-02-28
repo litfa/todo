@@ -3,9 +3,9 @@ import { refreshToken as refreshTokenApi } from '@/apis/auth/refreshToken'
 export const storageKey = {
   refreshToken: 'refreshToken',
   userToken: 'token'
-}
+} as const
 
-const token = new Map<keyof typeof storageKey, string | null>()
+const token = new Map<(typeof storageKey)[keyof typeof storageKey], string | null>()
 
 /**
  * 刷新令牌
@@ -30,9 +30,15 @@ export const refreshToken = async () => {
   return true
 }
 
-export const setToken = (token: { refreshToken?: string; userToken?: string }) => {
-  token.refreshToken && localStorage.setItem(storageKey.refreshToken, token.refreshToken)
-  token.userToken && localStorage.setItem(storageKey.userToken, token.userToken)
+export const setToken = (data: { refreshToken?: string; userToken?: string }) => {
+  if (data.refreshToken) {
+    localStorage.setItem(storageKey.refreshToken, data.refreshToken)
+    token.set(storageKey.refreshToken, data.refreshToken)
+  }
+  if (data.userToken) {
+    localStorage.setItem(storageKey.userToken, data.userToken)
+    token.set(storageKey.userToken, data.userToken)
+  }
 }
 
 export const deleteToken = () => {
@@ -42,11 +48,15 @@ export const deleteToken = () => {
 }
 
 export const getUserToken = () => {
-  return token.get('userToken') || localStorage.getItem(storageKey.userToken)
+  return token.get(storageKey.userToken) || localStorage.getItem(storageKey.userToken)
 }
 export const getRefreshToken = () => {
-  return token.get('refreshToken') || localStorage.getItem(storageKey.refreshToken)
+  return token.get(storageKey.refreshToken) || localStorage.getItem(storageKey.refreshToken)
 }
 
-token.set('userToken', getUserToken())
-token.set('refreshToken', getUserToken())
+export const hasToken = () => {
+  return Boolean(getUserToken() || getRefreshToken())
+}
+
+token.set(storageKey.userToken, getUserToken())
+token.set(storageKey.refreshToken, getUserToken())
