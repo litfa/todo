@@ -1,5 +1,3 @@
-import { Commit } from '../models/Commit'
-import { Task } from '../models/Task'
 import { LocalStorage } from './LocalStorage'
 import * as Common from '@ltfei/todo-common'
 
@@ -11,7 +9,7 @@ export class LocalStorageManager extends LocalStorage {
   async load(user: number) {
     console.log(user)
     const data = await this.getStore<Common.Task[]>('task', user)
-    this.task.setList(data.map((e) => new Task(e)))
+    this.task.setList(data)
     console.log('load')
 
     // const res = await Promise.all([

@@ -1,6 +1,9 @@
 import * as Common from '@ltfei/todo-common'
 import { BasisTask } from './BasisTask'
 
+/**
+ * @deprecated
+ */
 export class Task extends BasisTask implements Common.Task {
   body: string
   expirationTime: number

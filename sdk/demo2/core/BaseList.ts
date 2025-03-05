@@ -1,13 +1,11 @@
-// import { Ref } from 'vue'
-import { Commit } from '../models/Commit'
-import { Task } from '../models/Task'
-import { Data } from './data'
 import * as Common from '@ltfei/todo-common'
+import { Data } from './data'
 
-// type Models = Common.Task | Common.TaskList | Common.SubTask
+type Models = Common.Task | Common.TaskList | Common.SubTask | Common.Commit
 
-export class BaseList<T extends Task | Commit> extends Data {
+export abstract class BaseList<T extends Models> extends Data {
   readonly list: T[]
+  abstract readonly targetTable: Common.TargetTable
   constructor(data: T[]) {
     super()
     this.list = data
@@ -20,32 +18,7 @@ export class BaseList<T extends Task | Commit> extends Data {
   /**
    * 创建数据，并新建commit
    */
-  create(data: T) {
-    console.log(data)
-    console.log(this.list)
-
-    console.log(this.list.push(data))
-    console.log(this.list)
-
-    /**
-     * todo: commit 查重
-     */
-
-    const commit = new Commit({
-      commitId: '',
-      operation: Common.Create,
-      targetTable: 'tasks',
-      source: 'web',
-      user: this.user,
-      // @ts-ignore
-      data: data.toJSON(),
-      createdTime: Date.now(),
-      lastEditTime: 0,
-      // syncTime: '',
-      synced: false
-    })
-    console.log('commit', commit)
-
-    this.commit.create(commit)
+  create(data: Exclude<T, Common.Commit>) {
+    this.commit.createCommit(Common.Create, this.targetTable, data)
   }
 }

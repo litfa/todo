@@ -1,6 +1,9 @@
 import * as Common from '@ltfei/todo-common'
 import { BaseItem } from '../core/BaseItem'
 
+/**
+ * @description
+ */
 export abstract class BasisTask extends BaseItem implements Common.BasisTask {
   id: string
   createdWithLocalId: string

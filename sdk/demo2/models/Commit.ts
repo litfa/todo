@@ -1,6 +1,9 @@
 import * as Common from '@ltfei/todo-common'
 import { BaseItem } from '../core/BaseItem'
 
+/**
+ * @deprecated
+ */
 export class Commit<T = Common.Task | Common.SubTask | Common.TaskList>
   extends BaseItem
   implements Common.Commit<T>

@@ -3,8 +3,8 @@ import { CommitManager } from './managers/CommitManager'
 import { TaskManager } from './managers/TaskManager'
 import { LocalStorageManager } from './services/LocalStorageManager'
 import { Sync } from './services/Sync'
-import { Task } from './models/Task'
-import { Commit } from './models/Commit'
+// import { Task } from './models/Task'
+// import { Commit } from './models/Commit'
 import { reactive, ref, watch } from 'vue'
 
 class TodoSDK {
@@ -21,8 +21,8 @@ class TodoSDK {
     user: number
     LocalStorageManager?: typeof LocalStorageManager
   }) {
-    const taskManager = new TaskManager(config.task.map((e) => new Task(e)))
-    const commitManager = new CommitManager(config.commit.map((e) => new Commit(e)))
+    const taskManager = new TaskManager(config.task)
+    const commitManager = new CommitManager(config.commit)
 
     const data = {
       task: taskManager,
@@ -90,26 +90,43 @@ console.log(todoSdk)
 // todoSdk.init()
 
 // console.log(todoSdk)
-const t = new Task({
-  body: '',
-  expirationTime: 0,
-  startTime: 0,
-  isReminderOn: false,
-  isRepeat: false,
-  parentFolderId: '',
-  reminderDateTime: 0,
-  id: '',
-  createdWithLocalId: '',
-  subject: '',
-  status: 1,
-  createdTime: 0,
-  completedDateTime: 0,
-  lastEditTime: 0,
-  isImported: false,
-  owner: 0
-})
+// const t = new Task({
+//   body: '',
+//   expirationTime: 0,
+//   startTime: 0,
+//   isReminderOn: false,
+//   isRepeat: false,
+//   parentFolderId: '',
+//   reminderDateTime: 0,
+//   id: '',
+//   createdWithLocalId: '',
+//   subject: '',
+//   status: 1,
+//   createdTime: 0,
+//   completedDateTime: 0,
+//   lastEditTime: 0,
+//   isImported: false,
+//   owner: 0
+// })
 setTimeout(() => {
-  todoSdk.task.create(t)
+  todoSdk.task.create({
+    body: '',
+    expirationTime: 0,
+    startTime: 0,
+    isReminderOn: false,
+    isRepeat: false,
+    parentFolderId: '',
+    reminderDateTime: 0,
+    id: '',
+    createdWithLocalId: '',
+    subject: '',
+    status: 1,
+    createdTime: 0,
+    completedDateTime: 0,
+    lastEditTime: 0,
+    isImported: false,
+    owner: 0
+  })
   console.log(todoSdk)
 }, 2000)
 const p = () => {
