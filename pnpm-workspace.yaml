@@ -4,3 +4,4 @@ packages:
   - 'service/build'
   - common
   - miniprogram
+  - sdk

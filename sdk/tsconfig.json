@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./vue-sdk",
+    "noImplicitAny": true,
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
