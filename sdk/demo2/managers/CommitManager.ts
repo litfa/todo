@@ -1,10 +1,14 @@
 import * as Common from '@ltfei/todo-common'
-import { BaseList } from '../core/BaseList'
+import { Data } from '../core/data'
 import { generateIdString } from '../utils/snowflake'
 
-export class CommitManager extends BaseList<Common.Commit> {
-  targetTable: Common.TargetTable
-  override create(data: Common.Commit): void {
+export class CommitManager extends Data {
+  list: Common.Commit[]
+  constructor(data: Common.Commit[]) {
+    super()
+    this.list = data
+  }
+  create(data: Common.Commit): void {
     this.list.push(data)
   }
 

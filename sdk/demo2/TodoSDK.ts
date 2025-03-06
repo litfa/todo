@@ -12,13 +12,13 @@ class TodoSDK {
   commit: CommitManager
   LocalStorageManager: LocalStorageManager
   Sync: Sync
-  user: number
+  options: { user: number }
   constructor(config: {
     task: Common.Task[]
     taskList: Common.TaskList[]
     subTask: Common.SubTask[]
     commit: Common.Commit[]
-    user: number
+    options: { user: number }
     LocalStorageManager?: typeof LocalStorageManager
   }) {
     const taskManager = new TaskManager(config.task)
@@ -27,7 +27,7 @@ class TodoSDK {
     const data = {
       task: taskManager,
       commit: commitManager,
-      user: config.user
+      options: config.options
     }
     taskManager.setData(data)
     commitManager.setData(data)
@@ -40,15 +40,13 @@ class TodoSDK {
     this.task = taskManager
     this.commit = commitManager
 
-    this.user = config.user
+    this.options = config.options
 
     this.init()
   }
 
   init() {
-    console.log('init')
-
-    this.LocalStorageManager.load(this.user)
+    this.LocalStorageManager.load(this.options.user)
   }
 }
 
@@ -81,7 +79,9 @@ const todoSdk = new TodoSDK({
   subTask: [],
   task: task,
   taskList: [],
-  user: 0,
+  options: {
+    user: 0
+  },
   LocalStorageManager: Storage
 })
 
@@ -99,7 +99,6 @@ console.log(todoSdk)
 //   parentFolderId: '',
 //   reminderDateTime: 0,
 //   id: '',
-//   createdWithLocalId: '',
 //   subject: '',
 //   status: 1,
 //   createdTime: 0,
@@ -117,9 +116,23 @@ setTimeout(() => {
     isRepeat: false,
     parentFolderId: '',
     reminderDateTime: 0,
-    id: '',
-    createdWithLocalId: '',
-    subject: '',
+    subject: 'test1',
+    status: 1,
+    createdTime: 0,
+    completedDateTime: 0,
+    lastEditTime: 0,
+    isImported: false,
+    owner: 0
+  })
+  todoSdk.task.create({
+    body: '',
+    expirationTime: 0,
+    startTime: 0,
+    isReminderOn: false,
+    isRepeat: false,
+    parentFolderId: '',
+    reminderDateTime: 0,
+    subject: 'test2',
     status: 1,
     createdTime: 0,
     completedDateTime: 0,
@@ -128,6 +141,26 @@ setTimeout(() => {
     owner: 0
   })
   console.log(todoSdk)
+
+  setTimeout(() => {
+    // todoSdk.task.update({
+    //   body: '',
+    //   expirationTime: 0,
+    //   startTime: 0,
+    //   isReminderOn: false,
+    //   isRepeat: false,
+    //   parentFolderId: '',
+    //   reminderDateTime: 0,
+    //   id: '',
+    //   subject: 'test2',
+    //   status: 1,
+    //   createdTime: 0,
+    //   completedDateTime: 0,
+    //   lastEditTime: 0,
+    //   isImported: false,
+    //   owner: 0
+    // })
+  }, 1000)
 }, 2000)
 const p = () => {
   return new Promise((res) => {
