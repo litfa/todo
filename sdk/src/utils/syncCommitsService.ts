@@ -1,26 +1,32 @@
-import {
-  useCommitsStore,
-  useTasksStore,
-  useSubTasksStore,
-  useTasksListStore
-} from './stores'
 import type { Commit, Task, SubTask, TaskList } from '@ltfei/todo-common'
 import { Create, Delete } from '@ltfei/todo-common'
-import { pull, push } from './apis/task'
-import type { Update as UpdateFunction } from '@/types/store'
+import { pull, push } from '../apis/task'
 import { throttle } from 'lodash'
-import { parse36RadixId } from './utils/snowflake'
-import { watch } from 'vue'
+import { parse36RadixId } from '@/utils/snowflake'
+import { Ref, watch } from 'vue'
+import { Data, Config, Stores, Update as UpdateFunction } from '../types'
 
 export class SyncCommitsService {
-  private commitsStore = useCommitsStore()
-  private tasks = useTasksStore()
-  private subTasks = useSubTasksStore()
-  private tasksList = useTasksListStore()
+  private commitsStore: Commit[]
+  private tasks: Task[]
+  private subTasks: SubTask[]
+  private tasksList: TaskList[]
   private timer: number | null = null
+  private isSynchronizing: Ref<boolean>
+  private syncError: Ref<boolean>
+  private config: Config
+  private stores: Stores
+  lastSyncTime: Ref<number>
 
-  constructor() {
-    // this.startSync()
+  constructor(data: Data, config: Config, stores: Stores) {
+    this.commitsStore = data.commits
+    this.tasks = data.tasks
+    this.subTasks = data.subTasks
+    this.tasksList = data.taskList
+    this.isSynchronizing = data.isSynchronizing
+    this.syncError = data.syncError
+    this.config = config
+    this.lastSyncTime = data.lastSyncTime
   }
 
   public async startSync(interval: number) {
@@ -32,7 +38,7 @@ export class SyncCommitsService {
 
   public listen() {
     watch(
-      () => this.commitsStore.commits,
+      () => this.commitsStore,
       throttle(() => this.sync(), 5000, {
         leading: false,
         trailing: true
@@ -44,24 +50,25 @@ export class SyncCommitsService {
   }
 
   public async sync() {
-    this.commitsStore.isSynchronizing = true
+    this.isSynchronizing.value = true
     const pullResult = await this.pull()
     const pushResult = await this.push()
-    this.commitsStore.isSynchronizing = false
-    this.commitsStore.syncError = pullResult && pushResult
+    this.isSynchronizing.value = false
+    this.syncError.value = pullResult && pushResult
   }
 
   private getStore(commit: Commit) {
     if (commit.targetTable === 'tasks') {
-      return this.tasks
-    } else if (commit.targetTable === 'subTasks') {
-      return this.subTasks
-    } else if (commit.targetTable === 'taskList') {
-      return this.tasksList
-    } else {
-      const a: never = commit.targetTable
-      return a
+      return this.stores.task
     }
+    // else if (commit.targetTable === 'subTasks') {
+    //   return this.stores.subTask
+    // } else if (commit.targetTable === 'taskList') {
+    //   return this.stores.tasksList
+    // } else {
+    //   const a: never = commit.targetTable
+    //   return a
+    // }
   }
 
   private getStoreAction(commit: Commit): UpdateFunction<SubTask | Task | TaskList> {
@@ -76,16 +83,16 @@ export class SyncCommitsService {
    * - 如果没有 则不产生新的commit直接修改
    */
   private async pull(): Promise<boolean> {
-    const { data, status } = await pull(this.commitsStore.lastSyncTime)
+    const { data, status } = await pull(this.lastSyncTime.value)
     if (status != 200) {
       return false
     }
     console.log(
-      `[pull] ${data.commits.length} ${this.commitsStore.lastSyncTime} ${data.syncTime}`,
+      `[pull] ${data.commits.length} ${this.lastSyncTime.value} ${data.syncTime}`,
       data
     )
 
-    this.commitsStore.lastSyncTime = data.syncTime
+    this.lastSyncTime.value = data.syncTime
     data.commits.forEach((e) => {
       const store = this.getStore(e)
       const action = this.getStoreAction(e)
@@ -110,7 +117,7 @@ export class SyncCommitsService {
       }
 
       let notCreateCommit = true
-      const existingCommit = this.commitsStore.commits.find((commit) => {
+      const existingCommit = this.commitsStore.find((commit) => {
         return commit.data.id == e.data.id && !commit.synced
       })
 
@@ -139,7 +146,7 @@ export class SyncCommitsService {
    * 失败：
    */
   private async push(): Promise<boolean> {
-    const commits = this.commitsStore.commits.filter((commit) => {
+    const commits = this.commitsStore.filter((commit) => {
       return !commit.synced
     })
 
@@ -153,14 +160,14 @@ export class SyncCommitsService {
         return e
       })
     )
-    console.log(`[push] ${commits.length} err:${data.errCount}`, data)
+    console.log(`[push] ${commits.length} err:${data?.errCount}`, data)
     if (status != 200) {
-      this.commitsStore.syncError = true
+      this.syncError.value = true
       return false
     }
     console.log(data)
     data.results.forEach((e) => {
-      if (e.err) {
+      if (e.err == true) {
         return
       }
       const commit = commits.find((commit) => commit.commitId == e.commitId)

@@ -2,7 +2,7 @@
   "name": "sdk",
   "version": "0.0.0",
   "description": "",
-  "main": "app.ts",
+  "main": "src/app.ts",
   "scripts": {},
   "keywords": [],
   "author": "ltfei",

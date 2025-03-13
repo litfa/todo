@@ -4,7 +4,7 @@
     "target": "ESNext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./vue-sdk",
+    "baseUrl": "./src",
     "noImplicitAny": true,
     "paths": {
       "@/*": ["./*"]

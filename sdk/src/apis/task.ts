@@ -1,4 +1,4 @@
-import request, { type Response } from '@/utils/request'
+import request, { type Response } from './request'
 import type { Commit } from '@ltfei/todo-common'
 
 export const pull = (
