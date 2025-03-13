@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useTasksStore } from '@/stores/index'
+import { todoSdk } from '@/utils/useTodoSdk'
+
 import { keys } from '@ltfei/todo-common'
 import { inbox, important, myday, planned, assignedToMe } from '@ltfei/todo-common'
 
@@ -13,12 +14,13 @@ const props = defineProps<{
   id: string
 }>()
 
-const tasks = useTasksStore()
+// const tasks = useTasksStore()
 
 const count = computed(() => {
-  return tasks.getTasksByParentFolderId(props.id).filter((e) => {
-    return e.status == keys.task.status.notStarted
-  }).length
+  // todo: 统计任务数量
+  // return todoSdk.task.getTasksByParentFolderId(props.id).filter((e) => {
+  //   return e.status == keys.task.status.notStarted
+  // }).length
 })
 </script>
 

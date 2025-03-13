@@ -3,10 +3,11 @@ import TaskList from '@/components/TaskList/TaskList.vue'
 import AddTask from '@/components/AddTask/AddTask.vue'
 import TaskDrawer from '@/components/TaskDrawer/TaskDrawer.vue'
 import type { Expose } from '@/components/TaskDrawer/TaskDrawer.vue'
-import { useTasksListStore } from '@/stores/'
+// import { useTasksListStore } from '@/stores/'
 import { defaultList } from '@ltfei/todo-common'
 import i18n from '@/lang'
 import { injectionKey } from '@/types/'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
   name: 'TasksPage'
@@ -16,13 +17,13 @@ const { t } = i18n.global
 const taskDrawerRef = ref<Expose>()
 const route = useRoute()
 const id = computed(() => route.params.id as string)
-const tasksListStore = useTasksListStore()
+// const tasksListStore = useTasksListStore()
 
 const useMenuMask = inject(injectionKey.useMenuMask)
 const openMenu = inject(injectionKey.openMenu)
 
 const taskList = computed(() => {
-  return tasksListStore.taskList.find((e) => {
+  return todoSdk.data.taskList.value.find((e) => {
     return e.id == id.value
   })
 })

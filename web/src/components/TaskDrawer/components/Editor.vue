@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { keys } from '@ltfei/todo-common'
-import { useTasksStore, useSubTasksStore } from '@/stores/'
+// import { useTasksStore, useSubTasksStore } from '@/stores/'
 import AddTaskInput from '@/components/AddTask/AddTaskInput.vue'
 import { generateIdWithSource } from '@/utils/snowflake'
 import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
 import { Modal } from 'ant-design-vue'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
   name: 'TaskEditor'
@@ -14,15 +15,17 @@ const props = defineProps<{
   taskId: string
 }>()
 
-const tasksStore = useTasksStore()
-const subTasksStore = useSubTasksStore()
+// const tasksStore = useTasksStore()
+// const subTasksStore = useSubTasksStore()
 
-const task = computed(() => tasksStore.tasks.find((e) => e.id == props.taskId)!)
-const subTasks = computed(() => subTasksStore.subTasks.filter((e) => e.parentId == props.taskId))
+const task = computed(() => todoSdk.data.tasks.value.find((e) => e.id == props.taskId)!)
+const subTasks = computed(() =>
+  todoSdk.data.subTasks.value.filter((e) => e.parentId == props.taskId)
+)
 
 const addTask = (value: string, clearInput: () => void) => {
   const id = generateIdWithSource()
-  subTasksStore.action('create', {
+  todoSdk.subTask.action('create', {
     parentId: task.value.id,
     id,
     createdWithLocalId: id,
@@ -39,14 +42,14 @@ const addTask = (value: string, clearInput: () => void) => {
 }
 
 const deleteSubTask = (id: string) => {
-  const subTask = subTasksStore.subTasks.find((e) => e.id == id)!
+  const subTask = todoSdk.data.subTasks.value.find((e) => e.id == id)!
 
   return new Promise((resolve) => {
     Modal.confirm({
       title: '删除步骤',
       content: `将永久删除 ${subTask.subject}`,
       onOk() {
-        subTasksStore.action('delete', { id })
+        todoSdk.subTask.action('delete', { id })
         resolve(true)
       },
       onCancel() {
@@ -62,7 +65,7 @@ const focus = (id: string, subject: string) => {
   originSubject.set(id, subject)
 }
 const subTaskTextareaBlur = async (id: string) => {
-  const subTask = subTasksStore.subTasks.find((e) => e.id == id)
+  const subTask = todoSdk.data.subTasks.value.find((e) => e.id == id)
 
   if (!subTask) {
     return
@@ -70,7 +73,7 @@ const subTaskTextareaBlur = async (id: string) => {
   if (!subTask.subject) {
     const result = await deleteSubTask(subTask.id)
     if (!result) {
-      subTasksStore.action('update', {
+      todoSdk.subTask.action('update', {
         id,
         subject: originSubject.get(subTask.id)!
       })
@@ -80,7 +83,7 @@ const subTaskTextareaBlur = async (id: string) => {
 
 const textareaBlur = () => {
   if (!task.value.subject) {
-    tasksStore.action('update', {
+    todoSdk.task.action('update', {
       id: task.value.id,
       subject: originSubject.get(task.value.id)!
     })
@@ -88,27 +91,27 @@ const textareaBlur = () => {
 }
 
 const updateTaskSubject = (value: string) => {
-  tasksStore.action('update', {
+  todoSdk.task.action('update', {
     id: task.value.id,
     subject: value
   })
 }
 
 const updateTaskStatus = (value: number) => {
-  tasksStore.action('update', {
+  todoSdk.task.action('update', {
     id: task.value.id,
     status: value,
     completedDateTime: Date.now()
   })
 }
 const updateSubTaskStatus = (id: string, value: number) => {
-  subTasksStore.action('update', {
+  todoSdk.subTask.action('update', {
     id,
     status: value
   })
 }
 const updateSubTaskSubject = (id: string, value: string) => {
-  subTasksStore.action('update', {
+  todoSdk.subTask.action('update', {
     id,
     subject: value
   })

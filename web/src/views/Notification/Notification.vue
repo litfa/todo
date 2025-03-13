@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { getCurrentWindow } from '@tauri-apps/api/window'
-import { useTasksStore } from '@/stores/tasks'
+// import { useTasksStore } from '@/stores/tasks'
 import { formatDate } from '@/utils/date'
 import { NotificationService, type TaskCompletedEventPayload } from '@/utils/notification'
 import { keys } from '@ltfei/todo-common'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
   name: 'NotificationPage'
@@ -11,7 +12,7 @@ defineOptions({
 defineProps<{}>()
 
 const route = useRoute()
-const tasks = useTasksStore()
+// const tasks = useTasksStore()
 const currentWindow = getCurrentWindow()
 
 const task = computed(() => {
@@ -20,7 +21,7 @@ const task = computed(() => {
   if (!taskId) {
     return
   }
-  const task = tasks.getStateById(taskId)
+  const task = todoSdk.task.getStateById(taskId)
   console.log(task)
 
   return task

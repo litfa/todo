@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import { useTasksListStore } from '@/stores/index'
+// import { useTasksListStore } from '@/stores/index'
 import SidebarListItem from './SidebarListItem.vue'
 import { defaultList } from '@ltfei/todo-common'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
   name: 'SidebarList'
 })
 
 // const taskGroup = useTaskGroupStore()
-const taskList = useTasksListStore()
+// const taskList = useTasksListStore()
 const router = useRouter()
 const route = useRoute()
 
 const items = computed(() => {
-  return taskList.taskList.filter((list) => {
+  return todoSdk.data.taskList.value.filter((list) => {
     return !list.parentFolderGroupId
   })
 })

@@ -7,12 +7,13 @@ import { injectionKey } from '@/types/'
 import { message, Modal } from 'ant-design-vue'
 import { deleteToken } from '@/utils/auth'
 import { useRouter } from 'vue-router'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
   name: 'SideBar'
 })
 
-const syncCommits = inject(injectionKey.syncCommits)
+// const syncCommits = inject(injectionKey.syncCommits)
 const closeMenu = inject(injectionKey.closeMenu)
 const router = useRouter()
 
@@ -21,7 +22,8 @@ const openSetting = () => {
 }
 
 const onSyncCommits = async () => {
-  syncCommits && (await syncCommits())
+  // syncCommits && (await syncCommits())
+  todoSdk.syncService.sync()
   message.success('已同步')
   closeMenu && closeMenu()
 }

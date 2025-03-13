@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { useUserStore, useCommitsStore } from '@/stores'
+import { useUserStore } from '@/stores'
 import { storeToRefs } from 'pinia'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
   name: 'SidebarUser'
 })
 
-const commitsStore = useCommitsStore()
 const userStore = useUserStore()
 
 const { user } = storeToRefs(userStore)
 
 const syncStatus = computed(() => {
-  const notSyncCount = commitsStore.commits.reduce((previousValue, currentValue) => {
+  const notSyncCount = todoSdk.data.commits.value.reduce((previousValue, currentValue) => {
     if (!currentValue.synced) {
       return previousValue + 1
     }

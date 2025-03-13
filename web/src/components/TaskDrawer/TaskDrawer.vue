@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { useTasksStore } from '@/stores/'
+// import { useTasksStore } from '@/stores/'
 import TaskDrawerContent from './TaskDrawerContent.vue'
 import { useWindowSize } from '@vueuse/core'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
   name: 'TaskDrawer'
 })
 
 const route = useRoute()
-const tasksStore = useTasksStore()
+// const tasksStore = useTasksStore()
 const open = ref(false)
 const taskId = ref<string | null>(null)
-const task = computed(() => tasksStore.tasks.find((e) => e.id == taskId.value)!)
+const task = computed(() => todoSdk.data.tasks.value.find((e) => e.id == taskId.value)!)
 const { width } = useWindowSize()
 const useMask = computed(() => width.value < 870)
 

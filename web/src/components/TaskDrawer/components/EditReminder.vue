@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import EditItem from './EditItem.vue'
-import { useTasksStore } from '@/stores/'
+// import { useTasksStore } from '@/stores/'
 import dayjs, { type Dayjs } from 'dayjs'
 import i18n from '@/lang'
 import { formatDate } from '@/utils/date'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 // todo: 提醒任务
 
@@ -15,8 +16,8 @@ const props = defineProps<{
   taskId: string | bigint
 }>()
 const { t } = i18n.global
-const tasksStore = useTasksStore()
-const task = computed(() => tasksStore.tasks.find((e) => e.id == props.taskId)!)
+// const tasksStore = useTasksStore()
+const task = computed(() => todoSdk.data.tasks.value.find((e) => e.id == props.taskId)!)
 const editReminderRef = ref<HTMLElement>()
 const open = ref(false)
 const hasReminderDateTime = computed(() => {
@@ -45,7 +46,7 @@ const presets = [
 
 const setReminderOn = (time: string | Dayjs | number) => {
   open.value = false
-  tasksStore.action('update', {
+  todoSdk.task.action('update', {
     id: task.value.id,
     isReminderOn: time != 0,
     reminderDateTime: dayjs(time).valueOf()

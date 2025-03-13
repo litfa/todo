@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import TaskListItem from './TaskListItem.vue'
-import { useTasksStore } from '@/stores/'
+// import { useTasksStore } from '@/stores/'
 import { keys } from '@ltfei/todo-common'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
   name: 'TaskList'
@@ -12,11 +13,11 @@ const emit = defineEmits<{
 }>()
 
 const route = useRoute()
-const tasksStore = useTasksStore()
+// const tasksStore = useTasksStore()
 const id = computed(() => route.params.id as string)
 const showCompleted = ref(false)
 
-const tasks = computed(() => tasksStore.getTasksByParentFolderId(id.value))
+const tasks = computed(() => todoSdk.task.getTasksByParentFolderId(id.value))
 
 const notStartedTasks = computed(() => {
   return tasks.value.filter((e) => {

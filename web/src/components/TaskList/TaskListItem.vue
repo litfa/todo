@@ -2,7 +2,7 @@
 import type { Task } from '@ltfei/todo-common'
 import { keys, inboxTaskListId, inbox } from '@ltfei/todo-common'
 import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
-import { useTasksStore, useSubTasksStore, useTasksListStore } from '@/stores/'
+// import { useTasksStore, useSubTasksStore, useTasksListStore } from '@/stores/'
 import Switch from '@/components/Switch/Switch.vue'
 import dayjs from 'dayjs'
 import i18n from '@/lang'
@@ -10,6 +10,7 @@ import { type Component } from 'vue'
 // import { Calendar as IconCalendar } from '@icon-park/vue-next'
 import { isToday, isTomorrow, isYesterday } from '@/utils/date'
 import { parse36RadixId } from '@/utils/snowflake'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
   name: 'TaskListItem'
@@ -21,14 +22,14 @@ interface Props extends Task {
 
 const { t } = i18n.global
 const props = defineProps<Props>()
-const tasksStore = useTasksStore()
-const subTasksStore = useSubTasksStore()
-const tasksListStore = useTasksListStore()
+// const tasksStore = useTasksStore()
+// const subTasksStore = useSubTasksStore()
+// const tasksListStore = useTasksListStore()
 const route = useRoute()
 const taskListId = computed(() => route.params.id as string)
 
 const subTasks = computed(() => {
-  return subTasksStore.subTasks.filter(
+  return todoSdk.data.subTasks.value.filter(
     (e) => parse36RadixId(e.parentId) == parse36RadixId(props.id)
   )
 })
@@ -43,7 +44,7 @@ const completedCount = computed(() => {
 })
 
 const updateStatus = (status: number) => {
-  tasksStore.action('update', {
+  todoSdk.task.action('update', {
     id: props.id,
     status: status,
     completedDateTime: status == keys.task.status.completed ? Date.now() : 0
@@ -64,7 +65,7 @@ const isImported = computed({
     return props.isImported
   },
   set(value) {
-    tasksStore.action('update', {
+    todoSdk.task.action('update', {
       id: props.id,
       isImported: value
     })
@@ -101,7 +102,7 @@ const desc = computed(() => {
     })
   }
   if (taskListId.value != props.parentFolderId && taskListId.value != inbox) {
-    const taskList = tasksListStore.getStateById(props.parentFolderId)
+    const taskList = todoSdk.taskList.getStateById(props.parentFolderId)
 
     texts.push({
       text:

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SyncCommitsService } from '@/utils/syncCommitsService'
+// import { SyncCommitsService } from '@/utils/syncCommitsService'
 import { useViewLayerEvent } from '@/utils/useViewLayerEvent'
 import { useStoreStorage } from '@/utils/useStorage'
 import VConsole from 'vconsole'
@@ -9,6 +9,7 @@ import { injectionKey } from '@/types/'
 import { TrayService } from '@/utils/tray'
 import { isDesktop } from '@/utils/os'
 import { useUserStore } from '@/stores'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
   name: 'MainRoot'
@@ -17,7 +18,7 @@ defineOptions({
 const setting = useUserSetting()
 const user = useUserStore()
 
-const syncCommitsService = new SyncCommitsService()
+// const syncCommitsService = new SyncCommitsService()
 const notificationService = new NotificationService()
 
 const startService = async () => {
@@ -26,7 +27,8 @@ const startService = async () => {
   if (setting.getSettingItem('dev', 'vConsole').value == '1') {
     new VConsole()
   }
-  syncCommitsService.startSync(1000 * 10)
+  // syncCommitsService.startSync(1000 * 10)
+  todoSdk.syncService.startSync(1000 * 10)
   notificationService.startNotificationProcessing()
 
   if (isDesktop()) {
@@ -35,14 +37,14 @@ const startService = async () => {
 }
 startService()
 
-provide(injectionKey.syncCommits, syncCommitsService.sync.bind(syncCommitsService))
+// provide(injectionKey.syncCommits, todoSdk.syncService.sync.bind(todoSdk.syncService))
 
 onMounted(() => {
   useViewLayerEvent()
 })
 
 onUnmounted(() => {
-  syncCommitsService.destroy()
+  todoSdk.syncService.destroy()
   notificationService.destroy()
 })
 </script>

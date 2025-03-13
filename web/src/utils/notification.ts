@@ -3,7 +3,7 @@ import {
   isPermissionGranted,
   requestPermission
 } from '@tauri-apps/plugin-notification'
-import { useTasksStore } from '@/stores'
+// import { useTasksStore } from '@/stores'
 import { getOsType, isDesktop } from '@/utils/os'
 import type { OsType } from '@tauri-apps/plugin-os'
 import { keys, type Task } from '@ltfei/todo-common'
@@ -12,6 +12,7 @@ import { getCurrentWindow, primaryMonitor } from '@tauri-apps/api/window'
 import { useUserSetting } from '@/stores/'
 import type { OptionalExcept } from '@/types/'
 import type { EventCallback, UnlistenFn } from '@tauri-apps/api/event'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 interface NotificationOption {
   id: string
@@ -24,7 +25,7 @@ export type TaskCompletedEventPayload = OptionalExcept<Task, 'id'>
 export class NotificationService {
   private readonly osType: OsType | 'browser' = getOsType()
   private readonly isDesktop = isDesktop()
-  private readonly tasks = useTasksStore()
+  // private readonly tasks = useTasksStore()
   private readonly userSetting = useUserSetting()
   private interval?: number
   private lastReminderTime = Date.now()
@@ -34,7 +35,7 @@ export class NotificationService {
   getNotificationQueue(): NotificationOption[] {
     const now = Date.now()
 
-    const reminderTasks = this.tasks.tasks.filter((e) => {
+    const reminderTasks = todoSdk.data.tasks.value.filter((e) => {
       return (
         e.isReminderOn &&
         e.status == keys.task.status.notStarted &&
@@ -100,7 +101,7 @@ export class NotificationService {
 
   private onTaskCompletedEvent: EventCallback<TaskCompletedEventPayload> = ({ payload }) => {
     console.log(payload)
-    this.tasks.action('update', payload)
+    todoSdk.task.action('update', payload)
   }
 
   public destroy() {

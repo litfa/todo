@@ -37,30 +37,30 @@ export const useStorage = async (
 }
 
 import {
-  useCommitsStore,
-  useSubTasksStore,
-  // useTaskGroupStore,
-  useTasksListStore,
-  useTasksStore,
+  // useCommitsStore,
+  // useSubTasksStore,
+  // // useTaskGroupStore,
+  // useTasksListStore,
+  // useTasksStore,
   useUserSetting,
   useUserStore
 } from '@/stores'
 
 export const useStoreStorage = async () => {
-  const commits = useCommitsStore()
-  const subTasks = useSubTasksStore()
-  // const taskGroup = useTaskGroupStore()
-  const tasksList = useTasksListStore()
-  const tasks = useTasksStore()
+  // const commits = useCommitsStore()
+  // const subTasks = useSubTasksStore()
+  // // const taskGroup = useTaskGroupStore()
+  // const tasksList = useTasksListStore()
+  // const tasks = useTasksStore()
   const userSetting = useUserSetting()
   const user = useUserStore()
 
   await Promise.allSettled([
-    commits.useStorage(),
-    subTasks.useStorage(),
-    // taskGroup.useStorage(),
-    tasksList.useStorage(),
-    tasks.useStorage(),
+    // commits.useStorage(),
+    // subTasks.useStorage(),
+    // // taskGroup.useStorage(),
+    // tasksList.useStorage(),
+    // tasks.useStorage(),
     userSetting.useStorage(),
     user.useStorage()
   ])

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import EditItem from './EditItem.vue'
-import { useTasksStore } from '@/stores/'
+// import { useTasksStore } from '@/stores/'
 import dayjs, { type Dayjs } from 'dayjs'
 // import { Close as IconClose } from '@icon-park/vue-next'
 import i18n from '@/lang'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
   name: 'ExpirationTime'
@@ -14,8 +15,8 @@ const props = defineProps<{
 }>()
 
 const { t } = i18n.global
-const tasksStore = useTasksStore()
-const task = computed(() => tasksStore.tasks.find((e) => e.id == props.taskId)!)
+// const tasksStore = useTasksStore()
+const task = computed(() => todoSdk.data.tasks.value.find((e) => e.id == props.taskId)!)
 const expirationTimeRef = ref<HTMLElement>()
 const open = ref(false)
 const hasExpirationTime = computed(() => Boolean(task.value.expirationTime))
@@ -32,7 +33,7 @@ const presets = [
 
 const setExpirationTime = (time: string | Dayjs | number) => {
   open.value = false
-  tasksStore.action('update', {
+  todoSdk.task.action('update', {
     id: task.value.id,
     expirationTime: dayjs(time).valueOf()
   })

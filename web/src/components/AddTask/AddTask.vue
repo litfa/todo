@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useTasksStore } from '@/stores/'
+// import { useTasksStore } from '@/stores/'
+import { todoSdk } from '@/utils/useTodoSdk'
 import { generateIdWithSource } from '@/utils/snowflake'
 import AddTaskInput from './AddTaskInput.vue'
 import { keys, defaultList, inboxTaskListId } from '@ltfei/todo-common'
@@ -11,7 +12,7 @@ defineOptions({
 const route = useRoute()
 const id = computed(() => route.params.id as string)
 const text = ref('')
-const tasksStore = useTasksStore()
+// const tasksStore = useTasksStore()
 
 const addTask = () => {
   if (!text.value) {
@@ -20,7 +21,7 @@ const addTask = () => {
 
   const taskId = generateIdWithSource()
   const parentFolderId = defaultList.includes(id.value) ? inboxTaskListId : id.value
-  tasksStore.action('create', {
+  todoSdk.task.action('create', {
     body: '',
     isImported: false,
     expirationTime: 0,
@@ -40,6 +41,9 @@ const addTask = () => {
     repetitionPeriod: '',
     nextRepeatTaskId: null
   })
+
+  console.log(todoSdk)
+
   text.value = ''
 }
 </script>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import EditItem from './EditItem.vue'
-import { useTasksStore } from '@/stores/'
+// import { useTasksStore } from '@/stores/'
 import i18n from '@/lang'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
   name: 'EditRepeat'
@@ -11,8 +12,8 @@ const props = defineProps<{
   taskId: string | bigint
 }>()
 const { t } = i18n.global
-const tasksStore = useTasksStore()
-const task = computed(() => tasksStore.tasks.find((e) => e.id == props.taskId)!)
+// const tasksStore = useTasksStore()
+const task = computed(() => todoSdk.data.tasks.value.find((e) => e.id == props.taskId)!)
 const editRepeatRef = ref<HTMLElement>()
 const open = ref(false)
 const hasRepetitionPeriod = computed(() => {
@@ -39,13 +40,13 @@ const presets = [
 const setRepeat = (cron: string | null) => {
   open.value = false
   if (!cron) {
-    tasksStore.action('update', {
+    todoSdk.task.action('update', {
       id: task.value.id,
       isRepeat: false
     })
     return
   }
-  tasksStore.action('update', {
+  todoSdk.task.action('update', {
     id: task.value.id,
     isRepeat: true,
     repetitionPeriod: cron
