@@ -1,6 +1,6 @@
-import { OptionalExcept } from './common'
+import type { OptionalExcept } from './common'
 
-import {
+import type {
   Task,
   TaskList,
   SubTask,
@@ -10,15 +10,15 @@ import {
   Update,
   Operation
 } from '@ltfei/todo-common'
-import { AxiosInstance } from 'axios'
-import { Reactive, Ref } from 'vue'
+import type { AxiosInstance } from 'axios'
+import type { Ref } from 'vue'
 import { useTask } from '../models/task'
 
 export interface Data {
-  tasks: Reactive<Task[]>
-  taskList: Reactive<TaskList[]>
-  subTasks: Reactive<SubTask[]>
-  commits: Reactive<Commit[]>
+  tasks: Ref<Task[]>
+  taskList: Ref<TaskList[]>
+  subTasks: Ref<SubTask[]>
+  commits: Ref<Commit[]>
   user: Ref<number>
   isSynchronizing: Ref<boolean>
   syncError: Ref<boolean>

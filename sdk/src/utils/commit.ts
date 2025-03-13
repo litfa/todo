@@ -22,9 +22,9 @@ export const createCommitInstance = <T extends Task | SubTask | TaskList>(
     data: data as T,
     createdTime: Date.now(),
     lastEditTime: -1,
-    // todo: 获取来源字符串和用户id
+    // todo: 获取来源字符串
     source: 'web',
-    user: 1,
+    user: data.owner,
     synced: false
   }
 }

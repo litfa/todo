@@ -3,20 +3,20 @@ import { Create, Delete } from '@ltfei/todo-common'
 import { pull, push } from '../apis/task'
 import { throttle } from 'lodash'
 import { parse36RadixId } from '@/utils/snowflake'
-import { Ref, watch } from 'vue'
-import { Data, Config, Stores, Update as UpdateFunction } from '../types'
+import { type Ref, watch } from 'vue'
+import type { Data, Config, Stores, Update as UpdateFunction } from '../types'
 
 export class SyncCommitsService {
-  private commitsStore: Commit[]
-  private tasks: Task[]
-  private subTasks: SubTask[]
-  private tasksList: TaskList[]
+  private commitsStore: Ref<Commit[]>
+  private tasks: Ref<Task[]>
+  private subTasks: Ref<SubTask[]>
+  private tasksList: Ref<TaskList[]>
   private timer: number | null = null
   private isSynchronizing: Ref<boolean>
   private syncError: Ref<boolean>
   private config: Config
   private stores: Stores
-  lastSyncTime: Ref<number>
+  private lastSyncTime: Ref<number>
 
   constructor(data: Data, config: Config, stores: Stores) {
     this.commitsStore = data.commits
@@ -117,7 +117,7 @@ export class SyncCommitsService {
       }
 
       let notCreateCommit = true
-      const existingCommit = this.commitsStore.find((commit) => {
+      const existingCommit = this.commitsStore.value.find((commit) => {
         return commit.data.id == e.data.id && !commit.synced
       })
 
@@ -146,7 +146,7 @@ export class SyncCommitsService {
    * 失败：
    */
   private async push(): Promise<boolean> {
-    const commits = this.commitsStore.filter((commit) => {
+    const commits = this.commitsStore.value.filter((commit) => {
       return !commit.synced
     })
 

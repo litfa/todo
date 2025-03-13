@@ -45,7 +45,7 @@ export interface TaskList {
   /**
    * 创建用户
    */
-  owner: string
+  owner: number
   /**
    * 状态
    */

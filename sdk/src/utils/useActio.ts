@@ -1,16 +1,9 @@
-import {
-  SubTask,
-  Task,
-  TaskList,
-  TargetTable,
-  Operation,
-  Create,
-  Delete,
-  Update
-} from '@ltfei/todo-common'
+import type { Operation, SubTask, TargetTable, Task, TaskList } from '@ltfei/todo-common'
+import { Create, Delete, Update } from '@ltfei/todo-common'
+import type { Action, Data } from '../types'
+import type { OptionalExcept } from '../types/common'
 import { createCommitInstance, updateCommitInstance } from './commit'
-import { Data, Action } from '../types'
-import { OptionalExcept } from '../types/common'
+import { Ref } from 'vue'
 
 export const useAction = <T extends SubTask | Task | TaskList>(
   data: Data,
@@ -21,20 +14,20 @@ export const useAction = <T extends SubTask | Task | TaskList>(
     targetTable: TargetTable,
     item: SubTask | Task | TaskList
   ) => {
-    const commit = data.commits.find((e) => {
+    const commit = data.commits.value.find((e) => {
       return e.data.id == item.id && !e.synced
     })
 
     if (!commit) {
       const commit = createCommitInstance(operation, targetTable, item)
-      data.commits.push(commit)
+      data.commits.value.push(commit)
       return
     }
 
     updateCommitInstance(commit, operation, item)
   }
 
-  const state = data[targetTable] as T[]
+  const state = data[targetTable] as Ref<T[]>
 
   const action: Action<T> = (operation, item, option = {}) => {
     if (!option.notCreateCommit) {
@@ -42,17 +35,17 @@ export const useAction = <T extends SubTask | Task | TaskList>(
     }
 
     if (operation == Create) {
-      state.push(item as T)
+      state.value.push(item as T)
       return
     }
-    const i = state.findIndex((e) => e.id == item.id)
+    const i = state.value.findIndex((e) => e.id == item.id)
     if (operation == Delete) {
-      state.splice(i, 1)
+      state.value.splice(i, 1)
       return
     }
     if (operation == Update) {
-      state[i] = {
-        ...state[i],
+      state.value[i] = {
+        ...state.value[i],
         ...item
       }
     }
@@ -71,7 +64,7 @@ export const useAction = <T extends SubTask | Task | TaskList>(
   }
 
   const getStateById = (id: string) => {
-    return state.find((e) => e.id == id)
+    return state.value.find((e) => e.id == id)
   }
 
   const updateId = (before: string, after: string) => {

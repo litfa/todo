@@ -1,8 +1,10 @@
-import { Commit, SubTask, Task, TaskList } from '@ltfei/todo-common'
+import type { Commit, SubTask, Task, TaskList } from '@ltfei/todo-common'
 import { reactive, ref } from 'vue'
 import { useCommit } from './models/commit'
+import { useSubTask } from './models/subTask'
 import { useTask } from './models/task'
-import { Config, Data } from './types'
+import { useTaskList } from './models/TaskList'
+import type { Config, Data } from './types'
 import { useStorage } from './utils/storage'
 import { SyncCommitsService } from './utils/syncCommitsService'
 
@@ -15,12 +17,12 @@ import { SyncCommitsService } from './utils/syncCommitsService'
  *
  */
 
-const SDK = (config: Config) => {
+export const TodoSDK = (config: Config) => {
   const data: Data = {
-    tasks: reactive<Task[]>([]),
-    taskList: reactive<TaskList[]>([]),
-    subTasks: reactive<SubTask[]>([]),
-    commits: reactive<Commit[]>([]),
+    tasks: ref<Task[]>([]),
+    taskList: ref<TaskList[]>([]),
+    subTasks: ref<SubTask[]>([]),
+    commits: ref<Commit[]>([]),
     user: ref(0),
     isSynchronizing: ref(false),
     syncError: ref(false),
@@ -35,28 +37,18 @@ const SDK = (config: Config) => {
   }
 
   const stores = {
-    task: useTask(data)
+    task: useTask(data),
+    taskList: useTaskList(data),
+    subTask: useSubTask(data)
   }
 
-  const sync = new SyncCommitsService(data, config, stores)
-  sync.startSync(5000)
+  const syncService = new SyncCommitsService(data, config, stores)
 
   return {
     data,
     setUser,
     commit: useCommit(data),
-    ...stores
+    ...stores,
+    syncService
   }
 }
-
-const sdk = SDK({
-  storage: {
-    setItem(key, value) {
-      console.log('setItem', key, value)
-    },
-    getItem<T>(key: string) {
-      console.log('getItem', key)
-      return [] as T
-    }
-  }
-})

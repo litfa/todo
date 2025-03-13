@@ -1,11 +1,11 @@
-import { Config } from '../types'
+import type { Config } from '../types'
 import localforage from 'localforage'
 
 export const useLocalStorage = (config: Config) => {
-  const prefix = config.storage.prefix ?? 'todo'
+  const prefix = config?.storage?.prefix ?? 'todo'
 
   const getStoreKey = (store: string, user: number) => {
-    if (config.storage.key) {
+    if (config?.storage?.key) {
       return config.storage.key(store, user)
     }
     return `${prefix}_${store}_${user}`
@@ -35,18 +35,18 @@ export const useLocalStorage = (config: Config) => {
   }
 
   const getStore = <T>(store: string, user: number) => {
-    const getItem = config.storage.getItem || defaultGetItem
+    const getItem = config?.storage?.getItem || defaultGetItem
     return toJSON(getItem<T>(getStoreKey(store, user)))
   }
 
   const setStore = async <T>(store: string, user: number, value: T) => {
-    const setItem = config.storage.setItem || defaultSetItem
+    const setItem = config?.storage?.setItem || defaultSetItem
     await setItem<T>(getStoreKey(store, user), value)
   }
 
   return {
-    getItem: config.storage.getItem || defaultGetItem,
-    setItem: config.storage.setItem || defaultSetItem,
+    getItem: config?.storage?.getItem || defaultGetItem,
+    setItem: config?.storage?.setItem || defaultSetItem,
     getStore,
     setStore
   }

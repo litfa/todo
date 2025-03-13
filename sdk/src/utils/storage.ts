@@ -1,7 +1,7 @@
-import { Data, Config } from '../types'
+import type { Data, Config } from '../types'
 import { useLocalStorage } from './localStorage'
-import { Task, TaskList, SubTask, Commit } from '@ltfei/todo-common'
-import { watch } from 'vue'
+import type { Task, TaskList, SubTask, Commit } from '@ltfei/todo-common'
+import { watch, toRaw } from 'vue'
 
 export const useStorage = (data: Data, config: Config) => {
   const localStorage = useLocalStorage(config)
@@ -16,7 +16,7 @@ export const useStorage = (data: Data, config: Config) => {
         Task[] | TaskList[] | SubTask[] | Commit[]
       >(store, user)
 
-      data[store].splice(0, data[store].length, ...(items as any))
+      data[store].value.splice(0, data[store].value.length, ...(items as any))
     }
 
     await Promise.all(stores.map((store) => getItem(store)))
@@ -26,11 +26,15 @@ export const useStorage = (data: Data, config: Config) => {
     const user = data.user.value
 
     stores.forEach((store) => {
-      watch(data[store], async () => {
-        console.log('setitem')
-
-        await localStorage.setStore(store, user, data[store])
-      })
+      watch(
+        data[store],
+        async (value) => {
+          await localStorage.setStore(store, user, toRaw(value))
+        },
+        {
+          deep: true
+        }
+      )
     })
   }
   watchData()
