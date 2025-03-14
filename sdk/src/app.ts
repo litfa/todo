@@ -1,5 +1,5 @@
 import type { Commit, SubTask, Task, TaskList } from '@ltfei/todo-common'
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useCommit } from './models/commit'
 import { useSubTask } from './models/subTask'
 import { useTask } from './models/task'

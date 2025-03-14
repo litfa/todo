@@ -30,13 +30,7 @@ export class SyncCommitsService {
     this.config = config
     this.lastSyncTime = data.lastSyncTime
     this.stores = stores
-
-    this.initRequest()
-  }
-
-  private initRequest() {
-    const taskApi = new TaskApi(this.config)
-    this.taskApi = taskApi
+    this.taskApi = new TaskApi(this.config)
   }
 
   public async startSync(interval: number) {

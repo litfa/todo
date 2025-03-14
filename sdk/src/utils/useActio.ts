@@ -3,7 +3,7 @@ import { Create, Delete, Update } from '@ltfei/todo-common'
 import type { Action, Data } from '../types'
 import type { OptionalExcept } from '../types/common'
 import { createCommitInstance, updateCommitInstance } from './commit'
-import { Ref } from 'vue'
+import type { Ref } from 'vue'
 
 export const useAction = <T extends SubTask | Task | TaskList>(
   data: Data,

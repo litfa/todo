@@ -1,4 +1,4 @@
-import { Config } from '@/types'
+import type { Config } from '@/types'
 import { Requset, type Response } from './request'
 import type { Commit } from '@ltfei/todo-common'
 

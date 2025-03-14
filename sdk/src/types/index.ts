@@ -37,15 +37,20 @@ export type Action<T extends { id: string }> = {
   (operation: typeof Update, data: OptionalExcept<T, 'id'>, option?: Option): void
 }
 
+export type GetItem = <T extends string | Object = string>(
+  key: string
+) => T | null | Promise<T | null>
+export type SetItem = <T extends string | Object = string>(
+  key: string,
+  value: T
+) => void | Promise<void>
+
 export interface Config {
   storage?: {
     prefix?: string
     key?: (store: string, user: number) => string
-    getItem?: <T extends string | Object = string>(key: string) => T | Promise<T>
-    setItem?: <T extends string | Object = string>(
-      key: string,
-      value: T
-    ) => void | Promise<void>
+    getItem?: GetItem
+    setItem?: SetItem
   }
   sync?: {
     baseUrl?: string
