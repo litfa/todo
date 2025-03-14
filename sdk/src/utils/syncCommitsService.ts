@@ -1,6 +1,7 @@
 import type { Commit, Task, SubTask, TaskList } from '@ltfei/todo-common'
 import { Create, Delete } from '@ltfei/todo-common'
-import { pull, push } from '../apis/task'
+import { TaskApi } from '../apis/task'
+import { Requset } from '@/apis/request'
 import { throttle } from 'lodash'
 import { parse36RadixId } from '@/utils/snowflake'
 import { type Ref, watch } from 'vue'
@@ -17,6 +18,7 @@ export class SyncCommitsService {
   private config: Config
   private stores: Stores
   private lastSyncTime: Ref<number>
+  private taskApi: TaskApi
 
   constructor(data: Data, config: Config, stores: Stores) {
     this.commitsStore = data.commits
@@ -27,6 +29,14 @@ export class SyncCommitsService {
     this.syncError = data.syncError
     this.config = config
     this.lastSyncTime = data.lastSyncTime
+    this.stores = stores
+
+    this.initRequest()
+  }
+
+  private initRequest() {
+    const taskApi = new TaskApi(this.config)
+    this.taskApi = taskApi
   }
 
   public async startSync(interval: number) {
@@ -60,18 +70,21 @@ export class SyncCommitsService {
   private getStore(commit: Commit) {
     if (commit.targetTable === 'tasks') {
       return this.stores.task
+    } else if (commit.targetTable === 'subTasks') {
+      return this.stores.subTask
+    } else if (commit.targetTable === 'taskList') {
+      return this.stores.taskList
+    } else {
+      const a: never = commit.targetTable
+      console.error(commit.targetTable)
+
+      return a
     }
-    // else if (commit.targetTable === 'subTasks') {
-    //   return this.stores.subTask
-    // } else if (commit.targetTable === 'taskList') {
-    //   return this.stores.tasksList
-    // } else {
-    //   const a: never = commit.targetTable
-    //   return a
-    // }
   }
 
   private getStoreAction(commit: Commit): UpdateFunction<SubTask | Task | TaskList> {
+    console.log(commit, this.getStore(commit))
+
     return this.getStore(commit).action as UpdateFunction<SubTask | Task | TaskList>
   }
 
@@ -83,7 +96,7 @@ export class SyncCommitsService {
    * - 如果没有 则不产生新的commit直接修改
    */
   private async pull(): Promise<boolean> {
-    const { data, status } = await pull(this.lastSyncTime.value)
+    const { data, status } = await this.taskApi.pull(this.lastSyncTime.value)
     if (status != 200) {
       return false
     }
@@ -154,7 +167,7 @@ export class SyncCommitsService {
       return true
     }
 
-    const { data, status } = await push(
+    const { data, status } = await this.taskApi.push(
       commits.map((e) => {
         delete e.synced
         return e

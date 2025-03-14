@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import { useTasksStore } from '@/stores/'
+import { useUserStore } from '@/stores/'
 import { todoSdk } from '@/utils/useTodoSdk'
 import { generateIdWithSource } from '@/utils/snowflake'
 import AddTaskInput from './AddTaskInput.vue'
@@ -12,7 +12,7 @@ defineOptions({
 const route = useRoute()
 const id = computed(() => route.params.id as string)
 const text = ref('')
-// const tasksStore = useTasksStore()
+const userStore = useUserStore()
 
 const addTask = () => {
   if (!text.value) {
@@ -29,7 +29,7 @@ const addTask = () => {
     isReminderOn: false,
     parentFolderId,
     reminderDateTime: 0,
-    owner: 1,
+    owner: userStore.user.userInfo!.id,
     id: taskId,
     createdWithLocalId: taskId,
     subject: text.value,

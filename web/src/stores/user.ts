@@ -4,15 +4,10 @@ import * as api from '@/apis'
 import { useStorage } from '@/utils/useStorage'
 
 export const useUserStore = defineStore('userStore', () => {
-  const user = ref<
-    | {
-        isLogin: false
-      }
-    | {
-        isLogin: true
-        userInfo: Omit<User, 'password'>
-      }
-  >({
+  const user = ref<{
+    isLogin: boolean
+    userInfo?: Omit<User, 'password'>
+  }>({
     isLogin: false
   })
 

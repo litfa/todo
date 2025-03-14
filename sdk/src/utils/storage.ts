@@ -9,12 +9,15 @@ export const useStorage = (data: Data, config: Config) => {
   const stores = ['tasks', 'taskList', 'subTasks', 'commits'] as const
 
   const getLocalStore = async () => {
-    const user = data.user.value
-
     const getItem = async (store: (typeof stores)[number]) => {
+      const user = data.user.value
       const items = await localStorage.getStore<
         Task[] | TaskList[] | SubTask[] | Commit[]
       >(store, user)
+
+      if (!items) {
+        return
+      }
 
       data[store].value.splice(0, data[store].value.length, ...(items as any))
     }
@@ -23,12 +26,11 @@ export const useStorage = (data: Data, config: Config) => {
   }
 
   const watchData = () => {
-    const user = data.user.value
-
     stores.forEach((store) => {
       watch(
         data[store],
         async (value) => {
+          const user = data.user.value
           await localStorage.setStore(store, user, toRaw(value))
         },
         {

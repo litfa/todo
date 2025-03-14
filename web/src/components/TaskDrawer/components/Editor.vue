@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { keys } from '@ltfei/todo-common'
-// import { useTasksStore, useSubTasksStore } from '@/stores/'
+import { useUserStore } from '@/stores/'
 import AddTaskInput from '@/components/AddTask/AddTaskInput.vue'
 import { generateIdWithSource } from '@/utils/snowflake'
 import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
@@ -15,8 +15,7 @@ const props = defineProps<{
   taskId: string
 }>()
 
-// const tasksStore = useTasksStore()
-// const subTasksStore = useSubTasksStore()
+const userStore = useUserStore()
 
 const task = computed(() => todoSdk.data.tasks.value.find((e) => e.id == props.taskId)!)
 const subTasks = computed(() =>
@@ -35,7 +34,7 @@ const addTask = (value: string, clearInput: () => void) => {
     completedDateTime: 0,
     lastEditTime: 0,
     isImported: false,
-    owner: 1
+    owner: userStore.user.userInfo!.id
   })
 
   clearInput()

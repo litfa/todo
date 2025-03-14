@@ -24,9 +24,24 @@ const startService = async () => {
   if (setting.getSettingItem('dev', 'vConsole').value == '1') {
     new VConsole()
   }
-  todoSdk.syncService.startSync(1000 * 10)
+  await todoSdk.setUser(user.user.userInfo!.id)
+  await todoSdk.syncService.startSync(1000 * 10)
+
+  console.log(todoSdk)
 
   notificationService.startNotificationProcessing()
+
+  watch(
+    () => user.user.userInfo?.id,
+    (value) => {
+      console.log('set user', value)
+
+      if (value) todoSdk.setUser(value)
+    },
+    {
+      immediate: true
+    }
+  )
 
   if (isDesktop()) {
     new TrayService()

@@ -3,19 +3,10 @@ import { reactive, ref } from 'vue'
 import { useCommit } from './models/commit'
 import { useSubTask } from './models/subTask'
 import { useTask } from './models/task'
-import { useTaskList } from './models/TaskList'
+import { useTaskList } from './models/taskList'
 import type { Config, Data } from './types'
 import { useStorage } from './utils/storage'
 import { SyncCommitsService } from './utils/syncCommitsService'
-
-/**
- * todo:
- * - sync
- *  - 自定义获取token方法
- *  - 自定义请求体
- *  - 手动实现请求 pull push sync
- *
- */
 
 export const TodoSDK = (config: Config) => {
   const data: Data = {

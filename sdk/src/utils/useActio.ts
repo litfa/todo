@@ -19,7 +19,7 @@ export const useAction = <T extends SubTask | Task | TaskList>(
     })
 
     if (!commit) {
-      const commit = createCommitInstance(operation, targetTable, item)
+      const commit = createCommitInstance(operation, targetTable, item, data.user.value)
       data.commits.value.push(commit)
       return
     }

@@ -1,5 +1,5 @@
 import type { OptionalExcept } from './common'
-
+import type { Response } from '@/apis/request'
 import type {
   Task,
   TaskList,
@@ -13,6 +13,8 @@ import type {
 import type { AxiosInstance } from 'axios'
 import type { Ref } from 'vue'
 import { useTask } from '../models/task'
+import { useSubTask } from '../models/subTask'
+import { useTaskList } from '../models/taskList'
 
 export interface Data {
   tasks: Ref<Task[]>
@@ -35,19 +37,6 @@ export type Action<T extends { id: string }> = {
   (operation: typeof Update, data: OptionalExcept<T, 'id'>, option?: Option): void
 }
 
-/**
- * storage: {
-    prefix: '',
-    key: () => {},
-    getItem: () => {},
-    setItem: () => {}
-  },
-  sync: {
-    token: '' || () => {}
-    request: xxx,
-    pull: xxx
-  }
- */
 export interface Config {
   storage?: {
     prefix?: string
@@ -58,16 +47,27 @@ export interface Config {
       value: T
     ) => void | Promise<void>
   }
-  // sync: {
-  //   token: string | (() => string),
-  //   request: AxiosInstance,
-  //   pull: () => void
-  //   push: () => void
-  // }
+  sync?: {
+    baseUrl?: string
+    token?: () => string
+    request?: AxiosInstance
+    pull?: (
+      lastSyncTime: number
+    ) => Response<{ commits: Commit<Task | SubTask | TaskList>[]; syncTime: number }>
+    push?: (commits: Commit<any>[]) => Response<{
+      errCount: number
+      results: (
+        | { err: true }
+        | { err: false; commitId: string; value: string | number }
+      )[]
+    }>
+  }
 }
 
 export interface Stores {
   task: ReturnType<typeof useTask>
+  subTask: ReturnType<typeof useSubTask>
+  taskList: ReturnType<typeof useTaskList>
 }
 
 export type Update<T extends { id: string }> = {

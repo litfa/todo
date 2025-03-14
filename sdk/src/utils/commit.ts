@@ -12,7 +12,8 @@ import { generateIdString } from '@/utils/snowflake'
 export const createCommitInstance = <T extends Task | SubTask | TaskList>(
   operation: Operation,
   targetTable: TargetTable,
-  data: T
+  data: T,
+  user: number
 ): CommitType => {
   const commitId = generateIdString()
   return {
@@ -24,7 +25,7 @@ export const createCommitInstance = <T extends Task | SubTask | TaskList>(
     lastEditTime: -1,
     // todo: 获取来源字符串
     source: 'web',
-    user: data.owner,
+    user,
     synced: false
   }
 }

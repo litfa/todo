@@ -1,59 +1,6 @@
-// import { emit } from '@/utils/eventbus'
-import type { AxiosRequestConfig } from 'axios'
+import { Config } from '@/types'
+import type { AxiosInstance, AxiosRequestConfig } from 'axios'
 import axios from 'axios'
-// import { getUserToken, refreshToken } from './auth'
-
-// const LocalbaseURL = localStorage.getItem('baseUrl')
-
-// const baseURL = LocalbaseURL || import.meta.env.VITE_API_BASE_URL || ''
-const baseURL = ''
-const getUserToken = () => {
-  return ''
-}
-
-const axiosRequest = axios.create({
-  baseURL: baseURL
-})
-
-axiosRequest.interceptors.request.use((config) => {
-  const token = getUserToken()
-  if (token && config.headers) {
-    config.headers.Authorization = 'Bearer ' + token
-  }
-  return config
-})
-
-axiosRequest.interceptors.response.use(
-  async (data) => {
-    /**
-     * todo: 封装权限 让用户点击时直接跳转登录，而不需要发送请求
-     */
-    if (data.data.status == 4001) {
-      // const isRefresh = await refreshToken()
-
-      // if (!isRefresh) {
-      //   emit('authentication_failed')
-      //   return data
-      // }
-      return await axiosRequest.request(data.config)
-    }
-    return data
-  },
-  (err: Error) => {
-    // emit('error_axios', err.message)
-    console.log('axios error', err.message)
-  }
-)
-
-const request = async (AxiosRequestConfig: AxiosRequestConfig<any>) => {
-  const res = await axiosRequest(AxiosRequestConfig)
-  if (!res?.data) {
-    return {
-      status: 500
-    }
-  }
-  return res.data
-}
 
 export type Response<T> = Promise<{
   status: number
@@ -61,4 +8,63 @@ export type Response<T> = Promise<{
   msg?: string
 }>
 
-export default request
+export class Requset {
+  private axiosInstance: AxiosInstance
+  constructor(config: Config | AxiosInstance) {
+    this.setInstance(config)
+  }
+
+  getToken: () => string
+
+  private setInstance(config: Config | AxiosInstance) {
+    if (config instanceof Function) {
+      this.axiosInstance = config
+      return
+    }
+
+    const syncConfig = config?.sync
+
+    this.axiosInstance = this.setInterceptors(
+      axios.create({
+        baseURL: syncConfig?.baseUrl
+      })
+    )
+
+    this.getToken = syncConfig?.token
+  }
+
+  private setInterceptors(request: AxiosInstance) {
+    request.interceptors.request.use((config) => {
+      const token = this.getToken && this.getToken()
+      if (token && config.headers) {
+        config.headers.Authorization = 'Bearer ' + token
+      }
+      return config
+    })
+
+    request.interceptors.response.use(
+      async (data) => {
+        if (data.data.status == 4001) {
+          // emit('authentication_failed')
+        }
+        return data
+      },
+      (err: Error) => {
+        // emit('error_axios', err.message)
+        console.log('axios error', err.message)
+      }
+    )
+
+    return request
+  }
+
+  public request = async (AxiosRequestConfig: AxiosRequestConfig<any>) => {
+    const res = await this.axiosInstance(AxiosRequestConfig)
+    if (!res?.data) {
+      return {
+        status: 500
+      }
+    }
+    return res.data
+  }
+}
