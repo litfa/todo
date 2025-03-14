@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/'
 import { todoSdk } from '@/utils/useTodoSdk'
-import { generateIdWithSource } from '@/utils/snowflake'
+import { defaultList, generateIdWithSource, inboxTaskListId, keys } from '@ltfei/todo-common'
 import AddTaskInput from './AddTaskInput.vue'
-import { keys, defaultList, inboxTaskListId } from '@ltfei/todo-common'
 
 defineOptions({
   name: 'AddTask'

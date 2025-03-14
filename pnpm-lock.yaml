@@ -7,6 +7,13 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@sapphire/snowflake':
+        specifier: ^3.5.3
+        version: 3.5.3
+      big-integer:
+        specifier: ^1.6.52
+        version: 1.6.52
     devDependencies:
       '@commitlint/cli':
         specifier: ^17.6.5

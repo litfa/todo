@@ -12,7 +12,7 @@ const { user } = storeToRefs(userStore)
 </script>
 
 <template>
-  <template v-if="user.isLogin">
+  <template v-if="user.isLogin && user.userInfo">
     <div class="account-setting">账户配置</div>
     <div class="userinfo">
       <a-avatar :src="user.userInfo.avatar" :size="64"></a-avatar>

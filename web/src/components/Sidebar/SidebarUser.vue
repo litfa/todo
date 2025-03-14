@@ -28,7 +28,7 @@ const syncStatus = computed(() => {
 </script>
 
 <template>
-  <div class="sidebar-user" v-if="user.isLogin">
+  <div class="sidebar-user" v-if="user.isLogin && user.userInfo">
     <div class="avatar">
       <img :src="user.userInfo.avatar" alt="" />
     </div>

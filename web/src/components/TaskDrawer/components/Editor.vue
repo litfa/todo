@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { keys } from '@ltfei/todo-common'
-import { useUserStore } from '@/stores/'
 import AddTaskInput from '@/components/AddTask/AddTaskInput.vue'
-import { generateIdWithSource } from '@/utils/snowflake'
 import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
-import { Modal } from 'ant-design-vue'
+import { useUserStore } from '@/stores/'
 import { todoSdk } from '@/utils/useTodoSdk'
+import { generateIdWithSource, keys } from '@ltfei/todo-common'
+import { Modal } from 'ant-design-vue'
 
 defineOptions({
   name: 'TaskEditor'

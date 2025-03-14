@@ -1,10 +1,9 @@
-import type { Commit, Task, SubTask, TaskList } from '@ltfei/todo-common'
-import { Create, Delete } from '@ltfei/todo-common'
-import { TaskApi } from '../apis/task'
+import type { Commit, SubTask, Task, TaskList } from '@ltfei/todo-common'
+import { Create, Delete, parse36RadixId } from '@ltfei/todo-common'
 import { throttle } from 'lodash'
-import { parse36RadixId } from '../utils/snowflake'
 import { type Ref, watch } from 'vue'
-import type { Data, Config, Stores, Update as UpdateFunction } from '../types'
+import { TaskApi } from '../apis/task'
+import type { Config, Data, Stores, Update as UpdateFunction } from '../types'
 
 export class SyncCommitsService {
   private commitsStore: Ref<Commit[]>

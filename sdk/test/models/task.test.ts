@@ -1,9 +1,8 @@
-import { inbox, inboxTaskListId, Task } from '@ltfei/todo-common'
+import { generateIdString, inbox, inboxTaskListId, Task } from '@ltfei/todo-common'
 import { describe, expect, it } from 'vitest'
 import { ref } from 'vue'
 import { useTask } from '../../src/models/task'
 import { Data } from '../../src/types'
-import { generateIdString } from '../../src/utils/snowflake'
 
 describe('task', () => {
   const data: Data = {

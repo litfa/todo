@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import type { Task } from '@ltfei/todo-common'
-import { keys, inboxTaskListId, inbox } from '@ltfei/todo-common'
-import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
-// import { useTasksStore, useSubTasksStore, useTasksListStore } from '@/stores/'
 import Switch from '@/components/Switch/Switch.vue'
-import dayjs from 'dayjs'
+import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
 import i18n from '@/lang'
-import { type Component } from 'vue'
-// import { Calendar as IconCalendar } from '@icon-park/vue-next'
 import { isToday, isTomorrow, isYesterday } from '@/utils/date'
-import { parse36RadixId } from '@/utils/snowflake'
 import { todoSdk } from '@/utils/useTodoSdk'
+import type { Task } from '@ltfei/todo-common'
+import { inbox, inboxTaskListId, keys, parse36RadixId } from '@ltfei/todo-common'
+import dayjs from 'dayjs'
+import { type Component } from 'vue'
 
 defineOptions({
   name: 'TaskListItem'
@@ -22,9 +19,6 @@ interface Props extends Task {
 
 const { t } = i18n.global
 const props = defineProps<Props>()
-// const tasksStore = useTasksStore()
-// const subTasksStore = useSubTasksStore()
-// const tasksListStore = useTasksListStore()
 const route = useRoute()
 const taskListId = computed(() => route.params.id as string)
 
