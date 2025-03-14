@@ -1,12 +1,9 @@
 <script setup lang="ts">
-// import { useTasksListStore } from '@/stores/'
 import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
   name: 'SidebarFooter'
 })
-
-// const tasksList = useTasksListStore()
 
 const name = ref('')
 const nameInputRef = ref<HTMLElement | null>(null)
@@ -27,8 +24,7 @@ const submitCreateList = () => {
     return
   }
 
-  // todo: 创建待办列表
-  // todoSdk.createList(name.value)
+  todoSdk.taskList.createList(name.value)
   name.value = ''
   open.value = false
 }
