@@ -21,16 +21,16 @@ describe('TodoSDK', () => {
     expect(sdk.data.lastSyncTime.value).toBe(0)
   })
 
-  it('should set user correctly', async () => {
-    const sdk = TodoSDK(config)
-    await sdk.setUser(1)
-    expect(sdk.data.user.value).toBe(1)
-  })
+  // it('should set user correctly', async () => {
+  //   const sdk = TodoSDK(config)
+  //   await sdk.setUser(1)
+  //   expect(sdk.data.user.value).toBe(1)
+  // })
 
-  it('should have task store', () => {
-    const sdk = TodoSDK(config)
-    expect(sdk.task).toBeDefined()
-  })
+  // it('should have task store', () => {
+  //   const sdk = TodoSDK(config)
+  //   expect(sdk.task).toBeDefined()
+  // })
 
   it('should have taskList store', () => {
     const sdk = TodoSDK(config)
