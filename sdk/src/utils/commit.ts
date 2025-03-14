@@ -7,7 +7,7 @@ import type {
   TaskList
 } from '@ltfei/todo-common'
 import { Delete, Create } from '@ltfei/todo-common'
-import { generateIdString } from '@/utils/snowflake'
+import { generateIdString } from '../utils/snowflake'
 
 export const createCommitInstance = <T extends Task | SubTask | TaskList>(
   operation: Operation,

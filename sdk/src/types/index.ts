@@ -1,5 +1,5 @@
 import type { OptionalExcept } from './common'
-import type { Response } from '@/apis/request'
+import type { Response } from '../apis/request'
 import type {
   Task,
   TaskList,
@@ -45,6 +45,8 @@ export type SetItem = <T extends string | Object = string>(
   value: T
 ) => void | Promise<void>
 
+export type GetToken = () => string | null
+
 export interface Config {
   storage?: {
     prefix?: string
@@ -54,7 +56,7 @@ export interface Config {
   }
   sync?: {
     baseUrl?: string
-    token?: () => string
+    token?: GetToken
     request?: AxiosInstance
     pull?: (
       lastSyncTime: number

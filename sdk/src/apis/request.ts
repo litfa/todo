@@ -1,4 +1,4 @@
-import { Config } from '@/types'
+import type { Config, GetToken } from '../types'
 import type { AxiosInstance, AxiosRequestConfig } from 'axios'
 import axios from 'axios'
 
@@ -9,12 +9,12 @@ export type Response<T> = Promise<{
 }>
 
 export class Requset {
-  private axiosInstance: AxiosInstance
+  private axiosInstance!: AxiosInstance
   constructor(config: Config | AxiosInstance) {
     this.setInstance(config)
   }
 
-  getToken: () => string
+  getToken!: GetToken
 
   private setInstance(config: Config | AxiosInstance) {
     if (config instanceof Function) {
@@ -30,7 +30,7 @@ export class Requset {
       })
     )
 
-    this.getToken = syncConfig?.token
+    this.getToken = syncConfig?.token || (() => '')
   }
 
   private setInterceptors(request: AxiosInstance) {
