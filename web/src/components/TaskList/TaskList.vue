@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import TaskListItem from './TaskListItem.vue'
-// import { useTasksStore } from '@/stores/'
 import { keys } from '@ltfei/todo-common'
 import { todoSdk } from '@/utils/useTodoSdk'
 
@@ -13,7 +12,6 @@ const emit = defineEmits<{
 }>()
 
 const route = useRoute()
-// const tasksStore = useTasksStore()
 const id = computed(() => route.params.id as string)
 const showCompleted = ref(false)
 

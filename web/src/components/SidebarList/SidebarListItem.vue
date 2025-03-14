@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { todoSdk } from '@/utils/useTodoSdk'
-
-import { keys } from '@ltfei/todo-common'
-import { inbox, important, myday, planned, assignedToMe } from '@ltfei/todo-common'
+import { assignedToMe, important, inbox, keys, myday, planned } from '@ltfei/todo-common'
 
 defineOptions({
   name: 'SidebarListItem'
@@ -14,13 +12,10 @@ const props = defineProps<{
   id: string
 }>()
 
-// const tasks = useTasksStore()
-
 const count = computed(() => {
-  // todo: 统计任务数量
-  // return todoSdk.task.getTasksByParentFolderId(props.id).filter((e) => {
-  //   return e.status == keys.task.status.notStarted
-  // }).length
+  return todoSdk.task.getTasksByParentFolderId(props.id).filter((e) => {
+    return e.status == keys.task.status.notStarted
+  }).length
 })
 </script>
 

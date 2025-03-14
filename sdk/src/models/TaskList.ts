@@ -12,7 +12,7 @@ export const useTaskList = (data: Data) => {
       id: id,
       createdWithLocalId: id,
       isSharedFolder: false,
-      owner: 1,
+      owner: data.user.value,
       name,
       sharingLink: '',
       showCompletedTasks: true,
