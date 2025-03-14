@@ -6,7 +6,13 @@ import { watch, toRaw } from 'vue'
 export const useStorage = (data: Data, config: Config) => {
   const localStorage = useLocalStorage(config)
 
-  const stores = ['tasks', 'taskList', 'subTasks', 'commits'] as const
+  const stores: (keyof Data)[] = [
+    'tasks',
+    'taskList',
+    'subTasks',
+    'commits',
+    'lastSyncTime'
+  ]
 
   const getLocalStore = async () => {
     const getItem = async (store: (typeof stores)[number]) => {
@@ -19,7 +25,7 @@ export const useStorage = (data: Data, config: Config) => {
         return
       }
 
-      data[store].value.splice(0, data[store].value.length, ...(items as any))
+      data[store].value = items
     }
 
     await Promise.all(stores.map((store) => getItem(store)))
