@@ -15,7 +15,7 @@ const getToken = async () => {
   return 'Bearer ' + token
 }
 
-export const request = async <T>(option: Taro.request.Option) => {
+export const request = async <T>(option: Taro.request.Option): Promise<Request<T>> => {
   const config: Taro.request.Option = {
     ...option,
     ...{

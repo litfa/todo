@@ -1,5 +1,6 @@
 import { getUserinfo as getUserinfoApi } from '../apis/user'
 import { userStore } from '../stores/user'
+import { todoSdk } from '../utils/useTodoSdk'
 
 export const getUserinfo = async () => {
   const user = userStore()
@@ -7,5 +8,6 @@ export const getUserinfo = async () => {
   if (res.status == 200) {
     user.user.isLogin = true
     user.user.userinfo = res.data
+    todoSdk.setUser(res.data.id)
   }
 }
