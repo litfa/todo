@@ -45,7 +45,7 @@ export type SetItem = <T extends string | Object = string>(
   value: T
 ) => void | Promise<void>
 
-export type GetToken = () => string | null
+export type GetToken = () => string | null | Promise<string | null>
 
 export interface Config {
   storage?: {
