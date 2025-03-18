@@ -1,0 +1,31 @@
+.task-radio {
+  .radio {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #888;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .icon {
+      opacity: 0;
+      transition: all 0.1s;
+      // width: 15px;
+      // height: 15px;
+      // border: 1px solid @text-color-secondary;
+    }
+    &:hover .icon {
+      opacity: 1;
+    }
+  }
+  &.checked {
+    .radio {
+      background-color: @primary;
+      .icon {
+        opacity: 1;
+        color: #fff;
+      }
+    }
+  }
+}

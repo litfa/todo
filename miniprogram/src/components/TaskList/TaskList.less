@@ -1,0 +1,33 @@
+.i-icon {
+  display: flex;
+}
+.task-list {
+  display: flex;
+  gap: 8px;
+  // padding: 0 8px;
+  flex-direction: column;
+  .collapse-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 30px;
+    // background-color: @white-opacity-7;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    .icon {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      transition: all 0.3s;
+      margin-right: 8px;
+    }
+    &.open {
+      .icon {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
