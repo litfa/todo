@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import LogoImg from '../../static/logo.png'
-import './login.less'
-import Taro from '@tarojs/taro'
 import {
-  login as loginApi,
   checkScene as checkSceneApi,
-  init as initApi
-} from '../../apis/auth/login'
-import { getUserinfo } from '../../utils/getUserInfo'
-import { setToken } from '../../utils/auth'
+  init as initApi,
+  login as loginApi
+} from '@/apis/auth/login'
+import LogoImg from '@/static/logo.png'
+import { setToken } from '@/utils/auth'
+import { getUserinfo } from '@/utils/getUserInfo'
+import Taro from '@tarojs/taro'
+import { ref } from 'vue'
+import './login.less'
 
 defineOptions({
   name: 'login'

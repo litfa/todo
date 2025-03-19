@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import TaskListItem from '../TaskListItem/TaskListItem.vue'
+import TaskListItem from '@/components/TaskListItem/TaskListItem.vue'
+import { todoSdk } from '@/utils/useTodoSdk'
 import { keys } from '@ltfei/todo-common'
-import { todoSdk } from '../../utils/useTodoSdk'
 import { computed, ref } from 'vue'
 import './TaskList.less'
 

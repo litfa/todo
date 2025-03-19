@@ -1,4 +1,4 @@
-import { request } from '../request'
+import { request } from '@/apis/request'
 
 export const refreshToken = (refreshToken: string) => {
   return request<{

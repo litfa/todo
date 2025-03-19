@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { refreshToken as refreshTokenApi } from '../apis/auth/refreshToken'
+import { refreshToken as refreshTokenApi } from '@/apis/auth/refreshToken'
 
 export const storageKey = {
   refreshToken: 'refreshToken',

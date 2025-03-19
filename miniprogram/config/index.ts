@@ -19,6 +19,9 @@ const config = {
     patterns: [],
     options: {}
   },
+  alias: {
+    '@': resolve(__dirname, '..', 'src')
+  },
   framework: 'vue3',
   compiler: 'webpack5',
   cache: {

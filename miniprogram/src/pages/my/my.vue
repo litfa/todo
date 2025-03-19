@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import './my.less'
-import { userStore } from '../../stores/user'
+import scanCodeImage from '@/static/scan-code_1.png'
+import userImage from '@/static/user.png'
+import { userStore } from '@/stores/user'
 import { Image, Navigator } from '@tarojs/components'
-import scanCodeImage from '../../static/scan-code_1.png'
-import userImage from '../../static/user.png'
 import Taro from '@tarojs/taro'
+import './my.less'
 
 defineOptions({
   name: 'my'

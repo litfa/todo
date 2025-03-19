@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import {
+  editUserInfo as editUserInfoApi,
+  uploadAvatar as uploadAvatarApi
+} from '@/apis/editUserinfo'
+import uploadIImage from '@/static/upload.png'
+import { getUserinfo } from '@/utils/getUserInfo'
+import { Form as TForm, Input as TInput } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import { ref } from 'vue'
 import './editUserInfo.less'
-import uploadIImage from '../../static/upload.png'
-import {
-  uploadAvatar as uploadAvatarApi,
-  editUserInfo as editUserInfoApi
-} from '../../apis/editUserinfo'
-import Taro from '@tarojs/taro'
-import { Input as TInput, Form as TForm } from '@tarojs/components'
-import { getUserinfo } from '../../utils/getUserInfo'
 
 defineOptions({
   name: 'editUserInfo'

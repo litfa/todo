@@ -1,5 +1,5 @@
+import { pull, push } from '@/apis/task'
 import { TodoSDK } from '@ltfei/todo-sdk'
-import { pull, push } from '../apis/task'
 import { getStorage, setStorage } from '@tarojs/taro'
 
 const baseUrl = process.env.TARO_APP_API

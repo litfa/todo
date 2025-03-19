@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { getUserinfo } from './utils/getUserInfo'
+import { getUserinfo } from '@/utils/getUserInfo'
 
 import './app.less'
 // import "@nutui/nutui-taro/dist/style.css";

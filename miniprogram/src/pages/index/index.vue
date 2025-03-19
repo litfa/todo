@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import TaskList from '@/components/TaskList/TaskList.vue'
+import { todoSdk } from '@/utils/useTodoSdk'
 import './index.less'
-import { todoSdk } from '../../utils/useTodoSdk'
-import TaskList from '../../components/TaskList/TaskList.vue'
 
 todoSdk.syncService.startSync(1000 * 5)
 

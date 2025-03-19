@@ -1,6 +1,6 @@
-import { getUserinfo as getUserinfoApi } from '../apis/user'
-import { userStore } from '../stores/user'
-import { todoSdk } from '../utils/useTodoSdk'
+import { getUserinfo as getUserinfoApi } from '@/apis/user'
+import { userStore } from '@/stores/user'
+import { todoSdk } from '@/utils/useTodoSdk'
 
 export const getUserinfo = async () => {
   const user = userStore()

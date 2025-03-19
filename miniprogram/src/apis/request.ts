@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
 // import type {request } from '@tarojs/taro'
-import { getUserToken, refreshToken } from '../utils/auth'
+import { getUserToken, refreshToken } from '@/utils/auth'
 
 const baseUrl = process.env.TARO_APP_API
 

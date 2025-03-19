@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import TaskRadio from '../TaskRadio/TaskRadio.vue'
+import TaskRadio from '@/components/TaskRadio/TaskRadio.vue'
+import { todoSdk } from '@/utils/useTodoSdk'
 import { keys, Task } from '@ltfei/todo-common'
-import { todoSdk } from '../../utils/useTodoSdk'
+import { computed } from 'vue'
 
 defineOptions({
   name: 'TaskListItem'
