@@ -1,7 +1,17 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/'
 import { todoSdk } from '@/utils/useTodoSdk'
-import { defaultList, generateIdWithSource, inboxTaskListId, keys } from '@ltfei/todo-common'
+import {
+  defaultList,
+  generateIdWithSource,
+  important,
+  inboxTaskListId,
+  keys,
+  myday,
+  planned,
+  type Task
+} from '@ltfei/todo-common'
+import dayjs from 'dayjs'
 import AddTaskInput from './AddTaskInput.vue'
 
 defineOptions({
@@ -20,7 +30,8 @@ const addTask = () => {
 
   const taskId = generateIdWithSource()
   const parentFolderId = defaultList.includes(id.value) ? inboxTaskListId : id.value
-  todoSdk.task.action('create', {
+
+  const data: Task = {
     body: '',
     isImported: false,
     expirationTime: 0,
@@ -39,9 +50,16 @@ const addTask = () => {
     isRepeat: false,
     repetitionPeriod: '',
     nextRepeatTaskId: null
-  })
+  }
 
-  console.log(todoSdk)
+  // 重要任务
+  if (id.value == important) {
+    data.isImported = true
+    // 今天/计划内
+  } else if (id.value == myday || id.value == planned) {
+    data.expirationTime = dayjs().endOf('day').valueOf()
+  }
+  todoSdk.task.create(data)
 
   text.value = ''
 }
