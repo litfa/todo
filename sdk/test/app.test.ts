@@ -1,12 +1,20 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { TodoSDK } from '../src/app'
 import type { Config } from '../src/types'
+import { generateIdWithSource, generateIdString } from '@ltfei/todo-common'
 
 describe('TodoSDK', () => {
   let config: Config
 
   beforeEach(() => {
-    config = {}
+    config = {
+      storage: {
+        getItem() {
+          return null
+        },
+        setItem() {}
+      }
+    }
   })
 
   it('should initialize with default data', () => {
@@ -50,5 +58,47 @@ describe('TodoSDK', () => {
   it('should have syncService', () => {
     const sdk = TodoSDK(config)
     expect(sdk.syncService).toBeDefined()
+  })
+
+  /**
+   * 创建任务列表，在id更新之前，创建任务，然后同步时更新任务列表的id，任务的 parentFolderId 应当同步更新
+   * 1. 创建任务列表
+   * 2. 创建任务
+   * 3. 更新任务列表 id
+   * 4. 验证 parentFolderId 是否为新的 id
+   */
+  it('should update task parentFolderId when taskList id is updated', () => {
+    const sdk = TodoSDK(config)
+
+    // 1. 创建任务列表
+    const taskList = sdk.taskList.createList('test')
+    const taskId = generateIdWithSource()
+
+    // 2. 创建任务
+    sdk.task.create({
+      body: '',
+      expirationTime: 0,
+      startTime: 0,
+      isReminderOn: false,
+      isRepeat: false,
+      parentFolderId: taskList.id,
+      reminderDateTime: 0,
+      id: taskId,
+      createdWithLocalId: taskId,
+      subject: '',
+      status: 0,
+      createdTime: 0,
+      completedDateTime: 0,
+      lastEditTime: 0,
+      isImported: false,
+      owner: 0
+    })
+
+    // 3. 更新任务列表 id
+    const newTaskListId = generateIdString()
+    sdk.taskList.updateId(taskList.id, newTaskListId)
+
+    // 4. 验证 parentFolderId 是否为新的 id
+    expect(sdk.task.getStateById(taskId)?.parentFolderId).toEqual(newTaskListId)
   })
 })

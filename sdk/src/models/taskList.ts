@@ -27,8 +27,18 @@ export const useTaskList = (data: Data) => {
     })
   }
 
+  const updateId = (before: string, after: string) => {
+    taskList.updateId(before, after)
+    data.tasks.value.forEach((task) => {
+      if (task.parentFolderId == before) {
+        task.parentFolderId = after
+      }
+    })
+  }
+
   return {
     createList,
-    ...taskList
+    ...taskList,
+    updateId
   }
 }
