@@ -36,31 +36,34 @@ export const useAction = <T extends SubTask | Task | TaskList>(
 
     if (operation == Create) {
       state.value.push(item as T)
-      return
+      return item as T
     }
     const i = state.value.findIndex((e) => e.id == item.id)
     if (operation == Delete) {
+      const item = state.value[i]
       state.value.splice(i, 1)
-      return
+      return item as T
     }
     if (operation == Update) {
       state.value[i] = {
         ...state.value[i],
         ...item
       }
+      return state.value[i] as T
     }
+    return item as T
   }
 
   const create = (item: T) => {
-    action(Create, item)
+    return action(Create, item)
   }
   const remove = (id: string) => {
-    action(Delete, {
+    return action(Delete, {
       id
     })
   }
   const update = (item: OptionalExcept<T, 'id'>) => {
-    action(Update, item)
+    return action(Update, item)
   }
 
   const getStateById = (id: string) => {

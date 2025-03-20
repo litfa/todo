@@ -8,7 +8,7 @@ export const useTaskList = (data: Data) => {
 
   const createList = (name: string) => {
     const id = generateIdWithSource()
-    taskList.create({
+    return taskList.create({
       id: id,
       createdWithLocalId: id,
       isSharedFolder: false,

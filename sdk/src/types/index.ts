@@ -32,9 +32,9 @@ export interface Option {
 }
 
 export type Action<T extends { id: string }> = {
-  (operation: typeof Create, data: T, option?: Option): void
-  (operation: typeof Delete, data: { id: string }, option?: Option): void
-  (operation: typeof Update, data: OptionalExcept<T, 'id'>, option?: Option): void
+  (operation: typeof Create, data: T, option?: Option): T
+  (operation: typeof Delete, data: { id: string }, option?: Option): T
+  (operation: typeof Update, data: OptionalExcept<T, 'id'>, option?: Option): T
 }
 
 export type GetItem = <T extends string | Object = string>(
