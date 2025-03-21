@@ -29,38 +29,14 @@ router.use('/', async (req: Request, res) => {
 
   /**
    * 未同步时间范围：上次同步时间~当前时间
-   *
-   * 返回三种情况
-   * - 创建时间在未同步时间范围的
-   * - 最后修改时间在未同步时间范围的
-   * - 操作类型为 Delete 或 Create 且同步时间在未同步时间范围的
+   * [上次同步时间,当前时间)
    */
-
   const results = await Commits.findAll({
     where: {
-      [Op.or]: [
-        {
-          created_time: {
-            [Op.gt]: lastSyncTime,
-            [Op.lt]: syncTime
-          }
-        },
-        {
-          last_edit_time: {
-            [Op.gt]: lastSyncTime,
-            [Op.lt]: syncTime
-          }
-        },
-        {
-          operation: {
-            [Op.not]: Update
-          },
-          sync_time: {
-            [Op.gt]: lastSyncTime,
-            [Op.lt]: syncTime
-          }
-        }
-      ],
+      sync_time: {
+        [Op.gte]: lastSyncTime,
+        [Op.lt]: syncTime
+      },
       user: user.id
     }
   })
