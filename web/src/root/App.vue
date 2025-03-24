@@ -1,9 +1,27 @@
 <script setup lang="ts">
 import themes from '@/assets/theme'
-import { useThemes } from '@/utils/theme'
+import { useUserSetting } from '@/stores'
 import { injectionKey } from '@/types/'
+import { useThemes } from '@/utils/theme'
+import { useI18n } from 'vue-i18n'
+
+const i18n = useI18n()
 
 const { theme, mode } = useThemes(themes)
+
+const userSetting = useUserSetting()
+const lang = userSetting.getSettingItem('more', 'lang')
+
+watch(
+  () => lang.value,
+  () => {
+    console.log('lang', lang, lang.value)
+    i18n.locale.value = lang.value
+  },
+  {
+    immediate: true
+  }
+)
 
 provide(injectionKey.themeMode, mode)
 </script>

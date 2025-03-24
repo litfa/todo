@@ -44,6 +44,11 @@ export default <RouteRecordRaw[]>[
         path: 'remind',
         meta: { title: '提醒' },
         component: () => import('@/views/Setting/components/RemindSetting.vue')
+      },
+      {
+        path: 'more',
+        meta: { tiele: '更多' },
+        component: () => import('@/views/Setting/components/MoreSetting.vue')
       }
     ]
   },

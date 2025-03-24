@@ -10,5 +10,8 @@ export const defaultUserSetting: UserSetting = {
   remind: {
     enable: true,
     notificationMethod: keys.userSetting.Remind.inApp
+  },
+  more: {
+    lang: 'zh-cn'
   }
 }

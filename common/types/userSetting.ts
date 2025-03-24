@@ -9,7 +9,14 @@ export interface Remind {
   notificationMethod: number
 }
 
+export type Lang = 'zh-cn' | 'en'
+
+export interface More {
+  lang: Lang
+}
+
 export interface UserSetting {
   dev: Dev
   remind: Remind
+  more: More
 }

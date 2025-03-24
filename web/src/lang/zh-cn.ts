@@ -1,6 +1,7 @@
 import { inbox, important, myday, planned, assignedToMe } from '@ltfei/todo-common'
 
 export default {
+  name: '简体中文',
   [inbox]: '任务',
   [important]: '重要',
   [myday]: '今天',

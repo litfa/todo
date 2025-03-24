@@ -46,6 +46,10 @@ const select: MenuProps['onSelect'] = (e) => {
       <template #icon> <icon-sync /> </template>
       同步
     </a-menu-item>
+    <a-menu-item key="MoreSetting">
+      <template #icon> <icon-more-two /> </template>
+      通用
+    </a-menu-item>
     <a-menu-divider />
     <a-menu-item key="AboutSetting">
       <template #icon> <icon-info /> </template>
