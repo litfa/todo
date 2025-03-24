@@ -40,5 +40,22 @@ export default {
   be_reminded_later: 'Remind Me Later',
   remind_setting: 'Reminder and Notification',
   remind_enable: 'Reminder',
-  remind_notification_method: 'Reminder Method'
+  remind_notification_method: 'Notification Method',
+  more_setting: 'More',
+  language: 'Language',
+  sync_setting: 'Sync',
+  about_setting: 'About',
+  account_setting: 'Account',
+  setting: 'Setting',
+  help: 'Help',
+  synchronize_now: 'Synchronize now',
+  operation_record: 'Operation record',
+  logout: 'logout',
+  next_step: 'Next Step',
+  add_task: 'Add Task',
+  create_task_list: 'Create Task List',
+  create: 'Create',
+  cancel: 'Cancel',
+  enter_list_title: 'Enter list title',
+  has_completed: 'Completed'
 }

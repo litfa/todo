@@ -36,7 +36,7 @@ const submitCreateList = () => {
       <div class="icon">
         <icon-plus />
       </div>
-      新建列表
+      {{ $t('create_task_list') }}
     </div>
     <div class="create-group icon">
       <icon-folder-plus />
@@ -45,12 +45,12 @@ const submitCreateList = () => {
 
   <a-modal
     v-model:open="open"
-    title="新建列表"
-    ok-text="新建列表"
-    cancel-text="取消"
+    :title="$t('create_task_list')"
+    :ok-text="$t('create')"
+    :cancel-text="$t('cancel')"
     @ok="submitCreateList"
   >
-    <a-input v-model:value="name" placeholder="输入列表标题" ref="nameInputRef" />
+    <a-input v-model:value="name" :placeholder="$t('enter_list_title')" ref="nameInputRef" />
   </a-modal>
 </template>
 

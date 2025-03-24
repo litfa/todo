@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import SidebarUser from './SidebarUser.vue'
-import SidebarList from '../SidebarList/SidebarList.vue'
-import SidebarFooter from './SidebarFooter.vue'
 import { openSettingWindow } from '@/components/Setting'
 import { injectionKey } from '@/types/'
-import { message, Modal } from 'ant-design-vue'
 import { deleteToken } from '@/utils/auth'
-import { useRouter } from 'vue-router'
 import { todoSdk } from '@/utils/useTodoSdk'
+import { message, Modal } from 'ant-design-vue'
+import { useRouter } from 'vue-router'
+import SidebarList from '../SidebarList/SidebarList.vue'
+import SidebarFooter from './SidebarFooter.vue'
+import SidebarUser from './SidebarUser.vue'
+import i18n from '@/lang'
 
 defineOptions({
   name: 'SideBar'
 })
 
-// const syncCommits = inject(injectionKey.syncCommits)
+const { t } = i18n.global
 const closeMenu = inject(injectionKey.closeMenu)
 const router = useRouter()
 
@@ -46,21 +47,21 @@ const logout = () => {
         <a-menu>
           <a-menu-item key="1" @click="openSetting">
             <template #icon> <IconSetting /> </template>
-            设置
+            {{ t('setting') }}
           </a-menu-item>
           <a-menu-divider />
           <a-menu-item @click="onSyncCommits">
             <template #icon> <IconRefresh /> </template>
-            立即同步
+            {{ t('synchronize_now') }}
           </a-menu-item>
           <a-menu-item disabled>
             <template #icon> <IconLog /> </template>
-            操作记录
+            {{ t('operation_record') }}
           </a-menu-item>
           <a-menu-divider />
           <a-menu-item disabled>
             <template #icon> <IconHelp /> </template>
-            帮助
+            {{ t('help') }}
           </a-menu-item>
           <a-menu-item disabled>
             <template #icon> <IconDownload /> </template>
@@ -69,7 +70,7 @@ const logout = () => {
           <a-menu-divider />
           <a-menu-item @click="logout">
             <template #icon> <IconLogout /> </template>
-            退出登录
+            {{ t('logout') }}
           </a-menu-item>
         </a-menu>
       </template>

@@ -59,7 +59,7 @@ const completedCount = computed(() =>
       <div class="icon">
         <icon-right />
       </div>
-      <div class="text">已完成 {{ completedCount }}</div>
+      <div class="text">{{ $t('has_completed') }} {{ completedCount }}</div>
     </div>
     <TaskListItem
       v-show="showCompleted"
@@ -85,13 +85,15 @@ const completedCount = computed(() =>
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
+    // width: 100px;
     height: 30px;
     background-color: @white-opacity-7;
     font-size: 14px;
     border-radius: 4px;
     cursor: pointer;
     user-select: none;
+    align-self: flex-start;
+    padding: 0 8px;
     .icon {
       display: flex;
       justify-content: center;

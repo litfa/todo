@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import i18n from '@/lang'
+
+const { t } = i18n.global
+
 const props = withDefaults(
   defineProps<{
     placeholder?: string
     iconSize?: number
   }>(),
   {
-    placeholder: '添加任务',
     iconSize: 22
   }
 )
@@ -30,7 +33,13 @@ const submit = () => {
 
 <template>
   <div class="add-task-input">
-    <input type="text" class="task-name" :placeholder v-model="text" @keydown.stop.enter="submit" />
+    <input
+      type="text"
+      class="task-name"
+      :placeholder="placeholder || t('add_task')"
+      v-model="text"
+      @keydown.stop.enter="submit"
+    />
     <icon-round :size="iconSize" class="icon-radio" />
     <icon-plus :size="iconSize" class="icon-add" />
   </div>

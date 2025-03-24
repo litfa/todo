@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { components } from './common'
 import SettingMenu from './components/SettingMenu.vue'
+import i18n from '@/lang'
 
 defineOptions({
   name: 'SettingPage'
@@ -15,12 +16,13 @@ withDefaults(
   }
 )
 
+const { t } = i18n.global
 const current = ref<keyof typeof components>('DevSetting')
 </script>
 
 <template>
   <div class="setting-page" :class="{ isPage }">
-    <div class="title" v-if="!isPage">设置</div>
+    <div class="title" v-if="!isPage">{{ t('setting') }}</div>
     <div class="setting-content">
       <SettingMenu @change="(e) => (current = e)" />
       <div class="content">

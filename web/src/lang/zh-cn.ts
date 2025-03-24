@@ -40,5 +40,22 @@ export default {
   be_reminded_later: '稍后提醒',
   remind_setting: '提醒与通知',
   remind_enable: '提醒',
-  remind_notification_method: '提醒方式'
+  remind_notification_method: '提醒方式',
+  more_setting: '更多设置',
+  language: '语言',
+  sync_setting: '同步',
+  about_setting: '关于',
+  account_setting: '账户',
+  setting: '设置',
+  help: '帮助',
+  synchronize_now: '立即同步',
+  operation_record: '操作记录',
+  logout: '退出登录',
+  next_step: '下一步',
+  add_task: '添加任务',
+  create_task_list: '新建列表',
+  create: '创建',
+  cancel: '取消',
+  enter_list_title: '输入列表标题',
+  has_completed: '已完成'
 }

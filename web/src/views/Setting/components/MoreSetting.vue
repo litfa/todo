@@ -9,14 +9,14 @@ const userSetting = useUserSetting()
 
 const { getSettingItem } = userSetting
 
-const { messages } = i18n.global
+const { messages, t } = i18n.global
 </script>
 
 <template>
-  更多设置
+  {{ t('more_setting') }}
   <div class="more-setting">
     <a-form name="basic" layout="vertical" autocomplete="off">
-      <a-form-item label="语言">
+      <a-form-item :label="t('language')">
         <a-select v-model:value="getSettingItem('more', 'lang').value">
           <a-select-option v-for="(item, index) in messages" :key="index" :value="index">
             {{ item.name }}

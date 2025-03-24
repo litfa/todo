@@ -161,7 +161,7 @@ const updateSubTaskSubject = (id: string, value: string) => {
     </div>
 
     <div class="add-task">
-      <AddTaskInput placeholder="下一步" :icon-size="14" @add-task="addTask" />
+      <AddTaskInput :placeholder="$t('next_step')" :icon-size="14" @add-task="addTask" />
     </div>
   </div>
 </template>
