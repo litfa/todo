@@ -8,7 +8,7 @@ export default {
     info: '#42b8dd',
     white: '#fff',
     black: '#000',
-    'bg-color': 'rgb(241,241,241)',
+    'bg-color': '#fff',
     'bg-color-page': '#e0e5ef',
     'text-color': '#000'
   },

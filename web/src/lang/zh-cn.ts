@@ -51,6 +51,7 @@ export default {
   synchronize_now: '立即同步',
   operation_record: '操作记录',
   logout: '退出登录',
+  add_step: '添加步骤',
   next_step: '下一步',
   add_task: '添加任务',
   create_task_list: '新建列表',

@@ -49,6 +49,7 @@ const completedCount = computed(() =>
       :key="i.id || i.createdWithLocalId"
       v-bind="i"
       @click="clickTaskItem(i.id)"
+      showBorder
     />
     <div
       class="collapse-button"
@@ -61,14 +62,16 @@ const completedCount = computed(() =>
       </div>
       <div class="text">{{ $t('has_completed') }} {{ completedCount }}</div>
     </div>
-    <TaskListItem
-      v-show="showCompleted"
-      completed
-      v-for="i in notStartedTasks"
-      :key="i.id || i.createdWithLocalId"
-      v-bind="i"
-      @click="clickTaskItem(i.id)"
-    />
+    <template v-if="showCompleted">
+      <TaskListItem
+        completed
+        v-for="i in notStartedTasks"
+        :key="i.id || i.createdWithLocalId"
+        v-bind="i"
+        @click="clickTaskItem(i.id)"
+        showBorder
+      />
+    </template>
   </div>
 </template>
 
@@ -78,7 +81,7 @@ const completedCount = computed(() =>
 }
 .task-list {
   display: flex;
-  gap: 8px;
+  gap: 4px;
   // padding: 0 8px;
   flex-direction: column;
   .collapse-button {

@@ -161,7 +161,11 @@ const updateSubTaskSubject = (id: string, value: string) => {
     </div>
 
     <div class="add-task">
-      <AddTaskInput :placeholder="$t('next_step')" :icon-size="14" @add-task="addTask" />
+      <AddTaskInput
+        :placeholder="subTasks.length == 0 ? $t('add_step') : $t('next_step')"
+        :icon-size="14"
+        @add-task="addTask"
+      />
     </div>
   </div>
 </template>
@@ -183,18 +187,15 @@ const updateSubTaskSubject = (id: string, value: string) => {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  border: 1px solid #aaaaaa45;
+  // border: 1px solid #aaaaaa45;
   padding: 8px;
   border-radius: 4px;
   .task {
     :deep(textarea) {
       font-weight: bold;
-      // font-size: 16px;
     }
   }
-  .sub-task {
-    border-bottom: 1px solid #aaaaaa2e;
-  }
+
   .task,
   .sub-task {
     display: flex;
@@ -209,18 +210,11 @@ const updateSubTaskSubject = (id: string, value: string) => {
       line-height: 18px;
       font-size: 18px;
     }
-    // .icon {
-    //   width: 25px;
-    //   height: 25px;
-    //   padding: 5px;
-    //   box-sizing: border-box;
-    //   border-radius: 4px;
-    //   display: flex;
-    //   justify-content: center;
-    //   &:hover {
-    //     background-color: #aaaaaa28;
-    //   }
-    // }
+  }
+  .add-task {
+    :deep(.add-task-input) {
+      height: 30px;
+    }
   }
 }
 </style>

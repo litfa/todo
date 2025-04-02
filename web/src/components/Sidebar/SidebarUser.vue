@@ -52,13 +52,13 @@ const syncStatus = computed(() => {
 .sidebar-user {
   display: flex;
   align-items: center;
-  padding: 8px;
+  padding: 10px 4px;
   width: 100%;
   box-sizing: border-box;
 
   .avatar {
-    width: 45px;
-    height: 45px;
+    width: 38px;
+    height: 38px;
     background-color: red;
     border-radius: 50%;
     flex-shrink: 0;
@@ -71,6 +71,7 @@ const syncStatus = computed(() => {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      font-size: 16px;
     }
     .sync {
       font-size: 12px;

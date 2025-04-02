@@ -73,7 +73,7 @@ const addTask = () => {
 
 <style lang="less" scoped>
 .add-task {
-  background-color: @white-opacity-8;
+  background-color: @black-opacity-1;
   display: flex;
   border-radius: 4px;
 }

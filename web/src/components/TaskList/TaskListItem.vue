@@ -15,12 +15,14 @@ defineOptions({
 
 interface Props extends Task {
   completed?: boolean
+  showBorder?: boolean
 }
 
 const { t } = i18n.global
 const props = defineProps<Props>()
 const route = useRoute()
 const taskListId = computed(() => route.params.id as string)
+defineEmits(['click'])
 
 const subTasks = computed(() => {
   return todoSdk.data.subTasks.value.filter(
@@ -115,7 +117,7 @@ const desc = computed(() => {
 </script>
 
 <template>
-  <div class="task-list-item" :class="{ completed }">
+  <div class="task-list-item" :class="{ completed }" @click="$emit('click')">
     <TaskRadio v-model:status="status" />
     <div class="info">
       <div class="title">{{ subject }}</div>
@@ -148,6 +150,7 @@ const desc = computed(() => {
       <slot name="extra"></slot>
     </div>
   </div>
+  <div class="border" v-if="showBorder"></div>
 </template>
 
 <style lang="less" scoped>
@@ -186,5 +189,11 @@ const desc = computed(() => {
       }
     }
   }
+}
+.border {
+  width: 100%;
+  height: 1px;
+  background-color: @black-opacity-1;
+  opacity: 0.8;
 }
 </style>

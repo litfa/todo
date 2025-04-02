@@ -42,6 +42,7 @@ const closeTaskDrawer = () => {
       </div>
       <div class="content">
         <Editor :task-id="task.id" />
+        <div class="divider"></div>
         <ExpirationTime :task-id="task.id" />
         <EditReminder :task-id="task.id" />
         <EditRepeat :task-id="task.id" />
@@ -70,15 +71,19 @@ const closeTaskDrawer = () => {
   flex-direction: column;
   transition: all v-bind(transitionTime);
   width: 0;
-  padding: 8px 0;
   box-sizing: border-box;
+  border-left: 1px solid @black-opacity-1;
+  padding-top: 16px;
+
+  gap: 8px;
   &.open {
     width: @width;
-    padding: 8px;
+    // padding: 16px;
   }
   .header {
     display: flex;
     justify-content: flex-end;
+    padding: 0 16px;
     .close {
       padding: 4px;
       display: flex;
@@ -98,8 +103,16 @@ const closeTaskDrawer = () => {
     flex: 1;
     overflow: auto;
     overflow-x: hidden;
-    padding: 8px 0;
-    // width: @width;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    .divider {
+      width: 100%;
+      height: 0;
+      border-bottom: 1px solid @black-opacity-1;
+      margin: 4px 0;
+    }
   }
   .footer {
     height: 40px;
@@ -107,6 +120,8 @@ const closeTaskDrawer = () => {
     display: flex;
     align-items: center;
     border-top: #3838382f 1px solid;
+    // padding-top: 16px;
+    height: 53px;
     .create-time {
       flex: 1;
       text-align: center;
@@ -121,6 +136,9 @@ const closeTaskDrawer = () => {
       display: flex;
       justify-content: center;
       align-items: center;
+      .i-icon {
+        display: flex;
+      }
     }
   }
 }

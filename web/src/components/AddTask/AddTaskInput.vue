@@ -77,6 +77,7 @@ const submit = () => {
     background-color: transparent;
     // margin-left: 30px;
     margin-left: v-bind(iconSizePx);
+    font-size: 14px;
     &::placeholder {
       color: @text-color;
     }

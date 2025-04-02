@@ -48,7 +48,7 @@ const count = computed(() => {
   display: flex;
 }
 .sidebar-list-item {
-  padding: 0 14px;
+  padding: 8px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -56,6 +56,7 @@ const count = computed(() => {
   transition: all 0.2s;
   user-select: none;
   flex-shrink: 0;
+  border-radius: 6px;
 
   .icon {
     margin-right: 8px;

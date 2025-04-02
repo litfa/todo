@@ -72,17 +72,16 @@ const clickTaskItem = (id: string) => {
     flex: 1;
     display: flex;
     flex-direction: column;
-    background-color: @primary;
+    background-color: @bg-color;
     height: 100%;
     overflow: auto;
     .header {
-      padding: 12px 16px;
-      color: @white;
+      padding: 16px;
+      color: @text-color;
       position: sticky;
       top: 0;
       z-index: 100;
-      background-color: @primary;
-      // background-color: #fff;
+      background-color: @bg-color;
       .open-menu {
         font-size: 18px;
       }
@@ -93,19 +92,19 @@ const clickTaskItem = (id: string) => {
         .title {
           font-size: 20px;
           font-weight: bold;
-          color: @white;
+          color: @text-color;
         }
       }
     }
     .task-list {
-      padding: 8px 16px;
+      padding: 0 16px;
       flex: 1;
     }
     .footer {
       padding: 8px 16px;
       position: sticky;
       bottom: 0;
-      background-color: @primary;
+      background-color: @bg-color;
     }
   }
   .drawer {

@@ -100,6 +100,9 @@ const logout = () => {
   background-color: @bg-color;
   display: flex;
   flex-direction: column;
+  border-right: 1px solid @black-opacity-1;
+  padding: 16px 8px;
+  box-sizing: border-box;
   .list {
     flex: 1;
   }

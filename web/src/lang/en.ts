@@ -51,6 +51,7 @@ export default {
   synchronize_now: 'Synchronize now',
   operation_record: 'Operation record',
   logout: 'logout',
+  add_step: 'Add Step',
   next_step: 'Next Step',
   add_task: 'Add Task',
   create_task_list: 'Create Task List',
