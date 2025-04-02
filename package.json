@@ -10,7 +10,8 @@
     "format": "pnpm run \"/^format:.*/\"",
     "format:service": "pnpm run -C service format",
     "format:web": "pnpm run -C web format",
-    "format:miniprogram": "pnpm run -C miniprogram format"
+    "format:miniprogram": "pnpm run -C miniprogram format",
+    "format:website": "pnpm run -C website format"
   },
   "workspaces": [
     "service",
