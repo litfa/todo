@@ -24,6 +24,17 @@
       "csp": null
     }
   },
+  "plugins": {
+    "deep-link": {
+      "desktop": {
+        "schemes": ["my-todo"]
+      },
+      "mobile": [
+        { "host": "192.168.252.195:5173", "pathPrefix": ["/open"] },
+        { "host": "another.site.br" }
+      ]
+    }
+  },
   "bundle": {
     "active": true,
     "targets": "all",
