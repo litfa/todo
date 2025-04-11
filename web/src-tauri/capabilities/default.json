@@ -19,6 +19,7 @@
     "core:window:allow-set-position",
     "process:default",
     "deep-link:default",
-    "deep-link:allow-is-registered"
+    "deep-link:allow-is-registered",
+    "deep-link:allow-get-current"
   ]
 }

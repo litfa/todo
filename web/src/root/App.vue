@@ -4,6 +4,7 @@ import { useUserSetting } from '@/stores'
 import { injectionKey } from '@/types/'
 import { useThemes } from '@/utils/theme'
 import { useI18n } from 'vue-i18n'
+import { useDeepLink } from '@/utils/useDeepLink'
 
 const i18n = useI18n()
 
@@ -11,6 +12,8 @@ const { theme, mode } = useThemes(themes)
 
 const userSetting = useUserSetting()
 const lang = userSetting.getSettingItem('more', 'lang')
+
+useDeepLink()
 
 watch(
   () => lang.value,

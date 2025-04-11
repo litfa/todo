@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "label": "bamboo-slip",
+        "label": "main",
         "title": "竹简清单",
         "width": 1200,
         "height": 800,
@@ -33,7 +33,7 @@
       "mobile": [
         {
           "host": "192.168.252.195:5173",
-          "pathPrefix": ["/open"]
+          "pathPrefix": ["/link"]
         }
       ]
     }
