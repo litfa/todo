@@ -1,3 +1,3 @@
-package com.ltfei.todo
+package cn.ltfei.bamboo_slip
 
 class MainActivity : TauriActivity()

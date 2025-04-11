@@ -11,7 +11,7 @@ defineOptions({
     <div class="login-card">
       <div class="logo">
         <img src="@/assets/images/logo.png" class="logo-img" alt="logo" />
-        <h2>欢迎使用 ToDo</h2>
+        <h2>欢迎使用竹简清单</h2>
       </div>
       <Suspense>
         <LoginForm />

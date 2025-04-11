@@ -1,8 +1,8 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "todo",
+  "productName": "竹简清单",
   "version": "../package.json",
-  "identifier": "com.ltfei.todo",
+  "identifier": "cn.ltfei.bamboo-slip",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:5173",
@@ -12,8 +12,8 @@
   "app": {
     "windows": [
       {
-        "label": "todo",
-        "title": "todo",
+        "label": "bamboo-slip",
+        "title": "竹简清单",
         "width": 1200,
         "height": 800,
         "center": true,
@@ -28,11 +28,13 @@
   "plugins": {
     "deep-link": {
       "desktop": {
-        "schemes": ["my-todo"]
+        "schemes": ["bamboo-slip"]
       },
       "mobile": [
-        { "host": "192.168.252.195:5173", "pathPrefix": ["/open"] },
-        { "host": "another.site.br" }
+        {
+          "host": "192.168.252.195:5173",
+          "pathPrefix": ["/open"]
+        }
       ]
     }
   },

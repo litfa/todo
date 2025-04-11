@@ -3,7 +3,7 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.ltfei.todo",
+      "package_name": "com.ltfei.bamboo_slip",
       "sha256_cert_fingerprints": [
         "7F:21:33:DE:D2:6F:41:93:D5:3D:05:A5:40:54:42:CD:95:68:DF:08:55:FB:51:4D:E2:D4:0E:BD:6F:58:9C:4C"
       ]

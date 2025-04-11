@@ -1,7 +1,7 @@
 [package]
-name = "todo"
+name = "bamboo-slip"
 version = "0.0.6-alpha"
-description = "todo"
+description = "竹简清单"
 authors = ["ltfei"]
 license = ""
 repository = ""
