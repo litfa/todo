@@ -1,11 +1,11 @@
 <script setup lang="ts">
 // import { useTasksListStore } from '@/stores/index'
-import SidebarListItem from './SidebarListItem.vue'
+import SidebarListItem from './TaskListMenuListItem.vue'
 import { defaultList } from '@ltfei/todo-common'
 import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
-  name: 'SidebarList'
+  name: 'TaskListMenuList'
 })
 
 // const taskGroup = useTaskGroupStore()
@@ -28,7 +28,7 @@ const handleClick = (id: string) => {
 </script>
 
 <template>
-  <div class="sidebar-list">
+  <div class="task-list-menu-list">
     <SidebarListItem
       v-for="i in defaultList"
       :key="i"
@@ -52,7 +52,7 @@ const handleClick = (id: string) => {
 </template>
 
 <style lang="less" scoped>
-.sidebar-list {
+.task-list-menu-list {
   display: flex;
   flex-direction: column;
   gap: 4px;

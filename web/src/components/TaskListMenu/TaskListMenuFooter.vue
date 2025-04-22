@@ -2,7 +2,7 @@
 import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
-  name: 'SidebarFooter'
+  name: 'TaskListMenuFooter'
 })
 
 const name = ref('')
@@ -31,7 +31,7 @@ const submitCreateList = () => {
 </script>
 
 <template>
-  <div class="sidebar-footer">
+  <div class="task-list-menu-footer">
     <div class="create-list" @click="createList">
       <div class="icon">
         <icon-plus />
@@ -55,7 +55,7 @@ const submitCreateList = () => {
 </template>
 
 <style lang="less" scoped>
-.sidebar-footer {
+.task-list-menu-footer {
   display: flex;
   .icon {
     display: flex;

@@ -3,7 +3,7 @@ import { todoSdk } from '@/utils/useTodoSdk'
 import { assignedToMe, important, inbox, keys, myday, planned } from '@ltfei/todo-common'
 
 defineOptions({
-  name: 'SidebarListItem'
+  name: 'TaskListMenuListItem'
 })
 
 const props = defineProps<{
@@ -20,7 +20,7 @@ const count = computed(() => {
 </script>
 
 <template>
-  <div class="sidebar-list-item" :class="{ checked }">
+  <div class="task-list-menu-list-item" :class="{ checked }">
     <div class="icon">
       <icon-star v-if="id == important" fill="var(--warning)" />
       <icon-home v-else-if="id == inbox" fill="var(--primary)" />
@@ -47,7 +47,7 @@ const count = computed(() => {
 .i-icon {
   display: flex;
 }
-.sidebar-list-item {
+.task-list-menu-list-item {
   padding: 8px;
   box-sizing: border-box;
   display: flex;

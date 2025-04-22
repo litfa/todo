@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia'
 import { todoSdk } from '@/utils/useTodoSdk'
 
 defineOptions({
-  name: 'SidebarUser'
+  name: 'TaskListMenuUser'
 })
 
 const userStore = useUserStore()
@@ -28,7 +28,7 @@ const syncStatus = computed(() => {
 </script>
 
 <template>
-  <div class="sidebar-user" v-if="user.isLogin && user.userInfo">
+  <div class="task-list-menu-user" v-if="user.isLogin && user.userInfo">
     <div class="avatar">
       <img :src="user.userInfo.avatar" alt="" />
     </div>
@@ -49,7 +49,7 @@ const syncStatus = computed(() => {
 </template>
 
 <style lang="less" scoped>
-.sidebar-user {
+.task-list-menu-user {
   display: flex;
   align-items: center;
   padding: 10px 4px;

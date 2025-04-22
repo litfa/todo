@@ -5,6 +5,7 @@ import { injectionKey } from '@/types/'
 import { useThemes } from '@/utils/theme'
 import { useI18n } from 'vue-i18n'
 import { useDeepLink } from '@/utils/useDeepLink'
+import { getOsType } from '@/utils/os'
 
 const i18n = useI18n()
 
@@ -13,7 +14,10 @@ const { theme, mode } = useThemes(themes)
 const userSetting = useUserSetting()
 const lang = userSetting.getSettingItem('more', 'lang')
 
-useDeepLink()
+const type = getOsType()
+if (type != 'browser') {
+  useDeepLink()
+}
 
 watch(
   () => lang.value,

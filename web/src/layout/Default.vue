@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Sidebar from '@/components/Sidebar/Sidebar.vue'
+import TaskListMenu from '@/components/TaskListMenu/TaskListMenu.vue'
 import { useWindowSize } from '@vueuse/core'
 import { injectionKey } from '@/types/'
 
@@ -47,9 +47,9 @@ provide(injectionKey.closeMenu, closeMenu)
         padding: 0
       }"
     >
-      <sidebar />
+      <TaskListMenu />
     </a-drawer>
-    <sidebar v-else />
+    <TaskListMenu v-else />
 
     <div class="page">
       <router-view />

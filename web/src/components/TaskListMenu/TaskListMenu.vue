@@ -5,13 +5,13 @@ import { deleteToken } from '@/utils/auth'
 import { todoSdk } from '@/utils/useTodoSdk'
 import { message, Modal } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
-import SidebarList from '../SidebarList/SidebarList.vue'
-import SidebarFooter from './SidebarFooter.vue'
-import SidebarUser from './SidebarUser.vue'
+import TaskListMenuList from '../TaskListMenuList/TaskListMenuList.vue'
+import SidebarFooter from './TaskListMenuFooter.vue'
+import SidebarUser from './TaskListMenuUser.vue'
 import i18n from '@/lang'
 
 defineOptions({
-  name: 'SideBar'
+  name: 'TaskListMenu'
 })
 
 const { t } = i18n.global
@@ -41,7 +41,7 @@ const logout = () => {
 </script>
 
 <template>
-  <div class="sidebar">
+  <div class="task-list-menu">
     <a-dropdown trigger="click">
       <template #overlay>
         <a-menu>
@@ -80,7 +80,7 @@ const logout = () => {
     <div class="search"></div>
 
     <div class="list">
-      <SidebarList />
+      <TaskListMenuList />
     </div>
 
     <div class="footer">
@@ -93,7 +93,7 @@ const logout = () => {
 .i-icon {
   display: flex;
 }
-.sidebar {
+.task-list-menu {
   width: 100%;
   max-width: 200px;
   height: 100%;

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'SidebarListGroup'
+  name: 'TaskListMenuGroup'
 })
 </script>
 
 <template>
-  <div class="sidebar-list-group">
+  <div class="task-list-menu-group">
     <div class="header">
       <div class="icon">
         <icon-components />
@@ -23,7 +23,7 @@ defineOptions({
 .i-icon {
   display: flex;
 }
-.sidebar-list-group {
+.task-list-menu-group {
   padding: 0 8px;
   .header {
     display: flex;
