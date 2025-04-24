@@ -18,7 +18,7 @@ const { isSynchronizing, sideBarItems, sync } = useSideBar()
     <div class="top">
       <div class="user">
         <div class="avatar">
-          <img :src="user.userInfo?.avatar" alt="" />
+          <user-avatar :src="user.userInfo?.avatar" :username="user.userInfo?.username" />
         </div>
       </div>
       <div class="side-bar-item" v-for="i in sideBarItems" :key="i.key">

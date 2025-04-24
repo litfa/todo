@@ -15,7 +15,7 @@ const { user } = storeToRefs(userStore)
   <template v-if="user.isLogin && user.userInfo">
     <div class="account-setting">账户配置</div>
     <div class="userinfo">
-      <a-avatar :src="user.userInfo.avatar" :size="64"></a-avatar>
+      <user-avatar :src="user.userInfo?.avatar" :username="user.userInfo?.username" :size="64" />
       <div class="username">{{ user.userInfo.username }}</div>
     </div>
     <a-form class="form">

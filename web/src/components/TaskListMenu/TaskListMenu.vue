@@ -7,12 +7,21 @@ import { message, Modal } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import TaskListMenuList from '../TaskListMenuList/TaskListMenuList.vue'
 import SidebarFooter from './TaskListMenuFooter.vue'
-import SidebarUser from './TaskListMenuUser.vue'
+import TaskListMenuUser from './TaskListMenuUser.vue'
 import i18n from '@/lang'
 
 defineOptions({
   name: 'TaskListMenu'
 })
+
+withDefaults(
+  defineProps<{
+    showUser?: boolean
+  }>(),
+  {
+    showUser: true
+  }
+)
 
 const { t } = i18n.global
 const closeMenu = inject(injectionKey.closeMenu)
@@ -74,7 +83,7 @@ const logout = () => {
           </a-menu-item>
         </a-menu>
       </template>
-      <SidebarUser />
+      <TaskListMenuUser v-if="showUser" />
     </a-dropdown>
 
     <div class="search"></div>

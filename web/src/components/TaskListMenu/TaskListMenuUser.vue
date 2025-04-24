@@ -30,7 +30,7 @@ const syncStatus = computed(() => {
 <template>
   <div class="task-list-menu-user" v-if="user.isLogin && user.userInfo">
     <div class="avatar">
-      <img :src="user.userInfo.avatar" alt="" />
+      <user-avatar :src="user.userInfo?.avatar" :username="user.userInfo?.username" />
     </div>
     <div class="info">
       <div class="username" :title="user.userInfo.username">{{ user.userInfo.username }}</div>
@@ -59,7 +59,6 @@ const syncStatus = computed(() => {
   .avatar {
     width: 38px;
     height: 38px;
-    background-color: red;
     border-radius: 50%;
     flex-shrink: 0;
   }

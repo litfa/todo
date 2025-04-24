@@ -20,6 +20,10 @@ const closeMenu = () => {
   open.value = false
 }
 
+const showSideBar = computed(() => {
+  return width.value > 650
+})
+
 watch(
   () => route.path,
   () => {
@@ -34,7 +38,7 @@ provide(injectionKey.closeMenu, closeMenu)
 
 <template>
   <div class="app">
-    <side-bar />
+    <side-bar v-if="showSideBar" />
     <a-drawer
       v-if="useMenuMask"
       v-model:open="open"
@@ -49,9 +53,9 @@ provide(injectionKey.closeMenu, closeMenu)
         padding: 0
       }"
     >
-      <TaskListMenu />
+      <TaskListMenu :show-user="!showSideBar" />
     </a-drawer>
-    <TaskListMenu v-else />
+    <TaskListMenu v-else :show-user="!showSideBar" />
 
     <div class="page">
       <router-view />
