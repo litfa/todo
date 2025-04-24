@@ -11,7 +11,7 @@ export class SyncCommitsService {
   private subTasks: Ref<SubTask[]>
   private tasksList: Ref<TaskList[]>
   private timer: number | null = null
-  private isSynchronizing: Ref<boolean>
+  readonly isSynchronizing: Ref<boolean>
   private syncError: Ref<boolean>
   private config: Config
   private stores: Stores

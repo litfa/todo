@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import TaskListMenu from '@/components/TaskListMenu/TaskListMenu.vue'
+import SideBar from '@/components/SideBar/SideBar.vue'
 import { useWindowSize } from '@vueuse/core'
 import { injectionKey } from '@/types/'
 
@@ -33,6 +34,7 @@ provide(injectionKey.closeMenu, closeMenu)
 
 <template>
   <div class="app">
+    <side-bar />
     <a-drawer
       v-if="useMenuMask"
       v-model:open="open"
