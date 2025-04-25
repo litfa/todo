@@ -60,11 +60,17 @@ export default <RouteRecordRaw[]>[
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/Login/Login.vue')
-  },
-  {
-    path: '/login-mobile',
-    name: 'login',
-    component: () => import('@/views/Login/Mobile.vue')
+    component: () => {
+      if (window.innerWidth < 450) {
+        return import('@/views/Login/Mobile.vue')
+      }
+
+      return import('@/views/Login/Login.vue')
+    }
   }
+  // {
+  //   path: '/login-mobile',
+  //   name: 'login-mobie',
+  //   component: () => import('@/views/Login/Mobile.vue')
+  // }
 ]
