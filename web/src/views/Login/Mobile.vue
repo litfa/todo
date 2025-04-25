@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import LoginCard from './components/LoginCard.vue'
 defineOptions({
-  name: 'LoginPage'
+  name: 'LoginPageMobile'
 })
 </script>
 
@@ -16,17 +16,4 @@ defineOptions({
   </div>
 </template>
 
-<style lang="less" scoped>
-.login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: @bg-color-page;
-  .min-width(500px, {
-    .login-card {
-      flex-direction: column
-    }
-  });
-}
-</style>
+<style lang="less" scoped></style>
