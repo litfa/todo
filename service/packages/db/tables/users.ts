@@ -17,6 +17,7 @@ export const Users = sequelize.define<Model<Table>>(
     username: {
       type: DataTypes.CHAR
     },
+    email: DataTypes.CHAR,
     password: DataTypes.CHAR,
     avatar: DataTypes.CHAR,
     city: DataTypes.CHAR(50),
