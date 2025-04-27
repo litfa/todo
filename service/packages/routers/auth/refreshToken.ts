@@ -21,7 +21,7 @@ router.post('/', async (req: Request, res) => {
 
   if (!auth) {
     return res.send({
-      status: 4001
+      status: 401
     })
   }
 

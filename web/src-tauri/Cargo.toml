@@ -1,6 +1,6 @@
 [package]
 name = "bamboo-slip"
-version = "0.0.6-alpha"
+version = "0.1.0-alpha"
 description = "竹简清单"
 authors = ["ltfei"]
 license = ""
