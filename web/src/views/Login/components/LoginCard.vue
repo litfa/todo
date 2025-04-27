@@ -17,7 +17,7 @@ const loginMethodsButton = computed(() => {
       key: 'account',
       class: 'account',
       text: '账号密码登录',
-      shallowReactive: loginMethods.value.includes(loginMethod.account) || true,
+      show: loginMethods.value.includes(loginMethod.account),
       onClick: () => {
         currentLoginMethod.value = 'account'
       }
@@ -26,14 +26,14 @@ const loginMethodsButton = computed(() => {
       key: 'qq_connect',
       class: 'qq',
       text: 'QQ登录',
-      shallowReactive: loginMethods.value.includes(loginMethod.qqConnect),
+      show: loginMethods.value.includes(loginMethod.qqConnect),
       onClick: () => {}
     },
     {
       key: 'wx_miniprogram',
       class: 'wx',
       text: '微信登录',
-      shallowReactive: loginMethods.value.includes(loginMethod.wxMiniprogram),
+      show: loginMethods.value.includes(loginMethod.wxMiniprogram),
       onClick: () => {
         currentLoginMethod.value = 'wx_miniprogram'
       }
@@ -58,12 +58,12 @@ const currentLoginMethod = ref<ValueOf<typeof loginMethod>>('account')
       <AccountLogin v-if="currentLoginMethod == 'account'" />
     </div>
 
-    <a-divider />
+    <a-divider><span class="divider-text">其他登录方式</span></a-divider>
 
     <div class="login-methods">
       <button
         v-for="(i, index) in loginMethodsButton"
-        v-show="i.key != currentLoginMethod"
+        v-show="i.show && i.key != currentLoginMethod"
         :key="index"
         :class="i.class"
         @click="i.onClick"
@@ -82,6 +82,10 @@ const currentLoginMethod = ref<ValueOf<typeof loginMethod>>('account')
   background-color: @bg-color;
   border-radius: 8px;
   min-width: 280px;
+  .divider-text {
+    font-size: 12px;
+    color: @text-color-placeholder;
+  }
   .title {
     margin-bottom: 24px;
   }

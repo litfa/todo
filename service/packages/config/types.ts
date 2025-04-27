@@ -31,6 +31,9 @@ export interface Config {
        */
       env_version: 'develop' | 'release' | 'trial'
     }
+    [loginMethod.account]: {
+      enable: boolean
+    }
   }
   sql: {
     type: 'mysql' | 'sqlite'

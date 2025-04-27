@@ -16,6 +16,9 @@ export default <Config>{
     wx_miniprogram: {
       enable: false,
       env_version: 'release'
+    },
+    account: {
+      enable: true
     }
   },
   sql: {
