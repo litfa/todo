@@ -30,7 +30,7 @@ export const Tasks = sequelize.define<Model<Table, Table>, Table>(
     next_repeat_task_id: DataTypes.BIGINT,
     repetition_period: DataTypes.CHAR,
     reminder_date_time: DataTypes.BIGINT,
-    owner: DataTypes.INET,
+    owner: DataTypes.INTEGER,
     created_with_local_id: {
       type: DataTypes.CHAR,
       unique: true

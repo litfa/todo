@@ -20,7 +20,7 @@ export const TaskList = sequelize.define<Model<Table, Table>, Table>(
       primaryKey: true,
       autoIncrement: true
     },
-    owner: DataTypes.INET,
+    owner: DataTypes.INTEGER,
     created_with_local_id: DataTypes.CHAR,
     status: DataTypes.INTEGER,
     created_time: DataTypes.BIGINT,

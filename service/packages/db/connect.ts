@@ -11,7 +11,7 @@ const connect = async () => {
       dialect: 'mysql',
       database,
       host,
-      password,
+      password: password.toString(),
       port,
       username,
       timezone: '+08:00',
