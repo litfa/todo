@@ -25,7 +25,7 @@ export const Tasks = sequelize.define<Model<Table, Table>, Table>(
     expiration_time: DataTypes.BIGINT,
     start_time: DataTypes.BIGINT,
     is_reminder_on: DataTypes.BOOLEAN,
-    parent_folder_id: DataTypes.BIGINT,
+    parent_folder_id: DataTypes.CHAR,
     is_repeat: DataTypes.BOOLEAN,
     next_repeat_task_id: DataTypes.BIGINT,
     repetition_period: DataTypes.CHAR,
