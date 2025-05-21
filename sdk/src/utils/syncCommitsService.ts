@@ -81,7 +81,8 @@ export class SyncCommitsService {
   }
 
   /**
-   * - 如果是 Create，判断数据是否已经存在，如果已经存在 则不做处理
+   * - 如果是 Create，通过id判断数据是否已经存在，如果已经存在 则不做处理
+   * - 通过localId判断是否为同步成功但未正确标记的内容，如有，则将commit标记为同步完成
    * - Create 和 Delete 全量处理(不创建commit)
    * - 判断是否有已有的commit
    * - 如有 对比修改时间，若拿到的更早，不做处理，如果更晚，则提交新的commit
@@ -102,14 +103,29 @@ export class SyncCommitsService {
       const store = this.getStore(e)
       const action = this.getStoreAction(e)
       if (!action) return false
-
+      // Create，通过id判断数据是否已经存在，如果已经存在 则不做处理
       if (e.operation == Create) {
         const exists = store.getStateById(parse36RadixId(e.data.id))
         if (exists) {
           return
         }
+
+        // 通过localId判断是否为同步成功但未正确标记的内容，如有，则将commit标记为同步完成
+        const synced = store.find((state) => {
+          return state.createdWithLocalId == e.data.createdWithLocalId
+        })
+        if (synced) {
+          const commit = this.commitsStore.value.find((commit) => {
+            return commit.commitId == e.commitId
+          })
+          if (!commit) {
+            return
+          }
+          commit.synced = true
+        }
       }
 
+      // Create 和 Delete 全量处理(不创建commit)
       if (e.operation == Create || e.operation == Delete) {
         action(
           e.operation,
@@ -121,11 +137,13 @@ export class SyncCommitsService {
         return
       }
 
+      // 判断是否有已有的commit
       let notCreateCommit = true
       const existingCommit = this.commitsStore.value.find((commit) => {
         return commit.data.id == e.data.id && !commit.synced
       })
 
+      // 如有 对比修改时间，若拿到的更早，不做处理，如果更晚，则提交新的commit
       if (existingCommit) {
         if (
           Math.max(existingCommit.createdTime, existingCommit.lastEditTime) >
@@ -136,6 +154,7 @@ export class SyncCommitsService {
         notCreateCommit = false
       }
 
+      // 如果没有 则不产生新的commit直接修改
       action(e.operation, e.data, {
         notCreateCommit
       })

@@ -66,6 +66,10 @@ export const useAction = <T extends SubTask | Task | TaskList>(
     return action(Update, item)
   }
 
+  const find = (fn: (value: T, index: number, obj: T[]) => unknown) => {
+    return state.value.find(fn)
+  }
+
   const getStateById = (id: string) => {
     return state.value.find((e) => e.id == id)
   }
@@ -81,6 +85,7 @@ export const useAction = <T extends SubTask | Task | TaskList>(
     update,
     action,
     getStateById,
-    updateId
+    updateId,
+    find
   }
 }
