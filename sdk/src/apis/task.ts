@@ -33,6 +33,7 @@ export class TaskApi {
     errCount: number
     results: (
       | {
+          commitId: string
           err: true
         }
       | {

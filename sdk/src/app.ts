@@ -1,4 +1,4 @@
-import type { Commit, SubTask, Task, TaskList } from '@ltfei/todo-common'
+import type { SubTask, Task, TaskList } from '@ltfei/todo-common'
 import { ref } from 'vue'
 import { useCommit } from './models/commit'
 import { useSubTask } from './models/subTask'
@@ -7,6 +7,7 @@ import { useTaskList } from './models/taskList'
 import type { Config, Data } from './types'
 import { useStorage } from './utils/storage'
 import { SyncCommitsService } from './utils/syncCommitsService'
+import type { Commit } from './types/commit'
 
 export const TodoSDK = (config: Config) => {
   const data: Data = {

@@ -1,19 +1,13 @@
-import type {
-  Commit as CommitType,
-  Operation,
-  SubTask,
-  TargetTable,
-  Task,
-  TaskList
-} from '@ltfei/todo-common'
+import type { Operation, SubTask, TargetTable, Task, TaskList } from '@ltfei/todo-common'
 import { Create, Delete, generateIdString } from '@ltfei/todo-common'
+import type { Commit } from '../types/commit'
 
 export const createCommitInstance = <T extends Task | SubTask | TaskList>(
   operation: Operation,
   targetTable: TargetTable,
   data: T,
   user: number
-): CommitType => {
+): Commit => {
   const commitId = generateIdString()
   return {
     commitId: commitId,
@@ -25,12 +19,13 @@ export const createCommitInstance = <T extends Task | SubTask | TaskList>(
     // todo: 获取来源字符串
     source: 'web',
     user,
-    synced: false
+    synced: false,
+    errorCount: 0
   }
 }
 
 export const updateCommitInstance = <T>(
-  source: CommitType<T>,
+  source: Commit<T>,
   operation: Operation,
   data: T
 ) => {

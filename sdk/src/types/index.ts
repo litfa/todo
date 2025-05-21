@@ -4,7 +4,6 @@ import type {
   Task,
   TaskList,
   SubTask,
-  Commit,
   Create,
   Delete,
   Update,
@@ -15,6 +14,7 @@ import type { Ref } from 'vue'
 import { useTask } from '../models/task'
 import { useSubTask } from '../models/subTask'
 import { useTaskList } from '../models/taskList'
+import type { Commit } from '../types/commit'
 
 export interface Data {
   tasks: Ref<Task[]>
@@ -48,6 +48,7 @@ export type SetItem = <T extends string | Object = string>(
 export type GetToken = () => string | null | Promise<string | null>
 
 export interface Config {
+  retryCount?: number
   storage?: {
     prefix?: string
     key?: (store: string, user: number) => string
@@ -64,7 +65,7 @@ export interface Config {
     push?: (commits: Commit<any>[]) => Response<{
       errCount: number
       results: (
-        | { err: true }
+        | { err: true; commitId: string }
         | { err: false; commitId: string; value: string | number }
       )[]
     }>

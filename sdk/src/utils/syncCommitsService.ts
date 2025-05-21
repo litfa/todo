@@ -1,9 +1,10 @@
-import type { Commit, SubTask, Task, TaskList } from '@ltfei/todo-common'
+import type { Commit as OriginCommit, SubTask, Task, TaskList } from '@ltfei/todo-common'
 import { Create, Delete, parse36RadixId } from '@ltfei/todo-common'
 import { throttle } from 'lodash'
 import { type Ref, watch } from 'vue'
 import { TaskApi } from '../apis/task'
 import type { Config, Data, Stores, Update as UpdateFunction } from '../types'
+import type { Commit } from '../types/commit'
 
 export class SyncCommitsService {
   private commitsStore: Ref<Commit[]>
@@ -59,7 +60,7 @@ export class SyncCommitsService {
     this.syncError.value = pullResult && pushResult
   }
 
-  private getStore(commit: Commit) {
+  private getStore(commit: OriginCommit) {
     if (commit.targetTable === 'tasks') {
       return this.stores.task
     } else if (commit.targetTable === 'subTasks') {
@@ -74,7 +75,9 @@ export class SyncCommitsService {
     }
   }
 
-  private getStoreAction(commit: Commit): UpdateFunction<SubTask | Task | TaskList> {
+  private getStoreAction(
+    commit: OriginCommit
+  ): UpdateFunction<SubTask | Task | TaskList> {
     console.log(commit, this.getStore(commit))
 
     return this.getStore(commit).action as UpdateFunction<SubTask | Task | TaskList>
@@ -171,6 +174,13 @@ export class SyncCommitsService {
    */
   private async push(): Promise<boolean> {
     const commits = this.commitsStore.value.filter((commit) => {
+      if (
+        this.config.retryCount != undefined &&
+        this.config.retryCount != -1 &&
+        commit.errorCount > this.config.retryCount
+      ) {
+        return false
+      }
       return !commit.synced
     })
 
@@ -179,9 +189,9 @@ export class SyncCommitsService {
     }
 
     const { data, status } = await this.taskApi.push(
-      commits.map((e) => {
-        delete e.synced
-        return e
+      (commits as Commit[]).map((e) => {
+        const { synced, syncTime, errorCount, ...data } = e
+        return data
       })
     )
     console.log(`[push] ${commits.length} err:${data?.errCount}`, data)
@@ -191,11 +201,16 @@ export class SyncCommitsService {
     }
     console.log(data)
     data.results.forEach((e) => {
-      if (e.err == true) {
-        return
-      }
       const commit = commits.find((commit) => commit.commitId == e.commitId)
       if (!commit) {
+        return
+      }
+      if (e.err == true) {
+        if (!commit.errorCount) {
+          commit.errorCount = 1
+        } else {
+          commit.errorCount++
+        }
         return
       }
       commit.synced = true
