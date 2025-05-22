@@ -1,7 +1,8 @@
 import type { Data, Config } from '../types'
 import { useLocalStorage } from './localStorage'
-import type { Task, TaskList, SubTask, Commit } from '@ltfei/todo-common'
+import type { Task, TaskList, SubTask } from '@ltfei/todo-common'
 import { watch, toRaw } from 'vue'
+import type { Commit } from '../types/commit'
 
 export const useStorage = (data: Data, config: Config) => {
   const localStorage = useLocalStorage(config)
